@@ -1,0 +1,199 @@
+/* ──────────────────────────────────────────────────────────────
+   Sorin Engine – vollständige Recolor-Engine ohne Fremd-Imports
+   Fokus: stabil, performant, markenkonsistent (dunkles Violett)
+   ──────────────────────────────────────────────────────────── */
+
+/* ===== Sorin-Palette ===== */
+:root{
+  --s-space-950:#070b12;
+  --s-space-900:#0b0f17;
+  --s-space-850:#0e1420;
+  --s-space-800:#101726;
+
+  --s-violet:#7c3aed;   /* Hauptakzent */
+  --s-cyan:  #22d3ee;   /* Zweitakzent */
+  --s-amber: #f59e0b;
+  --s-green: #10b981;
+  --s-red:   #ef4444;
+
+  --s-text-100:#e6edf7;
+  --s-text-60: #9aa8bd;
+}
+
+/* ===== robuste Discord-Variablen (sichtbarer Sorin-Look) ===== */
+:root{
+  --background-primary:       var(--s-space-900) !important;
+  --background-secondary:     var(--s-space-850) !important;
+  --background-secondary-alt: var(--s-space-800) !important;
+  --background-tertiary:      var(--s-space-950) !important;
+
+  --background-modifier-hover:  color-mix(in oklab, var(--s-cyan) 10%, transparent) !important;
+  --background-modifier-active: color-mix(in oklab, var(--s-cyan) 16%, transparent) !important;
+  --background-modifier-selected: linear-gradient(90deg,
+    color-mix(in oklab, var(--s-violet) 18%, transparent) 0%,
+    color-mix(in oklab, var(--s-cyan) 10%, transparent) 100%) !important;
+
+  --brand-experiment: color-mix(in oklab, var(--s-violet) 65%, var(--s-cyan) 35%) !important;
+  --focus-primary:    color-mix(in oklab, var(--s-cyan) 60%, white 10%) !important;
+
+  --text-normal: var(--s-text-100) !important;
+  --text-muted:  var(--s-text-60) !important;
+
+  --mention-background: color-mix(in oklab, var(--s-violet) 25%, transparent) !important;
+  --mention-foreground: #0a0f19 !important;
+
+  --unread-mention-background: color-mix(in oklab, var(--s-cyan) 30%, var(--s-violet) 30%) !important;
+  --unread-mention-foreground: #0a0f19 !important;
+
+  --status-danger:            var(--s-red) !important;
+  --status-danger-background: color-mix(in oklab, var(--s-red) 20%, transparent) !important;
+  --status-positive:          var(--s-green) !important;
+
+  --channeltextarea-background: color-mix(in oklab, var(--s-space-850) 85%, black 15%) !important;
+}
+
+/* dezente Badges/Dots */
+[class*="mention"], [class*="numberBadge"]{
+  background: var(--unread-mention-background) !important;
+  color: var(--unread-mention-foreground) !important;
+  border-radius: 999px !important;
+}
+
+/* ===== Engine-Tokens (für Icon-Recolor etc.) ===== */
+:root{
+  --se-locked: var(--status-danger); /* „Schloss“ */
+  --se-stage:  color-mix(in oklab, var(--s-violet) 85%, black 15%);
+  --se-mic:    color-mix(in oklab, #dc2626 85%, black 10%);
+  --se-forum:  color-mix(in oklab, var(--s-cyan) 70%, #0891b2 30%);
+  --se-news-1: color-mix(in oklab, var(--s-amber) 70%, white 20%);
+  --se-news-2: color-mix(in oklab, #fb923c 70%, black 20%);
+
+  --se-category:        color-mix(in oklab, var(--s-violet) 55%, var(--s-cyan) 45%);
+  --se-category-effect: color-mix(in oklab, var(--s-cyan) 65%, white 10%);
+  --se-roles-category:  color-mix(in oklab, var(--s-cyan) 70%, var(--s-violet) 30%);
+
+  --se-channel-lines:     color-mix(in oklab, var(--s-violet) 35%, #ffffff 5%);
+  --se-channel-selected:  color-mix(in oklab, var(--s-violet) 35%, var(--s-space-800) 65% / 0.74);
+
+  --se-unread-text:   color-mix(in oklab, var(--s-cyan) 80%, white 5%);
+  --se-unread-circle: color-mix(in oklab, var(--s-cyan) 55%, black 20%);
+}
+
+/* ===== Kategorie / Channels (stabilere UI-Effekte) ===== */
+.spineBorder__5b40b{ left: calc(var(--channels-spine-offset-left) + 7.5px); }
+
+.containerDefault_c69b6d:not(.wrapper__2ea32){
+  margin-left: 15.5px;
+  border-left: 1px solid var(--se-channel-lines);
+}
+.containerDefault_c69b6d .modeUnreadImportant__2ea32 .name__2ea32{
+  color: var(--se-unread-text) !important;
+}
+.containerDefault_c69b6d .unread__2ea32{
+  margin-left: 6px;
+  background-color: var(--se-unread-circle) !important;
+  transform: scaleY(1.5);
+}
+.containerDefault_c69b6d .modeSelected__2ea32 .link__2ea32{
+  background: linear-gradient(to right,
+    var(--se-channel-selected) 0%,
+    var(--background-modifier-selected) 90%) !important;
+}
+
+/* Kategorie-Header/Arrow + Name */
+.wrapper__29444,
+.wrapper__29444 path[d^="M5.3 9.3a1 1 0 0 1 1.4 0l5.3 5.29 5.3-5.3a1 1 0 1 1 1.4 1.42l-6 6a1 1 0 0 1-1.4 0l-6-6a1 1 0 0 1 0-1.42Z"],
+.container__13cf1{ color: var(--se-category) !important; }
+
+.wrapper__29444:hover path[d^="M5.3 9.3a1 1 0 0 1 1.4 0l5.3 5.29 5.3-5.3a1 1 0 1 1 1.4 1.42l-6 6a1 1 0 0 1-1.4 0l-6-6a1 1 0 0 1 0-1.42Z"],
+.wrapper__29444:hover .container__13cf1{ color: var(--se-category-effect) !important; }
+
+.container__13cf1 span{ color: var(--se-roles-category) !important; }
+
+.wrapper__29444{
+  padding-left: 10px; box-sizing: content-box;
+  .mainContent__29444{ flex-direction: row-reverse !important; flex: none !important; gap: 8px; }
+  .icon__29444{ scale: 1.25; }
+}
+
+/* ===== Icon-Recolors (fragil – nur die wichtigsten Pfade) ===== */
+/* Locked / NSFW / Lock-like Formen */
+[class^=icon_] path[d^="M16 4h.5v-.5a2.5"],
+[class^=icon_] path[d^="M16.5 18H16a1"],
+[class^=channelOptionIcon_] path[d^="M16 4h.5v-.5a2.5"],
+[class^=channelOptionIcon_] path[d^="M16.5 18H16a1"]{ fill: var(--se-locked) !important; }
+
+/* Channel-Suche – Lock/Shield-ähnlich */
+[class^=channelNameIcon_] path[d^="M18.09 1.63c.4-.7"],
+[class^=searchResultChannelIcon_] path[d^="M18.09 1.63c.4-.7"]{ fill: var(--se-locked) !important; }
+
+/* Stage */
+[class^=icon_] path[d^="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"],
+[class^=icon_] path[d^="M21.92 14.08c.32.27.86.15.93-"],
+[class^=icon_] path[d^="M13.48 16.18c.39.1.45.62.2.93A2.99"],
+[class^=stageIcon_] path[d^="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"]{ fill: var(--se-stage) !important; }
+
+/* Mic */
+[class^=icon_] path[d^="M12 2a4 4 0 0 0-4 4v4a4 4 0 0 0 8 0V6a4"],
+[class^=icon_] path[d^="M6 10a1 1 0 0 0-2 0 8 8 0 0 0 7 7.94V20H9a1"],
+[class^=micIcon__9aed4] path[d^="M12 2a4 4 0 0 0-4 4v4a4 4 0 0 0 8 0V6a4"],
+[class^=micIcon__9aed4] path[d^="M6 10a1 1 0 0 0-2 0 8 8 0 0 0 7 7.94V20H9a1"]{ fill: var(--se-mic) !important; }
+
+/* Forum */
+[class^=icon_] path[d^="M18.91 12.98a5.45"],
+[class^=icon_] path[d^="M19.24 10.86c.32.16.72-.02.74-.38L20"]{ fill: var(--se-forum) !important; }
+
+/* News */
+[class^=icon_] path[d^="M19.56 2a3 3 0 0 0-2.46"],
+[class^=icon_] path[d^="M12.33 5.74a.5.5 0 0 1 .67.47V9a3"]{ fill: var(--se-news-1) !important; }
+[class^=icon_] path[d^="M2 10c0-1.1.9-2 2-2h.5c.28 0 .5.22.5.5v7a.5.5 0 0 1-.5.5H4a2"]{ fill: var(--se-news-2) !important; }
+
+/* Help / Delete */
+[class^=icon_] path[d^="M23 12a11 11 0 1 1-22"],
+[class^=anchor_edefb8] path[d^="M12 23a11 11 0 1 0 0-22 11 11"]{ fill: #f4f70a !important; }
+[class^=searchClearHistory_]{ color: var(--status-danger-background) !important; }
+
+/* Top-Bar Icons (dezent) */
+[class^=icon_] path[d^="M10.95 1.4a1.59 1.59"], 
+[class^=icon_] path[d^="M11.65 6.35 9.29 8.71a1"]{ fill: var(--s-violet) !important; } /* Boosting */
+[class^=icon_] path[d^="M14.5 8a3 3 0 1 0-2.7-4.3c-.2.4.06.86.44"]{ fill: color-mix(in oklab,#d4af37 80%, black 15%) !important; }
+[class^=icon_] path[d^="M18.5 23c.88 0 1.7-.25 2.4-.69l1.4 1.4a1"],
+[class^=icon_] path[d^="M3 3a1 1 0 0 0 0 2h18a1"]{ fill: var(--s-cyan) !important; } /* Suche */
+[class^=titleContainer_] path[d^="M19.38 11.38a3 3 0 0 0 4.24"]{ fill: color-mix(in oklab,#f97316 75%, black 10%) !important; } /* Pin */
+[class^=icon_] path[d^="M9.7 2.89c.18-.07.32-.24.37-.43a2"]{ fill: var(--s-green) !important; } /* Noti on */
+[class^=icon_] path[d^="M1.3 21.3a1 1 0 1 0 1.4 1.4l20-20a1"]{ fill: var(--s-red) !important; } /* Noti off */
+
+/* DM Icons (Nitro/Friends/Shop) – dezent */
+[class^=linkButtonIcon_] path[d^="M15 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"],
+[class^=linkButtonIcon_] path[d^="M7 4a1 1 0 0 0 0 2h3a1 1 0 1 1 0 2H5.5a1"],
+[class^=linkButtonIcon_] path[d^="M2.5 10a1 1 0 0 0 0-2H2a1 1 0 0 0 0 2h.5Z"]{ fill: color-mix(in oklab, var(--s-violet) 70%, #fb7185 20%) !important; }
+[class^=icon_] path[d^="M13 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"]{ fill: color-mix(in oklab,#a3e635 70%, black 10%) !important; }
+[class^=linkButtonIcon_] path[d^="M2.63 4.19A3 3 0 0 1 5.53"]{ fill: color-mix(in oklab,#ef4444 80%, black 10%) !important; }
+[class^=linkButtonIcon_] path[d^="M21 11.42V19a3 3 0 0 1-3"]{ fill: color-mix(in oklab,#eab308 70%, white 5%) !important; }
+
+/* Threads */
+.container__5b40b .spineBorder__5b40b{ background: color-mix(in oklab, var(--s-violet) 55%, black 25%) !important; }
+.container__5b40b .containerDefault_c69b6d > .iconVisibility_c69b6d.wrapper__2ea32.typeThread__2ea32 > .link__2ea32{
+  border: 1px solid color-mix(in oklab, var(--s-violet) 55%, black 25%) !important;
+}
+.container__5b40b .containerDefault_c69b6d > .iconVisibility_c69b6d.wrapper__2ea32.typeThread__2ea32.modeSelected__2ea32 > .link__2ea32{
+  border: 1px solid color-mix(in oklab, var(--s-cyan) 60%, var(--s-violet) 40%) !important;
+}
+.message__5126c.hasThread_c19a55 > .container_b7e1cb > .container__9271d{
+  box-shadow: 0 0 13px color-mix(in oklab, var(--s-violet) 55%, black 25%);
+  border: 1px solid color-mix(in oklab, var(--s-violet) 55%, black 25%);
+}
+.message__5126c.hasThread_c19a55::after{
+  border-bottom: 2px solid color-mix(in oklab, var(--s-violet) 55%, black 25%);
+  border-left:  2px solid color-mix(in oklab, var(--s-violet) 55%, black 25%);
+}
+
+/* Message-Delay (Cooldown) */
+.tabularNumbers__4bd52.text-sm\/medium_cf4812.cooldownText_b21699{
+  color: var(--status-danger-background) !important;
+}
+
+/* Barrierefreiheit & Performance */
+@media (prefers-reduced-motion: reduce){
+  *{ transition:none !important; animation:none !important; }
+}
