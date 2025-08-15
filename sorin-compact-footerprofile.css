@@ -1,55 +1,50 @@
-/* ===== Sorin — Compact Footer & VC Mini =====
-   - feste Breite rechts neben den Server-Icons
-   - VC-Panel: nur Ava + Mic + Deafen + Settings sichtbar
-     → weitere Buttons erst bei Fokus/Klick
-   --------------------------------------------------- */
-
-/* 1) Layout-Variablen (falls noch nicht vorhanden) */
+/* ===== Sorin — Compact Footer & VC Mini (v2) ===== */
 :root{
-  --sorin-guilds-bar-w: 72px;        /* Platz für die Server-Icons */
-  --sorin-footer-h: 44px;            /* einheitliche Höhe */
-  --sorin-footer-pad: 10px;          /* kleiner Innenabstand links/rechts */
+  --sorin-guilds-bar-w: 72px;
+  --sorin-footer-h: 44px;
+  --sorin-footer-gap: 8px;
   --sorin-footer-radius: 12px;
-
   --sorin-footer-bg:    color-mix(in oklab, #0b0f17 88%, black 12%);
   --sorin-footer-bg-hov:color-mix(in oklab, #101726 80%, black 20%);
   --sorin-footer-border:color-mix(in oklab, #7c3aed 18%, transparent);
 }
 
-/* 2) Gesamter Footer-Bereich: rechts neben Server-Icons, kompakt */
-[class^="panels_"] > *{
-  position: relative;
+/* (A) **Container** auf fixen Bereich rechts neben Guilds setzen + 2 Reihen */
+[class^="panels_"]{
   margin-left: var(--sorin-guilds-bar-w) !important;
-  width: calc(100% - var(--sorin-guilds-bar-w) - var(--sorin-footer-pad)) !important;
+  width: calc(100% - var(--sorin-guilds-bar-w) - 8px) !important;
+  display: grid !important;
+  grid-template-rows: var(--sorin-footer-h) var(--sorin-footer-h);
+  gap: var(--sorin-footer-gap) !important;
+  box-sizing: border-box !important;
+}
 
+/* (B) **Alle direkten Kinder** gleich formatieren (gleiche Größe & Look) */
+[class^="panels_"] > *{
   height: var(--sorin-footer-h) !important;
+  min-height: var(--sorin-footer-h) !important;
+  width: 100% !important;                 /* statt calc(...) pro Kind */
   background: var(--sorin-footer-bg) !important;
   border: 1px solid var(--sorin-footer-border) !important;
   border-radius: var(--sorin-footer-radius) !important;
   overflow: hidden !important;
-
   display: flex !important;
   align-items: center !important;
   gap: 8px !important;
   padding: 6px 8px !important;
-
   transition: background .18s ease, box-shadow .18s ease;
 }
 
-/* 2a) Kein Breiten-Grow mehr auf Hover – nur leichter Hover-Look */
-[class^="panels_"] > *:is(:hover, :focus-within){
+/* (C) Hover: kein Grow, nur leichtes Highlight */
+[class^="panels_"] > *:is(:hover,:focus-within){
   background: var(--sorin-footer-bg-hov) !important;
   box-shadow: 0 6px 18px rgba(0,0,0,.22);
 }
 
-/* 3) VC-Panel erkennen und **kompakt** layouten */
+/* (D) **VC-Panel** kompakt layouten (Ava | Spacer | Actions) */
 [class^="panels_"] [class*="container"]:has([class*="connection"]){
-  height: var(--sorin-footer-h) !important;
-  min-height: var(--sorin-footer-h) !important;
   padding: 6px 8px !important;
 }
-
-/* 3a) Inhalt im VC: Grid – Ava | Spacer | Actions */
 [class^="panels_"] [class*="connection"]{
   display: grid !important;
   grid-template-columns: 36px 1fr auto;
@@ -57,60 +52,47 @@
   gap: 8px !important;
   height: 100% !important;
 }
-
-/* 3b) Textzeilen im VC ausblenden (Channelname, Untertitel, Status) */
+/* Text im VC ausblenden */
 [class^="panels_"] [class*="connection"] [class*="channel"],
 [class^="panels_"] [class*="connection"] [class*="subtext"],
 [class^="panels_"] [class*="connection"] [class*="activity"],
 [class^="panels_"] [class*="connection"] [class*="rtcConnectionStatus"],
-[class^="panels_"] [class*="connection"] [class*="container"] > div:has([class*="text_"]) {
+[class^="panels_"] [class*="connection"] [class*="container"] > div:has([class*="text_"]){
   display: none !important;
 }
-
-/* 3c) Aktionen (Buttons) kompakt rechts anordnen */
+/* Actions rechts klein & erst bei Fokus vollständig */
 [class^="panels_"] [class*="connection"] [class*="actions"]{
   margin-left: auto !important;
   display: flex !important;
   align-items: center !important;
   gap: 6px !important;
 }
-
-/* 3d) Buttons klein & quadratisch */
-[class^="panels_"] [class*="connection"] [class*="actions"] button,
-[class^="panels_"] [class*="actions"] button{
+[class^="panels_"] [class*="connection"] [class*="actions"] button{
   width: 28px !important;
   height: 28px !important;
   padding: 0 !important;
   border-radius: 8px !important;
 }
-
-/* 3e) Standard: nur die **ersten 3** Controls zeigen (Mic/Deafen/Settings).
-   Bei Klick/Fokus auf das Panel werden alle sichtbar. */
+/* Standard: nur Mic/Deafen/Settings zeigen; Rest bei Fokus */
 [class^="panels_"] [class*="connection"] [class*="actions"] button:nth-child(n+4){
   display: none !important;
 }
-[class^="panels_"] [class*="container"]:has([class*="connection"]:focus-within)
-  [class*="actions"] button{
+[class^="panels_"] [class*="container"]:has([class*="connection"]:focus-within) [class*="actions"] button{
   display: inline-flex !important;
 }
 
-/* 4) Wenn NICHT im VC: ebenfalls kompakt
-      – nur Avatar + 2 Hauptbuttons (Mic/Settings) zeigen */
+/* (E) **Nicht im VC**: kompakt, nur Ava + 2 Buttons */
 [class^="panels_"] > :not(:has([class*="connection"])) [class*="buttonRow"],
 [class^="panels_"] > :not(:has([class*="connection"])) [class*="actions"]{
-  display: flex !important;
-  gap: 6px !important;
+  display: flex !important; gap: 6px !important;
 }
 [class^="panels_"] > :not(:has([class*="connection"])) [class*="actions"] button:nth-child(n+3){
   display: none !important;
 }
 
-/* 5) Avatar klein & rund, damit’s auf Höhe bleibt */
-[class^="panels_"] [class*="avatar"], 
+/* (F) Avatare klein & rund */
+[class^="panels_"] [class*="avatar"],
 [class^="panels_"] [class*="avatarWrapper"]{
-  width: 28px !important;
-  height: 28px !important;
-  min-width: 28px !important;
-  border-radius: 999px !important;
-  overflow: hidden !important;
+  width: 28px !important; height: 28px !important; min-width: 28px !important;
+  border-radius: 999px !important; overflow: hidden !important;
 }
