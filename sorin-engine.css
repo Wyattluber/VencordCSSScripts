@@ -1,13 +1,14 @@
 /* ──────────────────────────────────────────────────────────────
-   Sorin Engine – kompatibel zu deinem ABrecolor-Aufbau
+   Sorin Engine – kompatibel zum ABrecolor-Aufbau
+   - Inspiriert von @Augenblick
+   - https://discord.com/channels/1015060230222131221/1028106818368589824/1397584811287122010
+   - Discord - https://discord.gg/KBmuTX8JTJ - libVencore
    - Lila-Verlauf (links dunkel → rechts heller) auf Channel-Hover/Selected
    - Pings gut lesbar (helltürkis, schwarzer Text)
-   - Ankündigung gelb/orange, Forum smaragd/blau
-   - Boost-Icon eisblau/diamantig
    - Ungelesen: Text lila, Punkt türkis
    ──────────────────────────────────────────────────────────── */
 
-/* ================= Farb-Tokens im selben Schema ================= */
+/* ================= Farb-Tokens================= */
 :root {
   /* Locks / Danger */
   --rec-locked: var(--status-danger-background);
@@ -39,7 +40,7 @@
   --rec-roles-category:  #a78bfa;
 
   --rec-channel-lines:   #6d28d9;               /* Lila Linien */
-  /* Hinweis: Selected/ Hover setzen wir gleich direkt als Gradient */
+  /* Selected/ Hover als Gradient */
 
   /* Ungelesen: Text lila, DOT türkis */
   --rec-unread-text-color:   #a78bfa;           /* hell-lila */
@@ -68,7 +69,7 @@
   --rec-message-delay: var(--status-danger-background);
 }
 
-/* ================= Icons/Farben – unverändert dein Schema ================= */
+/* ================= Icons/Farben ================= */
 
 /* (NSFW) Locked Icon */
 [class^=emptyChannelIcon_] path[d^="M16 4h.5v-.5a2.5"],
@@ -143,7 +144,7 @@
   margin-left: 15.5px;
   border-left: 1px solid var(--rec-channel-lines);
 
-  /* HIER: Selected → voller Lila-Gradient (links→rechts) */
+  /* Selected → voller Lila-Gradient (links→rechts) */
   .selectedChannel_c69b6d .link__2ea32 {
     background: linear-gradient(90deg,
       #4c1d95 0%,
@@ -178,13 +179,21 @@
   }
 }
 
-/* NEU: HOVER auf vollem Channel-Hintergrund – Lila-Gradient */
+/* HOVER auf vollem Channel-Hintergrund – Lila-Gradient */
 .containerDefault_c69b6d .link__2ea32:hover {
   background: linear-gradient(90deg,
     #4c1d95 0%,
     #6d28d9 55%,
     #8b5cf6 100%) !important;
 }
+
+/* Ungelesene Kanäle mit Outline hervorheben */
+.modeUnreadImportant__2ea32 .link__2ea32 {
+  outline: 2px solid var(--rec-unread-circle-color) !important;
+  outline-offset: -2px;
+  border-radius: 6px;
+}
+
 
 /* ================= Additional Media Channel Icons ================= */
 
