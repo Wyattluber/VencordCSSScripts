@@ -197,3 +197,57 @@
 @media (prefers-reduced-motion: reduce){
   *{ transition:none !important; animation:none !important; }
 }
+
+/* ------------------------------------------------------------------------------------------------ */
+
+:root{
+  /* Sorin-Palette */
+  --sorin-space-900:#0b0f17; --sorin-space-850:#0e1420; --sorin-space-800:#101726;
+  --sorin-violet:#7c3aed; --sorin-cyan:#22d3ee; --sorin-amber:#f59e0b;
+  --sorin-green:#10b981; --sorin-red:#ef4444;
+
+  /* Map auf ABrecolor-Token */
+  --rec-locked: var(--status-danger-background);
+
+  --rec-news-1: color-mix(in oklab, var(--sorin-amber) 70%, white 20%);
+  --rec-news-2: color-mix(in oklab, #fb923c 70%, black 20%);
+  --rec-rules:  var(--sorin-green);
+
+  --rec-stage:  color-mix(in oklab, var(--sorin-violet) 85%, black 15%);
+  --rec-mic:    color-mix(in oklab, #dc2626 85%, black 10%);
+  --rec-forum:  color-mix(in oklab, var(--sorin-cyan) 70%, #0891b2 30%);
+
+  --rec-help:   #f4f70a;
+  --rec-delete: var(--status-danger-background);
+  --rec-ping-locked: var(--status-danger-background);
+  --rec-create-channel-locked: var(--status-danger-background);
+
+  --rec-category:        color-mix(in oklab, var(--sorin-violet) 55%, var(--sorin-cyan) 45%);
+  --rec-category-effect: color-mix(in oklab, var(--sorin-cyan) 65%, white 10%);
+  --rec-roles-category:  color-mix(in oklab, var(--sorin-cyan) 70%, var(--sorin-violet) 30%);
+
+  --rec-channel-lines:   color-mix(in oklab, var(--sorin-violet) 35%, #ffffff 5%);
+  --rec-channel-selected: color-mix(in oklab, var(--sorin-violet) 35%, var(--sorin-space-800) 65% / 0.74);
+
+  --rec-unread-text-color:   color-mix(in oklab, var(--sorin-cyan) 80%, white 5%);
+  --rec-unread-circle-color: color-mix(in oklab, var(--sorin-cyan) 55%, black 20%);
+
+  --rec-top-boosting: var(--sorin-violet);
+  --rec-top-members:  color-mix(in oklab, #d4af37 80%, black 15%);
+  --rec-search-channels: var(--sorin-cyan);
+  --rec-top-events:   color-mix(in oklab, #3b82f6 80%, black 15%);
+  --rec-top-pin:      color-mix(in oklab, #f97316 75%, black 10%);
+  --rec-top-noti-on:  var(--sorin-green);
+  --rec-top-noti-off: var(--sorin-red);
+
+  --rec-dm-nitro:   color-mix(in oklab, var(--sorin-violet) 70%, #fb7185 20%);
+  --rec-dm-friends: color-mix(in oklab, #a3e635 70%, black 10%);
+  --rec-dm-shop-1:  color-mix(in oklab, #ef4444 80%, black 10%);
+  --rec-dm-shop-2:  color-mix(in oklab, #eab308 70%, white 5%);
+
+  --rec-threads:             color-mix(in oklab, var(--sorin-violet) 65%, #be185d 20% / 0.62);
+  --rec-threads-line:        color-mix(in oklab, var(--sorin-violet) 55%, black 25%);
+  --rec-threads-line-effect: color-mix(in oklab, var(--sorin-cyan) 60%, var(--sorin-violet) 40%);
+
+  --rec-message-delay: var(--status-danger-background);
+}
