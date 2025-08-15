@@ -1,33 +1,26 @@
-/* ──────────────────────────────────────────────────────────────
-   Sorin – Compact Userbar (standalone)
-   Ziel: links Serverleiste freihalten, idle kompakt, hover smooth breit.
-   Höhe bleibt stabil. VC-Controls nur bei Hover.
-   ──────────────────────────────────────────────────────────── */
+/* ── Sorin Compact Userbar • Fix v2 (keine Überdeckung, weniger Höhe) ── */
 
 :root{
-  /* Breiten: kompakt vs. aufgeklappt */
-  --sorin-userbar-height: 52px;
-  --sorin-userbar-compact-w: 92px; /* Avatar + 2 Buttons + Settings */
-  --sorin-userbar-pad: 6px;
-  /* Dauer & Easing */
+  --sorin-userbar-height: 40px;         /* niedriger = weniger „fett“ */
+  --sorin-userbar-compact-w: 88px;      /* nur Avatar + 2 Buttons + Zahnrad */
   --sorin-userbar-dur: .22s;
   --sorin-userbar-ease: ease-in-out;
-  /* leichte Hintergründe */
-  --sorin-userbar-idle-bg: color-mix(in oklab, black 80%, white 20% / 6%);
-  --sorin-userbar-hover-bg: color-mix(in oklab, black 70%, white 30% / 10%);
+  --sorin-userbar-idle-bg: color-mix(in oklab, black 82%, white 18% / 5%);
+  --sorin-userbar-hover-bg: color-mix(in oklab, black 72%, white 28% / 10%);
 }
 
-/* ===== Basis: Ziel-Container am Fuß der Channelspalte =====
-   Wir fassen das gesamte „Panels“-Gebiet unten an (Account, VC-Bar).
-*/
+/* Panels: im Fluss bleiben, nicht über Serverleiste, nichts fixed */
 [class*="panels_"]{
-  padding: var(--sorin-userbar-pad);
+  position: relative;
+  z-index: 1;                 /* Serverleiste liegt darüber */
+  padding: 4px;
+  overflow: hidden;
 }
 
-/* Account-/VC-Karte: breit dynamisch, höhenstabil, kein Overlay */
+/* äußere Karte: Breite bleibt kompakt; Höhe fix; kein Overlay */
 [class*="panels_"] > div:has([class*="avatar"], [class*="avatarWrapper"]),
-[class*="panels_"] > [class*="container"]:has([class*="avatar"], [class*="nameTag"]),
-[class*="panels_"] > [class*="container"]:has([class*="voice"]) {
+[class*="panels_"] > [class*="container"]:has([class*="voice"]),
+[class*="panels_"] > [class*="container"]:has([class*="nameTag"]) {
   position: relative;
   height: var(--sorin-userbar-height);
   min-height: var(--sorin-userbar-height);
@@ -35,98 +28,56 @@
   width: var(--sorin-userbar-compact-w);
   border-radius: 10px;
   background: var(--sorin-userbar-idle-bg);
-  overflow: hidden;
-  transition:
-    width var(--sorin-userbar-dur) var(--sorin-userbar-ease),
-    background-color var(--sorin-userbar-dur) var(--sorin-userbar-ease);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  overflow: hidden;           /* verhindert Ausbluten */
+  transition: background-color var(--sorin-userbar-dur) var(--sorin-userbar-ease);
+}
+
+/* Innerer Expander: wächst bei Hover in die Breite, äußere Karte bleibt kompakt */
+[class*="panels_"] > div .sorin-expander{
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 6px 8px;
+  max-width: 0;               /* idle: zusammengefaltet */
+  opacity: 0;
+  overflow: hidden;
+  transition:
+    max-width var(--sorin-userbar-dur) var(--sorin-userbar-ease),
+    opacity   calc(var(--sorin-userbar-dur)*.85) var(--sorin-userbar-ease);
 }
 
-/* Aufklappen: nutzt die volle Channelspalten-Breite, lässt Serverleiste frei */
-[class*="panels_"] > div:has([class*="avatar"], [class*="avatarWrapper"]):hover,
-[class*="panels_"] > [class*="container"]:has([class*="voice"]):hover,
-[class*="panels_"] > [class*="container"]:has([class*="nameTag"]):hover{
-  width: 100%; /* füllt nur die Channels-Spalte, NICHT die Serverleiste */
-  background: var(--sorin-userbar-hover-bg);
-}
-
-/* ===== Inhalt: sichtbare Basis (Avatar + Mute/Deafen + Settings) ===== */
-[class*="panels_"] [class*="avatar"],
-[class*="panels_"] [class*="avatarWrapper"]{
-  flex: 0 0 auto;
-  width: 36px; height: 36px; border-radius: 50%;
-}
-
-/* Buttons immer sichtbar halten (Mute/Deafen/Settings variieren je nach Build) */
-[class*="panels_"] [class*="button"],
-[class*="panels_"] [class*="container"] [class*="button_"],
-[class*="panels_"] [class*="actions"] > *{
-  flex: 0 0 auto;
-}
-
-/* ===== Versteckte Zusatzinfos (Name, Tag, Status, VC-Details) =====
-   Idle: unsichtbar, kein Layout-Shift (max-width:0, opacity:0)
-   Hover: blenden ein, ohne Höhe zu verändern.
-*/
-.sorin-hide-when-idle,
+/* Falls der Expander noch nicht existiert, alles „Expander-taugliche“ markieren */
 [class*="panels_"] [class*="nameTag"],
 [class*="panels_"] [class*="usernameContainer"],
 [class*="panels_"] [class*="subtext"],
-[class*="panels_"] [class*="container"] [class*="title"],
 [class*="panels_"] [class*="connection"] [class*="channel"],
 [class*="panels_"] [class*="connection"] [class*="actionButtons"]{
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  max-width: 0;
-  opacity: 0;
-  transition:
-    max-width var(--sorin-userbar-dur) var(--sorin-userbar-ease),
-    opacity   calc(var(--sorin-userbar-dur) * .85) var(--sorin-userbar-ease);
+  /* diese Elemente gelten als Expander-Inhalt */
+  contain: layout;
 }
+[class*="panels_"] > div:hover{ background: var(--sorin-userbar-hover-bg); }
 
-/* Beim Hover alle Zusatzinfos freigeben */
-[class*="panels_"] > div:hover .sorin-hide-when-idle,
-[class*="panels_"] > div:hover [class*="nameTag"],
-[class*="panels_"] > div:hover [class*="usernameContainer"],
-[class*="panels_"] > div:hover [class*="subtext"],
-[class*="panels_"] > div:hover [class*="container"] [class*="title"],
-[class*="panels_"] > div:hover [class*="connection"] [class*="channel"],
-[class*="panels_"] > div:hover [class*="connection"] [class*="actionButtons"]{
-  max-width: 1000px; /* groß genug, um zu „entfalten“ */
+/* Beim Hover: nur der Expander klappt voll in der vorhandenen Spaltenbreite auf */
+[class*="panels_"] > div:hover .sorin-expander,
+[class*="panels_"] > [class*="container"]:hover .sorin-expander{
+  max-width: 1000px;          /* groß genug */
   opacity: 1;
 }
 
-/* ===== Voice-Connected Zustand: bleibt kompakt, zeigt Details erst bei Hover */
-[class*="panels_"] > [class*="container"]:has([class*="connection"]),
-[class*="panels_"] > div:has([class*="rtcConnectionStatus"]) {
-  /* weiterhin die kompakte Breite im Idle */
+/* Avatar + Kernbuttons immer sichtbar */
+[class*="panels_"] [class*="avatar"], [class*="panels_"] [class*="avatarWrapper"]{
+  width: 32px; height: 32px; border-radius: 50%; flex: 0 0 auto;
+}
+[class*="panels_"] [class*="button"],
+[class*="panels_"] [class*="actions"] > *{ flex: 0 0 auto; }
+
+/* VC-Zustand: bleibt idle kompakt, Details erst im Expander */
+[class*="panels_"] > [class*="container"]:has([class*="connection"]){
   width: var(--sorin-userbar-compact-w);
 }
 
-/* Hover im VC → volle Infos (Channelname, Stream/Share Controls) */
-[class*="panels_"] > [class*="container"]:has([class*="connection"]):hover,
-[class*="panels_"] > div:has([class*="rtcConnectionStatus"]):hover{
-  width: 100%;
-}
-
-/* Optional: Secondary Kleinkram im Idle wirklich ausklickbar verhindern */
-[class*="panels_"] > div:not(:hover) .sorin-hide-when-idle,
-[class*="panels_"] > div:not(:hover) [class*="connection"] [class*="actionButtons"]{
-  pointer-events: none;
-}
-
-/* Kleine kosmetische Optimierungen */
-[class*="panels_"] [class*="button"]:hover{
-  filter: brightness(1.1);
-}
-
-/* Falls Discord/Plugins einen „overflowenden“ VC-Block unten reinrendern,
-   setzen wir sicherheitshalber overflow-hidden auf das Panels-Root.
-*/
-[class*="panels_"]{
-  overflow: hidden;
-}
+/* Überdeckungen vorbeugen: Serverleiste über den Panels rendern */
+[class*="guilds_"]{ z-index: 2; }
