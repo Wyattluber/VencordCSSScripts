@@ -1,0 +1,118 @@
+/* Sorin – Compact Footer & Voice
+   Standalone-Mod (keine Abhängigkeit zu sorin-engine)
+   Ziel: Account-Leiste & Voice-Panel stark verkleinern, Icons-only Buttons,
+   Username erst auf Hover, Voice klappt nur bei Hover auf.
+*/
+
+/* ===== Variablen (Mod-eigen) ===== */
+:root{
+  --scf-h: 30px;                      /* Zielhöhe Footer-Leisten */
+  --scf-pad: 6px;                     /* Innenabstand */
+  --scf-radius: 10px;                 /* Ecken */
+  --scf-icon: 18px;                   /* Icongröße */
+
+  /* Farben: nutzt Discord-Defaults, fällt auch ohne Theme gut */
+  --scf-bg: var(--background-tertiary, #1e1f22);
+  --scf-bg-compact: color-mix(in oklab, var(--scf-bg) 90%, black 10%);
+  --scf-bg-hover:   color-mix(in oklab, var(--brand-500, #5865f2) 22%, var(--scf-bg) 78%);
+  --scf-text:       var(--text-normal, #dbdee1);
+  --scf-text-muted: var(--text-muted,  #949ba4);
+}
+
+/* Panels-Wrapper (robust via Teil-Selektor) */
+[class*="panels_"]{
+  gap: 6px !important;
+  padding: var(--scf-pad) !important;
+  background: transparent !important;
+}
+
+/* ===== Account-Zeile schlank ===== */
+[class*="panels_"] [class*="container"]:has([class*="avatarWrapper"]){
+  height: var(--scf-h) !important;
+  padding: 0 var(--scf-pad) !important;
+  border-radius: var(--scf-radius) !important;
+  background: var(--scf-bg-compact) !important;
+
+  display: grid !important;
+  grid-template-columns: auto 1fr auto !important; /* Avatar | Name | Buttons */
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+/* Avatar kompakt */
+[class*="avatarWrapper"]{
+  width: calc(var(--scf-icon) + 6px) !important;
+  height: calc(var(--scf-icon) + 6px) !important;
+}
+
+/* Username/Subtext standardmäßig verstecken – erst bei Hover zeigen */
+[class*="panels_"] [class*="container"]:has([class*="avatarWrapper"]) [class*="nameTag"],
+[class*="panels_"] [class*="container"]:has([class*="avatarWrapper"]) [class*="subtext"]{
+  opacity: 0; max-width: 0; white-space: nowrap; overflow: hidden;
+  transition: opacity .15s ease,max-width .15s ease;
+  color: var(--scf-text-muted) !important;
+  font-weight: 600 !important;
+  font-size: 12.5px !important;
+}
+
+/* Bei Hover einblenden */
+[class*="panels_"] [class*="container"]:has([class*="avatarWrapper"]):hover [class*="nameTag"],
+[class*="panels_"] [class*="container"]:has([class*="avatarWrapper"]):hover [class*="subtext"]{
+  opacity: 1; max-width: 220px;
+}
+
+/* Footer-Buttons icon-only + dichter */
+[class*="panels_"] [class*="container"] [class*="button"]{
+  width: var(--scf-h) !important;
+  height: var(--scf-h) !important;
+  padding: 0 !important;
+  border-radius: 8px !important;
+  display: grid !important;
+  place-items: center !important;
+}
+[class*="panels_"] [class*="container"] [class*="button"] svg{
+  width: var(--scf-icon) !important;
+  height: var(--scf-icon) !important;
+}
+
+/* Hover-Farbfeedback */
+[class*="panels_"] [class*="container"]:is(:hover,:focus-within){
+  background: var(--scf-bg-hover) !important;
+}
+
+/* ===== Voice-Panel: zusammenklappen, bei Hover ausklappen ===== */
+[class*="panels_"] [class*="container"]:has([aria-label*="Sprach"], [aria-label*="Voice"]){
+  background: var(--scf-bg-compact) !important;
+  border-radius: var(--scf-radius) !important;
+  overflow: hidden !important;
+  max-height: var(--scf-h) !important;
+  transition: max-height .18s ease, background .18s ease;
+  padding: 0 var(--scf-pad) !important;
+}
+[class*="panels_"] [class*="container"]:has([aria-label*="Sprach"], [aria-label*="Voice"]):hover{
+  max-height: 220px !important; /* zeigt Geräte, Rauschen, etc. */
+}
+
+/* Voice-Texte kleiner + ellipsiert */
+[class*="panels_"] [class*="container"]:has([aria-label*="Sprach"], [aria-label*="Voice"]) *{
+  font-size: 12px !important;
+}
+[class*="panels_"] [class*="container"]:has([aria-label*="Sprach"], [aria-label*="Voice"]) [class*="channel"],
+[class*="panels_"] [class*="container"]:has([aria-label*="Sprach"], [aria-label*="Voice"]) [class*="title"]{
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+}
+
+/* Voice-Buttons enger + icon-only */
+[class*="panels_"] [class*="container"]:has([aria-label*="Sprach"], [aria-label*="Voice"]) [class*="button"]{
+  width: calc(var(--scf-h) - 2px) !important;
+  height: calc(var(--scf-h) - 2px) !important;
+  margin: 0 2px !important;
+}
+
+/* Optional: „Spielt …/Aktivität“-Panel unten ausblenden */
+[class*="panels_"] [class*="gameActivity"], 
+[class*="panels_"] [class*="activityPanel"]{
+  display: none !important;
+}
