@@ -1,53 +1,108 @@
-/* ======= Nicht-im-VC Zustand: ultra-kompakter Footer ======= */
-/* Ziel: rechts andocken, nur Avatar + Mic sichtbar, Rest auf Hover */
+/* ================= Sorin – User Panel Compact =================
+   - Breite animiert (Höhe bleibt fix)
+   - Standard: nur Avatar + Mute/Deafen/Settings
+   - Bei Hover: Name + VC-Details sichtbar
+   - Drückt NICHT in die Serverliste rein
+================================================================ */
 
+/* Variablen zum Feintunen */
 :root{
-  --scf-collapsed-w: 86px;        /* Breite im Collapsed-Zustand (Avatar + Mic) */
-  --scf-expanded-max: 420px;      /* max Breite beim Aufklappen */
+  --sp-collapsed-w: 64px;     /* Breite im Ruhemodus */
+  --sp-expanded-w:  264px;    /* Breite bei Hover */
+  --sp-height:      52px;     /* Fixe Panel-Höhe */
+  --sp-radius:      10px;
+  --sp-gap:         6px;
+  --sp-bg:          rgba(255,255,255,0.04);   /* dezenter Hintergrund */
+  --sp-bg-hover:    rgba(255,255,255,0.08);
 }
 
-/* Account-Zeile erkennen (die mit Avatar) */
-[class*="panels_"] [class*="container"]:has([class*="avatarWrapper"]){
-  /* rechts andocken & schrumpfen */
-  max-width: var(--scf-collapsed-w) !important;
-  margin-left: auto !important;
-  overflow: hidden !important;
-  transition: max-width .18s ease, background .18s ease;
-  background: var(--scf-bg-compact, rgba(0,0,0,.35)) !important;
+/* Root des User-Panels (robuste Selektoren) */
+[class*="panels_"] [class*="container_"]{
+  width: var(--sp-collapsed-w) !important;      /* <-- nur Breite ändert sich */
+  height: var(--sp-height) !important;          /* Höhe bleibt fix */
+  min-height: var(--sp-height) !important;
+  max-height: var(--sp-height) !important;
+  border-radius: var(--sp-radius);
+  overflow: hidden;                              /* alles, was höher wäre, bleibt verdeckt */
+  display: flex; align-items: center;
+  gap: var(--sp-gap);
+  background: var(--sp-bg);
+  transition: width .22s ease, background .16s ease;
+  /* innerhalb der Channelspalte bleiben; nichts überdeckt die Serverliste */
+  margin-left: 0 !important;
+  margin-right: auto !important;                 /* frei rechts in der Channelspalte */
 }
 
-/* Name standardmäßig komplett verstecken */
-[class*="panels_"] [class*="container"]:has([class*="avatarWrapper"]) [class*="nameTag"],
-[class*="panels_"] [class*="container"]:has([class*="avatarWrapper"]) [class*="subtext"]{
-  opacity: 0; max-width: 0; overflow: hidden; white-space: nowrap;
-  transition: opacity .15s ease, max-width .15s ease;
+/* Bei Hover fährt es auf, Höhe bleibt gleich */
+[class*="panels_"] [class*="container_"]:hover{
+  width: var(--sp-expanded-w) !important;
+  background: var(--sp-bg-hover);
 }
 
-/* Buttons: nur den ERSTEN (Mic/Mute) sichtbar lassen, Rest verstecken */
-[class*="panels_"] [class*="container"]:has([class*="avatarWrapper"]) [class*="button"]{
-  width: var(--scf-h) !important; height: var(--scf-h) !important;
-  padding: 0 !important; border-radius: 8px !important;
-}
-[class*="panels_"] [class*="container"]:has([class*="avatarWrapper"]) [class*="button"]:not(:first-of-type){
-  display: none !important;
+/* Avatar & Buttons bleiben immer sichtbar, iconzentriert */
+[class*="panels_"] [class*="avatarWrapper"],
+[class*="panels_"] [class*="button_"]{
+  min-width: 36px; width: 36px; height: 36px;
+  display: inline-flex; align-items: center; justify-content: center;
 }
 
-/* Hover/Fokus: voll ausklappen + Texte/Buttons einblenden */
-[class*="panels_"] [class*="container"]:has([class*="avatarWrapper"]):is(:hover, :focus-within){
-  max-width: var(--scf-expanded-max) !important;
-  background: var(--scf-bg-hover, rgba(88,101,242,.22)) !important;
-}
-/* Texte zeigen */
-[class*="panels_"] [class*="container"]:has([class*="avatarWrapper"]):is(:hover, :focus-within) [class*="nameTag"],
-[class*="panels_"] [class*="container"]:has([class*="avatarWrapper"]):is(:hover, :focus-within) [class*="subtext"]{
-  opacity: 1; max-width: 220px;
-}
-/* weitere Buttons wieder anzeigen */
-[class*="panels_"] [class*="container"]:has([class*="avatarWrapper"]):is(:hover, :focus-within) [class*="button"]{
-  display: grid !important; place-items: center;
+/* Platz zwischen Buttons etwas reduzieren */
+[class*="panels_"] [class*="buttons_"]{ gap: 6px; }
+
+/* Username & Zusatzinfos: im Ruhemodus unsichtbar, ohne Höhe zu beanspruchen */
+[class*="panels_"] [class*="nameTag"],
+[class*="panels_"] [class*="subtext"]{
+  opacity: 0; max-width: 0; white-space: nowrap;
+  transition: opacity .16s ease, max-width .16s ease;
 }
 
-/* Optional: in sehr schmalen Sidebars noch straffer werden */
-@media (max-width: 1150px){
-  :root{ --scf-collapsed-w: 78px; }
+/* … erst bei Hover sichtbar/lesbar */
+[class*="panels_"] [class*="container_"]:hover [class*="nameTag"],
+[class*="panels_"] [class*="container_"]:hover [class*="subtext"]{
+  opacity: 1; max-width: 180px;
+}
+
+/* Schrift etwas kompakter */
+[class*="panels_"] [class*="nameTag"] > *{
+  font-weight: 600; line-height: 1.1;
+}
+
+/* ===== Voice-Status kompakt =====
+   Im VC bläht Discord das Panel normalerweise auf.
+   Wir deckeln die Höhe und zeigen Details nur bei Hover. */
+[class*="panels_"] [class*="container_"] [class*="connection"],
+[class*="panels_"] [class*="container_"] [class*="subtextVoice"],
+[class*="panels_"] [class*="container_"] [class*="rtcConnectionQuality"]
+{
+  max-height: 0; opacity: 0; overflow: hidden;
+  transition: max-height .2s ease, opacity .16s ease;
+}
+
+/* Bei Hover: VC-Details rauslassen – ohne Panel-Höhe zu ändern, 
+   weil der Container overflow:hidden hat. */
+[class*="panels_"] [class*="container_"]:hover [class*="connection"],
+[class*="panels_"] [class*="container_"]:hover [class*="subtextVoice"],
+[class*="panels_"] [class*="container_"]:hover [class*="rtcConnectionQuality"]
+{
+  max-height: 140px; opacity: 1;
+}
+
+/* Call-Timer & Kanalname kleiner */
+[class*="panels_"] [class*="subtextVoice"]{
+  font-size: 12px; opacity: .9;
+}
+
+/* Einstellungen-Zahnrad nicht springen lassen */
+[class*="panels_"] [class*="container_"] [class*="button_"][aria-label*="Benutzereinstellungen"],
+[class*="panels_"] [class*="container_"] [class*="button_"][aria-label*="User Settings"]{
+  margin-left: auto;
+}
+
+/* Leichte Optik-Anpassung zum Sorin-Look */
+[class*="panels_"] [class*="container_"]{
+  backdrop-filter: saturate(120%) blur(2px);
+  border: 1px solid rgba(124,58,237,.25);                 /* Sorin-Violett */
+}
+[class*="panels_"] [class*="container_"]:hover{
+  border-color: rgba(139,92,246,.35);
 }
