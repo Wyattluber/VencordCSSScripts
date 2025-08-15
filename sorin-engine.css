@@ -173,9 +173,7 @@
   /* Ungelesen: Text lila, Dot türkis */
   .modeUnreadImportant__2ea32 .name__2ea32 { color: var(--rec-unread-text-color); }
   .unread__2ea32 {
-    margin-left: 6px;
-    background-color: var(--rec-unread-circle-color) !important;
-    transform: scaleY(1.5);
+    display: none !important 
   }
 }
 
@@ -187,12 +185,13 @@
     #8b5cf6 100%) !important;
 }
 
-/* Ungelesene Kanäle mit Outline hervorheben */
+/* Ungelesene Kanäle – fetter Text + gefüllter Hintergrund */
 .modeUnreadImportant__2ea32 .link__2ea32 {
-  outline: 2px solid var(--rec-unread-circle-color) !important;
-  outline-offset: -2px;
+  background-color: rgba(255, 255, 255, 0.06) !important; /* leicht helleres Grau */
+  font-weight: 600; /* etwas fetter */
   border-radius: 6px;
 }
+
 
 
 /* ================= Additional Media Channel Icons ================= */
