@@ -1,83 +1,132 @@
-/* ── Sorin Compact Userbar • Fix v2 (keine Überdeckung, weniger Höhe) ── */
+/* ─────────────────────────────────────────────
+   Sorin Footer Compact  (für alle Themes geeignet)
+   - verdeckt nie die Serverleiste
+   - kompakt idle, expandiert weich bei Hover/Fokus
+   - VC-Controls klar, aber nicht „plump“
+   ───────────────────────────────────────────── */
 
 :root{
-  --sorin-userbar-height: 40px;         /* niedriger = weniger „fett“ */
-  --sorin-userbar-compact-w: 88px;      /* nur Avatar + 2 Buttons + Zahnrad */
-  --sorin-userbar-dur: .22s;
-  --sorin-userbar-ease: ease-in-out;
-  --sorin-userbar-idle-bg: color-mix(in oklab, black 82%, white 18% / 5%);
-  --sorin-userbar-hover-bg: color-mix(in oklab, black 72%, white 28% / 10%);
+  /* Breite der Server-Icon-Leiste – bei dir i. d. R. 72px */
+  --sorin-guilds-bar-w: 72px;
+
+  /* Optik/Abstände */
+  --sorin-footer-radius: 12px;
+  --sorin-footer-pad: 8px;
+
+  /* Collapsed/optische Höhe (wir skalieren statt umzubruch) */
+  --sorin-footer-h: 44px;
+
+  /* Farben gern ans Theme koppeln */
+  --sorin-footer-bg: color-mix(in oklab, var(--background-tertiary, #0b0f17) 88%, black 12%);
+  --sorin-footer-bg-hover: color-mix(in oklab, var(--background-secondary, #101726) 82%, white 4%);
+  --sorin-footer-border: color-mix(in oklab, #8b5cf6 28%, transparent);
 }
 
-/* Panels: im Fluss bleiben, nicht über Serverleiste, nichts fixed */
-[class*="panels_"]{
-  position: relative;
-  z-index: 1;                 /* Serverleiste liegt darüber */
-  padding: 4px;
-  overflow: hidden;
+/* Wurzel: die Panels-Zeile unten links */
+[class^="panels_"]{
+  padding: var(--sorin-footer-pad);
 }
 
-/* äußere Karte: Breite bleibt kompakt; Höhe fix; kein Overlay */
-[class*="panels_"] > div:has([class*="avatar"], [class*="avatarWrapper"]),
-[class*="panels_"] > [class*="container"]:has([class*="voice"]),
-[class*="panels_"] > [class*="container"]:has([class*="nameTag"]) {
-  position: relative;
-  height: var(--sorin-userbar-height);
-  min-height: var(--sorin-userbar-height);
-  max-height: var(--sorin-userbar-height);
-  width: var(--sorin-userbar-compact-w);
-  border-radius: 10px;
-  background: var(--sorin-userbar-idle-bg);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 6px;
-  overflow: hidden;           /* verhindert Ausbluten */
-  transition: background-color var(--sorin-userbar-dur) var(--sorin-userbar-ease);
-}
+/* Jedes Panel (Account/VC) bekommt Platz rechts von der Guildleiste */
+[class^="panels_"] > *{
+  margin-left: var(--sorin-guilds-bar-w) !important;
+  width: calc(100% - var(--sorin-guilds-bar-w) - var(--sorin-footer-pad)) !important;
 
-/* Innerer Expander: wächst bei Hover in die Breite, äußere Karte bleibt kompakt */
-[class*="panels_"] > div .sorin-expander{
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  max-width: 0;               /* idle: zusammengefaltet */
-  opacity: 0;
-  overflow: hidden;
+  background: var(--sorin-footer-bg);
+  border: 1px solid var(--sorin-footer-border);
+  border-radius: var(--sorin-footer-radius);
+
+  height: var(--sorin-footer-h);               /* feste Layout-Höhe */
+  overflow: visible;                            /* für „optische“ Expansion */
+  transform-origin: bottom left;
   transition:
-    max-width var(--sorin-userbar-dur) var(--sorin-userbar-ease),
-    opacity   calc(var(--sorin-userbar-dur)*.85) var(--sorin-userbar-ease);
+    background .18s ease,
+    box-shadow .18s ease,
+    scale .18s ease,
+    translate .18s ease;
 }
 
-/* Falls der Expander noch nicht existiert, alles „Expander-taugliche“ markieren */
-[class*="panels_"] [class*="nameTag"],
-[class*="panels_"] [class*="usernameContainer"],
-[class*="panels_"] [class*="subtext"],
-[class*="panels_"] [class*="connection"] [class*="channel"],
-[class*="panels_"] [class*="connection"] [class*="actionButtons"]{
-  /* diese Elemente gelten als Expander-Inhalt */
-  contain: layout;
+/* Idle: nur Ava + 2–3 Primärbuttons sichtbar */
+[class^="panels_"] > * :is([class*="nameTag"], [class*="usernameContainer"], [class*="subtext"], [class*="connection"], [class*="actions"], [class*="activity"]) {
+  opacity: .0;
+  filter: blur(.2px);
+  transform: translateY(4px);
+  height: 0;
+  pointer-events: none;
+  transition: opacity .18s ease, transform .18s ease;
 }
-[class*="panels_"] > div:hover{ background: var(--sorin-userbar-hover-bg); }
 
-/* Beim Hover: nur der Expander klappt voll in der vorhandenen Spaltenbreite auf */
-[class*="panels_"] > div:hover .sorin-expander,
-[class*="panels_"] > [class*="container"]:hover .sorin-expander{
-  max-width: 1000px;          /* groß genug */
+/* Ava + die 2 wichtigsten Buttons (Mic/Headset) bleiben sichtbar */
+[class^="panels_"] > * :is([class*="avatarWrapper"], [class*="avatar"], [class*="avatarContainer"]) {
+  scale: .96;
+}
+
+/* Hover/Fokus: optisch wachsen, ohne Layout zu verschieben */
+[class^="panels_"] > *:is(:hover, :focus-within){
+  background: var(--sorin-footer-bg-hover);
+  box-shadow: 0 6px 22px rgba(0,0,0,.28);
+  scale: 1.18;                     /* „vergrößert“ das Panel visuell */
+}
+
+/* und die Inhalte fahren smooth rein */
+[class^="panels_"] > *:is(:hover, :focus-within) :is([class*="nameTag"], [class*="usernameContainer"], [class*="subtext"], [class*="connection"], [class*="actions"], [class*="activity"]) {
   opacity: 1;
+  filter: none;
+  transform: translateY(0);
+  height: auto;
+  pointer-events: auto;
 }
 
-/* Avatar + Kernbuttons immer sichtbar */
-[class*="panels_"] [class*="avatar"], [class*="panels_"] [class*="avatarWrapper"]{
-  width: 32px; height: 32px; border-radius: 50%; flex: 0 0 auto;
+/* Voice-Connected: zeig Verbindungsleiste/Buttons auch ohne Hover,
+   aber bleib kompakt (kein fetter Klotz). */
+[class^="panels_"] [class*="container"]:has([class*="connection"]) {
+  background: var(--sorin-footer-bg-hover);
 }
-[class*="panels_"] [class*="button"],
-[class*="panels_"] [class*="actions"] > *{ flex: 0 0 auto; }
-
-/* VC-Zustand: bleibt idle kompakt, Details erst im Expander */
-[class*="panels_"] > [class*="container"]:has([class*="connection"]){
-  width: var(--sorin-userbar-compact-w);
+[class^="panels_"] [class*="container"]:has([class*="connection"]) :is([class*="connection"], [class*="actions"]) {
+  opacity: .96;
+  filter: none;
+  transform: translateY(0);
+  height: auto;
+  pointer-events: auto;
 }
 
-/* Überdeckungen vorbeugen: Serverleiste über den Panels rendern */
-[class*="guilds_"]{ z-index: 2; }
+/* Icon-Reihen etwas kompakter */
+[class^="panels_"] :is([class*="actions"], [class*="button"]){
+  gap: 6px !important;
+}
+[class^="panels_"] :is([class*="button"], [class*="icon"]) svg{
+  transform: translateY(0);
+  scale: .95;
+}
+
+/* Wenn du noch Server-Icons „durchklickbar“ halten willst,
+   falls die Breite mal enger wird: */
+.guilds_a4d4d, [class^="guilds_"]{
+  z-index: 20; /* liegt über dem Panel, falls sie sich jemals schneiden */
+}
+
+/* OPTIONAL: Avatar kreisrund, leichter Ring wie bei iOS */
+[class^="panels_"] :is([class*="avatar"], [class*="avatarWrapper"]) img{
+  border-radius: 999px !important;
+  box-shadow: 0 0 0 2px color-mix(in oklab, #8b5cf6 35%, transparent);
+}
+
+/* ────────── Feinschliff: Text leicht schmal, bessere Dichte ────────── */
+[class^="panels_"] :is([class*="nameTag"], [class*="usernameContainer"]) {
+  font-weight: 600;
+  letter-spacing: .1px;
+}
+
+/* Falls Discord den „Kanal-Status“-Balken im VC zu groß macht */
+[class^="panels_"] :is([class*="connection"]){
+  padding: 6px 8px;
+  border-radius: calc(var(--sorin-footer-radius) - 4px);
+  background: color-mix(in oklab, var(--background-modifier-selected, #1a2234) 70%, transparent);
+}
+
+/* (Deine Wunschänderung von oben)
+   Unread-DOT in der Channelliste komplett entfernen */
+.containerDefault_c69b6d .unread__2ea32,
+.containerDefault_c69b6d [class*="unread_"]{
+  display: none !important;
+}
