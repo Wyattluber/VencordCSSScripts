@@ -1,132 +1,116 @@
-/* ─────────────────────────────────────────────
-   Sorin Footer Compact  (für alle Themes geeignet)
-   - verdeckt nie die Serverleiste
-   - kompakt idle, expandiert weich bei Hover/Fokus
-   - VC-Controls klar, aber nicht „plump“
-   ───────────────────────────────────────────── */
+/* ===== Sorin — Compact Footer & VC Mini =====
+   - feste Breite rechts neben den Server-Icons
+   - VC-Panel: nur Ava + Mic + Deafen + Settings sichtbar
+     → weitere Buttons erst bei Fokus/Klick
+   --------------------------------------------------- */
 
+/* 1) Layout-Variablen (falls noch nicht vorhanden) */
 :root{
-  /* Breite der Server-Icon-Leiste – bei dir i. d. R. 72px */
-  --sorin-guilds-bar-w: 72px;
-
-  /* Optik/Abstände */
+  --sorin-guilds-bar-w: 72px;        /* Platz für die Server-Icons */
+  --sorin-footer-h: 44px;            /* einheitliche Höhe */
+  --sorin-footer-pad: 10px;          /* kleiner Innenabstand links/rechts */
   --sorin-footer-radius: 12px;
-  --sorin-footer-pad: 8px;
 
-  /* Collapsed/optische Höhe (wir skalieren statt umzubruch) */
-  --sorin-footer-h: 44px;
-
-  /* Farben gern ans Theme koppeln */
-  --sorin-footer-bg: color-mix(in oklab, var(--background-tertiary, #0b0f17) 88%, black 12%);
-  --sorin-footer-bg-hover: color-mix(in oklab, var(--background-secondary, #101726) 82%, white 4%);
-  --sorin-footer-border: color-mix(in oklab, #8b5cf6 28%, transparent);
+  --sorin-footer-bg:    color-mix(in oklab, #0b0f17 88%, black 12%);
+  --sorin-footer-bg-hov:color-mix(in oklab, #101726 80%, black 20%);
+  --sorin-footer-border:color-mix(in oklab, #7c3aed 18%, transparent);
 }
 
-/* Wurzel: die Panels-Zeile unten links */
-[class^="panels_"]{
-  padding: var(--sorin-footer-pad);
-}
-
-/* Jedes Panel (Account/VC) bekommt Platz rechts von der Guildleiste */
+/* 2) Gesamter Footer-Bereich: rechts neben Server-Icons, kompakt */
 [class^="panels_"] > *{
+  position: relative;
   margin-left: var(--sorin-guilds-bar-w) !important;
   width: calc(100% - var(--sorin-guilds-bar-w) - var(--sorin-footer-pad)) !important;
 
-  background: var(--sorin-footer-bg);
-  border: 1px solid var(--sorin-footer-border);
-  border-radius: var(--sorin-footer-radius);
+  height: var(--sorin-footer-h) !important;
+  background: var(--sorin-footer-bg) !important;
+  border: 1px solid var(--sorin-footer-border) !important;
+  border-radius: var(--sorin-footer-radius) !important;
+  overflow: hidden !important;
 
-  height: var(--sorin-footer-h);               /* feste Layout-Höhe */
-  overflow: visible;                            /* für „optische“ Expansion */
-  transform-origin: bottom left;
-  transition:
-    background .18s ease,
-    box-shadow .18s ease,
-    scale .18s ease,
-    translate .18s ease;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 6px 8px !important;
+
+  transition: background .18s ease, box-shadow .18s ease;
 }
 
-/* Idle: nur Ava + 2–3 Primärbuttons sichtbar */
-[class^="panels_"] > * :is([class*="nameTag"], [class*="usernameContainer"], [class*="subtext"], [class*="connection"], [class*="actions"], [class*="activity"]) {
-  opacity: .0;
-  filter: blur(.2px);
-  transform: translateY(4px);
-  height: 0;
-  pointer-events: none;
-  transition: opacity .18s ease, transform .18s ease;
-}
-
-/* Ava + die 2 wichtigsten Buttons (Mic/Headset) bleiben sichtbar */
-[class^="panels_"] > * :is([class*="avatarWrapper"], [class*="avatar"], [class*="avatarContainer"]) {
-  scale: .96;
-}
-
-/* Hover/Fokus: optisch wachsen, ohne Layout zu verschieben */
+/* 2a) Kein Breiten-Grow mehr auf Hover – nur leichter Hover-Look */
 [class^="panels_"] > *:is(:hover, :focus-within){
-  background: var(--sorin-footer-bg-hover);
-  box-shadow: 0 6px 22px rgba(0,0,0,.28);
-  scale: 1.18;                     /* „vergrößert“ das Panel visuell */
+  background: var(--sorin-footer-bg-hov) !important;
+  box-shadow: 0 6px 18px rgba(0,0,0,.22);
 }
 
-/* und die Inhalte fahren smooth rein */
-[class^="panels_"] > *:is(:hover, :focus-within) :is([class*="nameTag"], [class*="usernameContainer"], [class*="subtext"], [class*="connection"], [class*="actions"], [class*="activity"]) {
-  opacity: 1;
-  filter: none;
-  transform: translateY(0);
-  height: auto;
-  pointer-events: auto;
+/* 3) VC-Panel erkennen und **kompakt** layouten */
+[class^="panels_"] [class*="container"]:has([class*="connection"]){
+  height: var(--sorin-footer-h) !important;
+  min-height: var(--sorin-footer-h) !important;
+  padding: 6px 8px !important;
 }
 
-/* Voice-Connected: zeig Verbindungsleiste/Buttons auch ohne Hover,
-   aber bleib kompakt (kein fetter Klotz). */
-[class^="panels_"] [class*="container"]:has([class*="connection"]) {
-  background: var(--sorin-footer-bg-hover);
-}
-[class^="panels_"] [class*="container"]:has([class*="connection"]) :is([class*="connection"], [class*="actions"]) {
-  opacity: .96;
-  filter: none;
-  transform: translateY(0);
-  height: auto;
-  pointer-events: auto;
+/* 3a) Inhalt im VC: Grid – Ava | Spacer | Actions */
+[class^="panels_"] [class*="connection"]{
+  display: grid !important;
+  grid-template-columns: 36px 1fr auto;
+  align-items: center !important;
+  gap: 8px !important;
+  height: 100% !important;
 }
 
-/* Icon-Reihen etwas kompakter */
-[class^="panels_"] :is([class*="actions"], [class*="button"]){
+/* 3b) Textzeilen im VC ausblenden (Channelname, Untertitel, Status) */
+[class^="panels_"] [class*="connection"] [class*="channel"],
+[class^="panels_"] [class*="connection"] [class*="subtext"],
+[class^="panels_"] [class*="connection"] [class*="activity"],
+[class^="panels_"] [class*="connection"] [class*="rtcConnectionStatus"],
+[class^="panels_"] [class*="connection"] [class*="container"] > div:has([class*="text_"]) {
+  display: none !important;
+}
+
+/* 3c) Aktionen (Buttons) kompakt rechts anordnen */
+[class^="panels_"] [class*="connection"] [class*="actions"]{
+  margin-left: auto !important;
+  display: flex !important;
+  align-items: center !important;
   gap: 6px !important;
 }
-[class^="panels_"] :is([class*="button"], [class*="icon"]) svg{
-  transform: translateY(0);
-  scale: .95;
+
+/* 3d) Buttons klein & quadratisch */
+[class^="panels_"] [class*="connection"] [class*="actions"] button,
+[class^="panels_"] [class*="actions"] button{
+  width: 28px !important;
+  height: 28px !important;
+  padding: 0 !important;
+  border-radius: 8px !important;
 }
 
-/* Wenn du noch Server-Icons „durchklickbar“ halten willst,
-   falls die Breite mal enger wird: */
-.guilds_a4d4d, [class^="guilds_"]{
-  z-index: 20; /* liegt über dem Panel, falls sie sich jemals schneiden */
-}
-
-/* OPTIONAL: Avatar kreisrund, leichter Ring wie bei iOS */
-[class^="panels_"] :is([class*="avatar"], [class*="avatarWrapper"]) img{
-  border-radius: 999px !important;
-  box-shadow: 0 0 0 2px color-mix(in oklab, #8b5cf6 35%, transparent);
-}
-
-/* ────────── Feinschliff: Text leicht schmal, bessere Dichte ────────── */
-[class^="panels_"] :is([class*="nameTag"], [class*="usernameContainer"]) {
-  font-weight: 600;
-  letter-spacing: .1px;
-}
-
-/* Falls Discord den „Kanal-Status“-Balken im VC zu groß macht */
-[class^="panels_"] :is([class*="connection"]){
-  padding: 6px 8px;
-  border-radius: calc(var(--sorin-footer-radius) - 4px);
-  background: color-mix(in oklab, var(--background-modifier-selected, #1a2234) 70%, transparent);
-}
-
-/* (Deine Wunschänderung von oben)
-   Unread-DOT in der Channelliste komplett entfernen */
-.containerDefault_c69b6d .unread__2ea32,
-.containerDefault_c69b6d [class*="unread_"]{
+/* 3e) Standard: nur die **ersten 3** Controls zeigen (Mic/Deafen/Settings).
+   Bei Klick/Fokus auf das Panel werden alle sichtbar. */
+[class^="panels_"] [class*="connection"] [class*="actions"] button:nth-child(n+4){
   display: none !important;
+}
+[class^="panels_"] [class*="container"]:has([class*="connection"]:focus-within)
+  [class*="actions"] button{
+  display: inline-flex !important;
+}
+
+/* 4) Wenn NICHT im VC: ebenfalls kompakt
+      – nur Avatar + 2 Hauptbuttons (Mic/Settings) zeigen */
+[class^="panels_"] > :not(:has([class*="connection"])) [class*="buttonRow"],
+[class^="panels_"] > :not(:has([class*="connection"])) [class*="actions"]{
+  display: flex !important;
+  gap: 6px !important;
+}
+[class^="panels_"] > :not(:has([class*="connection"])) [class*="actions"] button:nth-child(n+3){
+  display: none !important;
+}
+
+/* 5) Avatar klein & rund, damit’s auf Höhe bleibt */
+[class^="panels_"] [class*="avatar"], 
+[class^="panels_"] [class*="avatarWrapper"]{
+  width: 28px !important;
+  height: 28px !important;
+  min-width: 28px !important;
+  border-radius: 999px !important;
+  overflow: hidden !important;
 }
