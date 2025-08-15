@@ -1,0 +1,117 @@
+/* Sorin – Core Theme (stabil, ohne fremde Imports) */
+
+/* ===== Palette ===== */
+:root {
+  /* Basis (dunkel) */
+  --sorin-space-950: #070b12;
+  --sorin-space-900: #0b0f17;
+  --sorin-space-850: #0e1420;
+  --sorin-space-800: #101726;
+
+  /* Akzente */
+  --sorin-cyan:   #22d3ee;
+  --sorin-violet: #7c3aed;
+  --sorin-amber:  #f59e0b;
+  --sorin-green:  #10b981;
+  --sorin-red:    #ef4444;
+
+  /* Lesbarkeit */
+  --sorin-text-100: #e6edf7;
+  --sorin-text-80:  #c7d2e1;
+  --sorin-text-60:  #9aa8bd;
+}
+
+/* ===== Discord-Variablen überschreiben (robusteste Schicht) ===== */
+:root {
+  /* Hintergründe */
+  --background-primary:        var(--sorin-space-900) !important;
+  --background-secondary:      var(--sorin-space-850) !important;
+  --background-secondary-alt:  var(--sorin-space-800) !important;
+  --background-tertiary:       var(--sorin-space-950) !important;
+  --deprecated-card-bg:        var(--sorin-space-850) !important;
+
+  /* Interaktionsflächen */
+  --background-modifier-hover:   color-mix(in oklab, var(--sorin-cyan) 10%, transparent) !important;
+  --background-modifier-active:  color-mix(in oklab, var(--sorin-cyan) 16%, transparent) !important;
+  --background-modifier-selected:linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--sorin-violet) 18%, transparent) 0%,
+      color-mix(in oklab, var(--sorin-cyan) 10%, transparent) 100%
+    ) !important;
+
+  /* Brand / Fokus */
+  --brand-experiment:          color-mix(in oklab, var(--sorin-violet) 65%, var(--sorin-cyan) 35%) !important;
+  --focus-primary:             color-mix(in oklab, var(--sorin-cyan) 60%, white 10%) !important;
+
+  /* Textfarben */
+  --text-normal:   var(--sorin-text-100) !important;
+  --text-muted:    var(--sorin-text-60) !important;
+  --interactive-normal: var(--sorin-text-80) !important;
+  --interactive-hover:  var(--sorin-text-100) !important;
+  --interactive-active: var(--sorin-text-100) !important;
+  --interactive-muted:  color-mix(in oklab, var(--sorin-text-60) 65%, var(--sorin-space-900) 35%) !important;
+
+  /* Badges / Mentions */
+  --mention-foreground:  white !important;
+  --mention-background:  color-mix(in oklab, var(--sorin-violet) 25%, transparent) !important;
+  --brand-500:           var(--brand-experiment) !important;
+
+  /* Statusfarben */
+  --status-danger:             var(--sorin-red) !important;
+  --status-danger-background:  color-mix(in oklab, var(--sorin-red) 20%, transparent) !important;
+  --status-positive:           var(--sorin-green) !important;
+
+  /* Composer */
+  --channeltextarea-background: color-mix(in oklab, var(--sorin-space-850) 85%, black 15%) !important;
+
+  /* Unread Mentions */
+  --unread-mention-background: color-mix(in oklab, var(--sorin-cyan) 30%, var(--sorin-violet) 30%) !important;
+  --unread-mention-foreground: #0a0f19 !important;
+}
+
+/* ===== Dezentere UI-Kanten für Sorin-Look ===== */
+:root {
+  --elevation-stroke: 0 0 0 1px color-mix(in oklab, var(--sorin-cyan) 16%, transparent);
+  --elevation-low:    0 2px 12px rgba(0,0,0,.35);
+}
+
+/* Sidebar/Channel-List – ohne fragile Hashes: Variablen statt Klassen */
+:root {
+  --control-brand-foreground: var(--brand-experiment) !important;
+}
+
+/* Unread Dot subtil größer & in Brand-Farbe (selector generisch) */
+[class*="unread_"], [class*="mention_"][class*="numberBadge_"] {
+  background-color: var(--unread-mention-background) !important;
+  color: var(--unread-mention-foreground) !important;
+  border-radius: 999px !important;
+  transform: scale(1.05);
+}
+
+/* Selected Channel – weicher Rand, lesbarer Text */
+[aria-selected="true"], [class*="selected_"] {
+  outline: 1px solid color-mix(in oklab, var(--brand-experiment) 22%, transparent);
+  text-shadow: 0 0 10px color-mix(in oklab, var(--brand-experiment) 20%, transparent);
+}
+
+/* Tooltips / Popovers */
+[class*="tooltip_"], [class*="popout_"] {
+  backdrop-filter: saturate(1.1) blur(6px);
+  background: color-mix(in oklab, var(--sorin-space-900) 85%, black 15%) !important;
+  border: 1px solid color-mix(in oklab, var(--brand-experiment) 20%, transparent) !important;
+}
+
+/* Buttons in Sorin-Brand – ohne globale !important-Orgien */
+button[class*="lookFilled_"] {
+  background: var(--brand-experiment) !important;
+  color: #fff !important;
+}
+button[class*="lookOutlined_"] {
+  border-color: var(--brand-experiment) !important;
+  color: var(--brand-experiment) !important;
+}
+
+/* Barrierefreiheit */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
