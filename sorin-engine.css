@@ -1,218 +1,313 @@
 /* ──────────────────────────────────────────────────────────────
-   Sorin Engine – Recolor (Hover/Selected = Vollfläche mit Lila-Gradient)
+   Sorin Engine – kompatibel zu deinem ABrecolor-Aufbau
+   - Lila-Verlauf (links dunkel → rechts heller) auf Channel-Hover/Selected
+   - Pings gut lesbar (helltürkis, schwarzer Text)
+   - Ankündigung gelb/orange, Forum smaragd/blau
+   - Boost-Icon eisblau/diamantig
+   - Ungelesen: Text lila, Punkt türkis
    ──────────────────────────────────────────────────────────── */
 
-/* ===== Palette ===== */
-:root{
-  --s-space-950:#070b12; --s-space-900:#0b0f17; --s-space-850:#0e1420; --s-space-800:#101726;
+/* ================= Farb-Tokens im selben Schema ================= */
+:root {
+  /* Locks / Danger */
+  --rec-locked: var(--status-danger-background);
 
-  /* Verlaufstöne (links → rechts) */
-  --s-violet-dark:#4c1d95;  /* links dunkel */
-  --s-violet:#6d28d9;       /* mitte */
-  --s-violet-light:#8b5cf6; /* rechts hell */
+  /* Ankündigung (lassen wir bewusst gelb/orange, weil’s stark erkennbar ist) */
+  --rec-news-1: rgba(255, 190, 20, 0.92);
+  --rec-news-2: rgba(255, 110, 24, 0.92);
 
-  /* Akzente */
-  --s-cyan:#22d3ee;    /* bleibt für Unread-Dots & Ping-BG */
-  --s-amber:#f59e0b;   /* Announcement */
-  --s-green:#10b981;   /* positive */
-  --s-red:#ef4444;     /* danger */
+  /* Regeln (grün bleibt sinnvoll) */
+  --rec-rules: rgba(16, 185, 129, 0.9);
 
-  --s-text-100:#e6edf7; --s-text-60:#9aa8bd;
+  /* Stage/Mic in Sorin-Lila/Familie */
+  --rec-stage: rgba(109, 40, 217, 0.9);         /* #6d28d9 */
+  --rec-mic:   rgba(220, 38, 38, 0.9);          /* rot für „Hot Mic“ */
+
+  /* Forum – smaragd/blau (edler Kontrast) */
+  --rec-forum: rgba(30, 144, 255, 0.85);        /* #1e90ff gemischt */
+
+  /* Help (Fragezeichen) – lila statt gelb */
+  --rec-help:  #8b5cf6;                         /* helleres Lila */
+  --rec-delete: var(--status-danger-background);
+
+  --rec-ping-locked: var(--status-danger-background);
+  --rec-create-channel-locked: var(--status-danger-background);
+
+  /* Kategorien / Linien – Sorin-Lila */
+  --rec-category:        #7c3aed;               /* Akzent-Lila */
+  --rec-category-effect: #a78bfa;               /* Hover heller */
+  --rec-roles-category:  #a78bfa;
+
+  --rec-channel-lines:   #6d28d9;               /* Lila Linien */
+  /* Hinweis: Selected/ Hover setzen wir gleich direkt als Gradient */
+
+  /* Ungelesen: Text lila, DOT türkis */
+  --rec-unread-text-color:   #a78bfa;           /* hell-lila */
+  --rec-unread-circle-color: #22d3ee;           /* türkis */
+
+  /* Top-Bereich */
+  --rec-top-boosting: #b9e6ff;                  /* „Diamant“-Eisblau */
+  --rec-top-members:  #d4af37;
+  --rec-search-channels: #22d3ee;               /* türkis */
+  --rec-top-events:  #3b82f6;
+  --rec-top-pin:     #f97316;
+  --rec-top-noti-on: #10b981;
+  --rec-top-noti-off:#ef4444;
+
+  /* DMs */
+  --rec-dm-nitro:   #d9b8ff;  /* lila-pink */
+  --rec-dm-friends: #a3e635;  /* lime */
+  --rec-dm-shop-1:  #ef4444;  /* rot */
+  --rec-dm-shop-2:  #eab308;  /* amber */
+
+  /* Threads */
+  --rec-threads:             rgba(139, 92, 246, 0.62); /* lila */
+  --rec-threads-line:        #4c1d95;
+  --rec-threads-line-effect: #8b5cf6;
+
+  --rec-message-delay: var(--status-danger-background);
 }
 
-/* ===== Discord Variables ===== */
-:root{
-  --background-primary:var(--s-space-900)!important;
-  --background-secondary:var(--s-space-850)!important;
-  --background-secondary-alt:var(--s-space-800)!important;
-  --background-tertiary:var(--s-space-950)!important;
+/* ================= Icons/Farben – unverändert dein Schema ================= */
 
-  /* Vollflächige Channel-Hintergründe */
-  --background-modifier-hover:linear-gradient(90deg,
-      color-mix(in oklab,var(--s-violet-dark) 90%, black 5%) 0%,
-      color-mix(in oklab,var(--s-violet) 88%, black 4%) 55%,
-      color-mix(in oklab,var(--s-violet-light) 85%, white 4%) 100%)!important;
+/* (NSFW) Locked Icon */
+[class^=emptyChannelIcon_] path[d^="M16 4h.5v-.5a2.5"],
+[class^=channelIcon_]    path[d^="M16 4h.5v-.5a2.5"],
+[class^=voiceIcon_]      path[d^="M16 4h.5v-.5a2.5"],
+[class^=icon_]           path[d^="M6 9h1V6a5 5 0 0 1 10 0v3h1a3"],
+[class^=icon__]          path[d^="M18.09 1.63c.4-.7 " ] { fill: var(--rec-locked) !important; }
 
-  --background-modifier-selected:linear-gradient(90deg,
-      var(--s-violet-dark) 0%,
-      var(--s-violet) 60%,
-      var(--s-violet-light) 100%)!important;
+/* NSFW Thread Icon Message */
+[class^=icon__] path[d^="M18.09 15.63c.4-.7 1.43-.7 1.82"] { fill: var(--rec-locked) !important; }
 
-  --background-modifier-active:linear-gradient(90deg,
-      color-mix(in oklab,var(--s-violet) 80%, white 12%) 0%,
-      color-mix(in oklab,var(--s-violet-light) 85%, white 8%) 100%)!important;
+/* Channel search icon */
+[class^=channelNameIcon_] path[d^="M18.09 1.63c.4-.7 " ],
+[class^=channelNameIcon_] path[d^="M16.5 18H16a1 " ],
+[class^=channelNameIcon_] path[d^="M16 4h.5v-.5a2.5" ],
+[class^=searchResultChannelIcon_] path[d^="M18.09 1.63c.4-.7" ],
+[class^=searchResultChannelIcon_] path[d^="M16.5 18H16a1" ],
+[class^=searchResultChannelIcon_] path[d^="M16 4h.5v-.5a2.5" ] { fill: var(--rec-locked) !important; }
 
-  --brand-experiment:var(--s-violet)!important;
-  --focus-primary:var(--s-violet-light)!important;
+/* Help Button (Fragezeichen) → lila */
+[class^=icon_] path[d^="M23 12a11 11 0 1 1-22" ],
+[class^=anchor_edefb8] path[d^="M12 23a11 11 0 1 0 0-22 11 11" ] { fill: var(--rec-help) !important; }
 
-  --text-normal:var(--s-text-100)!important;
-  --text-muted:var(--s-text-60)!important;
+/* Delete Button */
+[class^=searchClearHistory_]  { color: var(--rec-delete) !important; }
 
-  /* Pings: helltürkis BG, schwarzer Text */
-  --mention-background:color-mix(in oklab,var(--s-cyan) 65%, white 20%)!important;
-  --mention-foreground:#0a0f19!important;
+/* News / Announcements */
+[class^=searchResultChannelIcon_] path[d^="M19.56 2a3 3 0 0 0-2.46"],
+[class^=searchResultChannelIcon_] path[d^="M12.33 5.74a.5.5 0 0 1 .67.47V9a3"]{ fill: var(--rec-news-1) !important; }
+[class^=searchResultChannelIcon_] path[d^="M2 10c0-1.1.9-2 2-2h.5c.28 0 .5.22.5.5v7a.5.5 0 0 1-.5.5H4a2"] { fill: var(--rec-news-2) !important; }
 
-  /* Unread mention badge dezenter */
-  --unread-mention-background:color-mix(in oklab,var(--s-violet) 40%, transparent)!important;
-  --unread-mention-foreground:#0a0f19!important;
-
-  --status-danger:var(--s-red)!important;
-  --status-danger-background:color-mix(in oklab,var(--s-red) 20%, transparent)!important;
-  --status-positive:var(--s-green)!important;
-
-  --channeltextarea-background:color-mix(in oklab,var(--s-space-850) 85%, black 15%)!important;
-}
-
-/* ===== Engine Tokens ===== */
-:root{
-  --se-locked:var(--status-danger);
-  --se-stage:color-mix(in oklab,var(--s-violet) 85%, black 15%);
-  --se-mic:color-mix(in oklab,#dc2626 85%, black 10%);
-  --se-forum:color-mix(in oklab,#1e90ff 70%, #00c4b4 30%);  /* smaragd/blau */
-  --se-news-1:color-mix(in oklab,var(--s-amber) 78%, white 10%);
-  --se-news-2:color-mix(in oklab,#fb923c 78%, black 8%);
-  --se-category:color-mix(in oklab,var(--s-violet) 60%, var(--s-cyan) 40%);
-  --se-category-effect:color-mix(in oklab,var(--s-violet-light) 85%, white 5%);
-  --se-roles-category:color-mix(in oklab,var(--s-violet-light) 65%, var(--s-cyan) 35%);
-  --se-channel-lines:color-mix(in oklab,var(--s-violet) 42%, white 6%);
-  --se-channel-selected:color-mix(in oklab,var(--s-violet) 46%, var(--s-space-800) 54% / 0.78);
-  --se-unread-text:color-mix(in oklab,var(--s-violet-light) 90%, white 6%); /* Text lila */
-  --se-unread-circle:color-mix(in oklab,var(--s-cyan) 85%, black 10%);     /* Dot türkis */
-  --se-boost-diamond:#b9e6ff; /* Eisblau */
-}
-
-/* ===== Badges / Mentions ===== */
-[class*="mention"], [class*="numberBadge"]{
-  background:var(--unread-mention-background)!important;
-  color:var(--unread-mention-foreground)!important;
-  border-radius:999px!important;
-}
-
-/* ── NUR Channel-Liste anvisieren (um Message-Bugs zu vermeiden) ── */
-[class*="sidebar_"] [class*="scroller_"],
-[class*="sidebar_"] [class*="container_"]{
-  /* nichts – nur Scope-Begrenzer */
-}
-
-/* Channel-Spine/Linie */
-[class*="sidebar_"] [class*="spineBorder_"]{
-  left:calc(var(--channels-spine-offset-left) + 7.5px);
-  background:var(--se-channel-lines)!important;
-}
-
-/* Einrücken + linke Linie */
-[class*="sidebar_"] [class*="containerDefault_"]:not([class*="wrapper_"]){
-  margin-left:15.5px;
-  border-left:1px solid var(--se-channel-lines);
-}
-
-/* Ungelesen: Text & Punkt */
-[class*="sidebar_"] [class*="containerDefault_"] [class*="modeUnreadImportant_"] [class*="name_"]{
-  color:var(--se-unread-text)!important;
-}
-[class*="sidebar_"] [class*="containerDefault_"] [class*="unread_"]{
-  margin-left:6px;
-  background-color:var(--se-unread-circle)!important;
-  transform:scaleY(1.5);
-}
-
-/* Hover: VOLLE Fläche */
-[class*="sidebar_"] [class*="containerDefault_"] [class*="link_"]:hover{
-  background:var(--background-modifier-hover)!important;
-  color:var(--s-text-100)!important;
-}
-
-/* Selected: VOLLE Fläche */
-[class*="sidebar_"] [class*="containerDefault_"] [class*="modeSelected_"] [class*="link_"],
-[class*="sidebar_"] [class*="containerDefault_"].modeSelected__2ea32 [class*="link_"]{
-  background:var(--background-modifier-selected)!important;
-  color:var(--s-text-100)!important;
-}
-
-/* Kategorie-Header/Arrow + Name */
-[class*="sidebar_"] [class*="wrapper_"][class*="29444"],
-[class*="sidebar_"] [class*="wrapper_"][class*="29444"] path[d^="M5.3 9.3a1 1 0 0 1 1.4 0l5.3 5.29 5.3-5.3a1 1 0 1 1 1.4 1.42l-6 6a1 1 0 0 1-1.4 0l-6-6a1 1 0 0 1 0-1.42Z"],
-[class*="sidebar_"] [class*="container_"][class*="13cf1"]{
-  color:var(--se-category)!important;
-}
-[class*="sidebar_"] [class*="wrapper_"][class*="29444"]:hover path[d^="M5.3 9.3a1 1 0 0 1 1.4 0l5.3 5.29 5.3-5.3a1 1 0 1 1 1.4 1.42l-6 6a1 1 0 0 1-1.4 0l-6-6a1 1 0 0 1 0-1.42Z"],
-[class*="sidebar_"] [class*="wrapper_"][class*="29444"]:hover [class*="container_"][class*="13cf1"]{
-  color:var(--se-category-effect)!important;
-}
-[class*="sidebar_"] [class*="container_"][class*="13cf1"] span{
-  color:var(--se-roles-category)!important;
-}
-
-/* ===== Icons (gezielt) ===== */
-/* Locked / NSFW / Lock-like */
-[class^=icon_] path[d^="M16 4h.5v-.5a2.5"],
-[class^=icon_] path[d^="M16.5 18H16a1"],
-[class^=channelOptionIcon_] path[d^="M16 4h.5v-.5a2.5"],
-[class^=channelOptionIcon_] path[d^="M16.5 18H16a1"]{ fill:var(--se-locked)!important; }
-
-/* Suche Lock/Shield-ähnlich */
-[class^=channelNameIcon_] path[d^="M18.09 1.63c.4-.7"],
-[class^=searchResultChannelIcon_] path[d^="M18.09 1.63c.4-.7"]{ fill:var(--se-locked)!important; }
+/* Rules */
+[class^=channelIcon_] path[d^="M15 2a3 3 0 0 1 3 3v12H5.5a1.5"],
+[class^=searchResultChannelIcon_] path[d^="M15 2a3 3 0 0 1 3 3v12H5.5a1.5"] { fill: var(--rec-rules) !important; }
 
 /* Stage */
-[class^=icon_] path[d^="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"],
-[class^=icon_] path[d^="M21.92 14.08c.32.27.86.15.93-"],
-[class^=icon_] path[d^="M13.48 16.18c.39.1.45.62.2.93A2.99"],
-[class^=stageIcon_] path[d^="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"]{ fill:var(--se-stage)!important; }
+[class^=searchResultChannelIcon_] path[d^="M21.92 14.08c.32.27.86.15.93-"],
+[class^=searchResultChannelIcon_] path[d^="M13.48 16.18c.39.1.45.62.2.93A2.99"],
+[class^=searchResultChannelIcon_] path[d^="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"],
+[class^=searchResultChannelIcon_] path[d^="M16.83 15.23c.43.47 1.18.42 1.45-.14a7"],
+[class^=searchResultChannelIcon_] path[d^="M19.61 18.25a1.08 1.08 0 0 1-.07-1.33"] { fill: var(--rec-stage) !important; }
 
-/* Mic */
-[class^=icon_] path[d^="M12 2a4 4 0 0 0-4 4v4a4 4 0 0 0 8 0V6a4"],
-[class^=icon_] path[d^="M6 10a1 1 0 0 0-2 0 8 8 0 0 0 7 7.94V20H9a1"],
-[class^=micIcon_]  path[d^="M12 2a4 4 0 0 0-4 4v4a4 4 0 0 0 8 0V6a4"],
-[class^=micIcon_]  path[d^="M6 10a1 1 0 0 0-2 0 8 8 0 0 0 7 7.94V20H9a1"]{ fill:var(--se-mic)!important; }
+/* Forum */
+[class^=searchResultChannelIcon_] path[d^="M18.91 12.98a5.45 5.45"],
+[class^=searchResultChannelIcon_] path[d^="M19.24 10.86c.32.16.72-.02.74-.38L20"],
+[class^=searchResultChannelIcon_] path[d^="M13.58 3.23c.24-.33.15-.86-.24-.96C12.59"] { fill: var(--rec-forum) !important; }
 
-/* Forum (smaragd/blau) */
-[class^=icon_] path[d^="M18.91 12.98a5.45"],
-[class^=icon_] path[d^="M19.24 10.86c.32.16.72-.02.74-.38L20"]{ fill:var(--se-forum)!important; }
+/* Ping Locked */
+[class^=ping_] path[d^="M18.09 14.63c.4-.7"] { fill: var(--rec-ping-locked) !important; }
 
-/* Announcement / News (gelb/orange) */
-[class^=icon_] path[d^="M19.56 2a3 3 0 0 0-2.46"],
-[class^=icon_] path[d^="M12.33 5.74a.5.5 0 0 1 .67.47V9a3"]{ fill:var(--se-news-1)!important; }
-[class^=icon_] path[d^="M2 10c0-1.1.9-2 2-2h.5c.28 0 .5.22.5.5v7a.5.5 0 0 1-.5.5H4a2"]{ fill:var(--se-news-2)!important; }
+/* Create Channel Locks */
+[class^=inputPrefix_]  path[d^="M16 4h.5v-.5a2.5"],
+[class^=switchIcon_]   path[d^="M6 9h1V6a5 5 0 0 1 10 0v3h1a3"],
+[class^=subtitleIcon_] path[d^="M16 4h.5v-.5a2.5"] { fill: var(--rec-create-channel-locked) !important; }
 
-/* Help / Fragezeichen → Lila */
-[class^=icon_] path[d^="M23 12a11 11 0 1 1-22"],
-[class^=anchor_] path[d^="M12 23a11 11 0 1 0 0-22 11 11"]{ fill:var(--s-violet-light)!important; }
+/* ================= Kategorien / Channel-Liste ================= */
 
-/* Serverboost → Eisblau (Gradient per CSS nicht injizierbar) */
-[class^=icon_] path[d^="M10.95 1.4a1.59 1.59"],
-[class^=icon_] path[d^="M11.65 6.35 9.29 8.71a1"]{ fill:var(--se-boost-diamond)!important; }
+/* Kategorie: Farbe + Hover-Effekt */
+.wrapper__29444,
+.wrapper__29444 path[d^="M5.3 9.3a1 1 0 0 1 1.4 0l5.3 5.29 5.3-5.3a1 1 0 1 1 1.4 1.42l-6 6a1 1 0 0 1-1.4 0l-6-6a1 1 0 0 1 0-1.42Z"],
+.container__13cf1 { color: var(--rec-category) !important; }
 
-/* Top-Bar Akzente */
-[class^=icon_] path[d^="M14.5 8a3 3 0 1 0-2.7-4.3c-.2.4.06.86.44"]{ fill:color-mix(in oklab,#d4af37 80%, black 15%)!important; } /* Members */
-[class^=icon_] path[d^="M18.5 23c.88 0 1.7-.25 2.4-.69l1.4 1.4a1"],
-[class^=icon_] path[d^="M3 3a1 1 0 0 0 0 2h18a1"]{ fill:var(--s-cyan)!important; } /* Suche */
+.wrapper__29444:hover path[d^="M5.3 9.3a1 1 0 0 1 1.4 0l5.3 5.29 5.3-5.3a1 1 0 1 1 1.4 1.42l-6 6a1 1 0 0 1-1.4 0l-6-6a1 1 0 0 1 0-1.42Z"],
+.wrapper__29444:hover .container__13cf1{ color: var(--rec-category-effect) !important; }
 
-/* ===== Threads ===== */
-[class*="container__5b40b"] [class*="spineBorder_"]{
-  background:color-mix(in oklab,var(--s-violet) 55%, black 25%)!important;
+.container__13cf1 span { color: var(--rec-roles-category) !important; }
+
+/* Channel-Linien + Einrückung */
+.spineBorder__5b40b { left: calc(var(--channels-spine-offset-left) + 7.5px); }
+
+.containerDefault_c69b6d:not(.wrapper__2ea32) {
+  margin-left: 15.5px;
+  border-left: 1px solid var(--rec-channel-lines);
+
+  /* HIER: Selected → voller Lila-Gradient (links→rechts) */
+  .selectedChannel_c69b6d .link__2ea32 {
+    background: linear-gradient(90deg,
+      #4c1d95 0%,
+      #6d28d9 55%,
+      #8b5cf6 100%) !important;
+  }
+
+  .spine__5b40b { left: calc(var(--channels-spine-offset-left) - 9px); }
+
+  .name__2ea32, .overflow__82b15 { font-size: 15.5px; line-height: 1.4; }
+
+  .iconVisibility_c69b6d.wrapper__2ea32 {
+    margin-left: 0px;
+    .link__2ea32 {
+      border-bottom-left-radius: 0px; border-top-left-radius: 0px;
+      .icon__2ea32 { scale: 0.8; }
+      .linkTop__2ea32 { gap: 4px; }
+    }
+  }
+
+  .iconVisibility_c69b6d.wrapper__2ea32.typeThread__2ea32 {
+    margin-left: calc(16px - 10px + var(--space-md));
+    .link__2ea32 { border-radius: var(--radius-sm); .icon__2ea32 { scale: 0.8; } .linkTop__2ea32 { gap: 4px; } }
+  }
+
+  /* Ungelesen: Text lila, Dot türkis */
+  .modeUnreadImportant__2ea32 .name__2ea32 { color: var(--rec-unread-text-color); }
+  .unread__2ea32 {
+    margin-left: 6px;
+    background-color: var(--rec-unread-circle-color) !important;
+    transform: scaleY(1.5);
+  }
 }
-[class*="container__5b40b"] [class*="containerDefault_"] > [class*="iconVisibility_"].wrapper__2ea32.typeThread__2ea32 > [class*="link_"]{
-  border:1px solid color-mix(in oklab,var(--s-violet) 55%, black 25%)!important;
-}
-[class*="container__5b40b"] [class*="containerDefault_"] > [class*="iconVisibility_"].wrapper__2ea32.typeThread__2ea32.modeSelected__2ea32 > [class*="link_"]{
-  border:1px solid color-mix(in oklab,var(--s-violet-light) 55%, var(--s-violet) 45%)!important;
-}
-[class*="message_"].hasThread_c19a55 > [class*="container_"] > [class*="container_"]{
-  box-shadow:0 0 13px color-mix(in oklab,var(--s-violet) 55%, black 25%);
-  border:1px solid color-mix(in oklab,var(--s-violet) 55%, black 25%);
-}
-[class*="message_"].hasThread_c19a55::after{
-  border-bottom:2px solid color-mix(in oklab,var(--s-violet) 55%, black 25%);
-  border-left:2px solid color-mix(in oklab,var(--s-violet) 55%, black 25%);
+
+/* NEU: HOVER auf vollem Channel-Hintergrund – Lila-Gradient */
+.containerDefault_c69b6d .link__2ea32:hover {
+  background: linear-gradient(90deg,
+    #4c1d95 0%,
+    #6d28d9 55%,
+    #8b5cf6 100%) !important;
 }
 
-/* Cooldown */
-.tabularNumbers__4bd52.text-sm\/medium_cf4812.cooldownText_b21699{
-  color:var(--status-danger-background)!important;
+/* ================= Additional Media Channel Icons ================= */
+
+/* Locked Channel Icons */
+[class^=channelOptionIcon_] path[d^="M16.5 18H16a1"],
+[class^=channelOptionIcon_] path[d^="M16 4h.5v-.5a2.5"],
+[class^=icon_]             path[d^="M16 4h.5v-.5a2.5"],
+[class^=icon_]             path[d^="M16.5 18H16a1"] { fill: var(--rec-locked) !important; }
+
+/* Stage (weitere Vorkommen) */
+[class^=channelOptionIcon_] path[d^="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"],
+[class^=channelOptionIcon_] path[d^="M21.92 14.08c.32.27.86.15.93-"],
+[class^=channelOptionIcon_] path[d^="M13.48 16.18c.39.1.45.62.2.93A2.99"], 
+[class^=stageIcon_]        path[d^="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"],
+[class^=stageIcon_]        path[d^="M16.83 15.23c.43.47 1.18.42 1.45-.14a7"],
+[class^=stageIcon_]        path[d^="M19.61 18.25a1.08 1.08 0 0 1-.07-1.33"], 
+[class^=subtitleIcon_]     path[d^="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"],
+[class^=subtitleIcon_]     path[d^="M16.83 15.23c.43.47 1.18.42 1.45-.14a7"],
+[class^=subtitleIcon_]     path[d^="M19.61 18.25a1.08 1.08 0 0 1-.07-1.33"], 
+[class^=inputPrefix_]      path[d^="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"],
+[class^=inputPrefix_]      path[d^="M16.83 15.23c.43.47 1.18.42 1.45-.14a7"],
+[class^=inputPrefix_]      path[d^="M19.61 18.25a1.08 1.08 0 0 1-.07-1.33"], 
+[class^=icon_]             path[d^="M21.92 14.08c.32.27.86.15.93-"],
+[class^=icon_]             path[d^="M13.48 16.18c.39.1.45.62.2.93A2.99"],
+[class^=icon_]             path[d^="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"],
+[class^=icon_]             path[d^="M16.83 15.23c.43.47 1.18.42 1.45-.14a7"],
+[class^=icon_]             path[d^="M19.61 18.25a1.08 1.08 0 0 1-.07-1.33"] { fill: var(--rec-stage) !important; }
+
+/* Continue Icon mic stage */
+[class^=continueIcon_] path[d^="M12 2a4 4 0 0 0-4 4v4a4 4 0 0 0 8 0V6a4"],
+[class^=continueIcon_] path[d^="M6 10a1 1 0 0 0-2 0 8 8 0 0 0 7 7.94V20H9a1"] { fill: var(--rec-mic) !important; }
+.defaultColor__4bd52.text-md\/medium_cf4812.defaultColor__5345c.title__9293f path[d^="M12 2a4 4 0 0 0-4 4v4a4 4 0 0 0 8 0V6a4"],
+.defaultColor__4bd52.text-md\/medium_cf4812.defaultColor__5345c.title__9293f path[d^="M6 10a1 1 0 0 0-2 0 8 8 0 0 0 7 7.94V20H9a1"] { fill: var(--rec-mic) !important; }
+
+/* MicIcon */
+[class^=micIcon__9aed4] path[d^="M12 2a4 4 0 0 0-4 4v4a4 4 0 0 0 8 0V6a4"],
+[class^=micIcon__9aed4] path[d^="M6 10a1 1 0 0 0-2 0 8 8 0 0 0 7 7.94V20H9a1"] { fill: var(--rec-mic) !important; }
+
+/* News weitere */
+[class^=inputPrefix_] path[d^="M19.56 2a3 3 0 0 0-2.46"],
+[class^=icon_]       path[d^="M19.56 2a3 3 0 0 0-2.46"],
+[class^=icon_]       path[d^="M12.33 5.74a.5.5 0 0 1 .67.47V9a3"]{ fill: var(--rec-news-1) !important; }
+[class^=inputPrefix_] path[d^="M2 10c0-1.1.9-2 2-2h.5c.28 0 .5.22.5.5v7a.5.5 0 0 1-.5.5H4a2"],
+[class^=icon_]       path[d^="M2 10c0-1.1.9-2 2-2h.5c.28 0 .5.22.5.5v7a.5.5 0 0 1-.5.5H4a2"] { fill: var(--rec-news-2) !important; }
+
+/* Forum (weitere Vorkommen) */
+[class^=subtitleIcon_] path[d^="M18.91 12.98a5.45 5.45"],
+[class^=subtitleIcon_] path[d^="M19.24 10.86c.32.16.72-.02.74-.38L20"],
+[class^=inputPrefix_]  path[d^="M18.91 12.98a5.45 5.45"],
+[class^=inputPrefix_]  path[d^="M19.24 10.86c.32.16.72-.02.74-.38L20"],
+[class^=icon_]         path[d^="M18.91 12.98a5.45 5.45"],
+[class^=icon_]         path[d^="M19.24 10.86c.32.16.72-.02.74-.38L20"],
+[class^=icon_]         path[d^="M13.58 3.23c.24-.33.15-.86-.24-.96C12.59"] { fill: var(--rec-forum) !important; }
+
+/* ================= Top-Bar / DMs ================= */
+
+[class^=icon_] path[d^="M10.95 1.4a1.59 1.59"], 
+[class^=icon_] path[d^="M11.65 6.35 9.29 8.71a1"] { fill: var(--rec-top-boosting) !important; } /* Boost Eisblau */
+
+[class^=icon_] path[d^="M14.5 8a3 3 0 1 0-2.7-4.3c-.2.4.06.86.44"] { fill: var(--rec-top-members) !important; }
+
+[class^=icon_] path[d^="M18.5 23c.88 0 1.7-.25 2.4-.69l1.4 1.4a1"], 
+[class^=icon_] path[d^="M3 3a1 1 0 0 0 0 2h18a1"] { fill: var(--rec-search-channels) !important; }
+
+[class^=icon_] path[d^="M7 1a1 1 0 0 1 1 1v.75c0"] { fill: var(--rec-top-events) !important; }
+
+[class^=titleContainer_] path[d^="M19.38 11.38a3 3 0 0 0 4.24"],
+[class^=icon_]           path[d^="M19.38 11.38a3 3 0 0 0 4.24"] { fill: var(--rec-top-pin) !important; }
+
+[class^=icon_] path[d^="M9.7 2.89c.18-.07.32-.24.37-.43a2"]{ fill: var(--rec-top-noti-on) !important; }
+[class^=icon_] path[d^="M1.3 21.3a1 1 0 1 0 1.4 1.4l20-20a1"] { fill: var(--rec-top-noti-off) !important; }
+
+/* DMs */
+[class^=linkButtonIcon_] path[d^="M15 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"], 
+[class^=linkButtonIcon_] path[d^="M7 4a1 1 0 0 0 0 2h3a1 1 0 1 1 0 2H5.5a1"],
+[class^=linkButtonIcon_] path[d^="M2.5 10a1 1 0 0 0 0-2H2a1 1 0 0 0 0 2h.5Z"] { fill: var(--rec-dm-nitro) !important; }
+
+[class^=icon_]           path[d^="M13 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"],
+[class^=linkButtonIcon_] path[d^="M13 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"] { fill: var(--rec-dm-friends) !important; }
+
+[class^=linkButtonIcon_] path[d^="M2.63 4.19A3 3 0 0 1 5.53"]{ fill: var(--rec-dm-shop-1) !important; }
+[class^=linkButtonIcon_] path[d^="M21 11.42V19a3 3 0  0 1-3"] { fill: var(--rec-dm-shop-2) !important; }
+
+/* ================= Threads ================= */
+.container__5b40b {
+  .spineBorder__5b40b { background: var(--rec-threads-line) !important; }
+  .containerDefault_c69b6d {
+    >.iconVisibility_c69b6d.wrapper__2ea32.typeThread__2ea32 > .link__2ea32 { border: 1px solid var(--rec-threads-line) !important; }
+    >.iconVisibility_c69b6d.wrapper__2ea32.typeThread__2ea32.modeSelected__2ea32 > .link__2ea32 { border: 1px solid var(--rec-threads-line-effect) !important; }
+    >.spine__5b40b path[d^="M0 13H2c0 1.6569 1.3432 3 3 3v2c-2.7614"],
+    >.spine__5b40b path[d^="M6 18V16H9v2H6Zm3 0V16s1"] { fill: var(--rec-threads-line) !important; }
+
+    &:hover {
+      >.iconVisibility_c69b6d.wrapper__2ea32.typeThread__2ea32 > .link__2ea32 { border: 1px solid var(--rec-threads-line-effect) !important; }
+    }
+  }
+}
+.message__5126c.hasThread_c19a55{
+  >.container_b7e1cb > .container__9271d {
+    box-shadow: var(--rec-threads-line) 0px 0px 13px;
+    border: 1px solid var(--rec-threads-line);
+  }
+  &::after {
+    border-bottom: 2px solid var(--rec-threads-line);
+    border-left: 2px solid var(--rec-threads-line);
+  }
 }
 
-/* Bewegungen reduzieren */
-@media (prefers-reduced-motion:reduce){
-  *{transition:none!important;animation:none!important;}
+/* ================= Pings (bessere Lesbarkeit) ================= */
+/* Färbt NUR Mention-Highlights in Nachrichten, nicht die Channel-Liste */
+[class*="message_"] .mentioned__5126c,
+[class*="message_"] [class*="mentioned_"],
+[class*="message_"] [class*="mention_"]:not([class*="numberBadge"]) {
+  background-color: color-mix(in oklab, var(--rec-unread-circle-color) 65%, white 20%) !important;
+  color: #0a0f19 !important;
+  border-radius: 6px !important;
+}
+
+/* ================= Channel-HOVER auf voller Fläche ================= */
+/* (getrennt vom Selected oben, damit wirklich jeder Hover greift) */
+.containerDefault_c69b6d .link__2ea32:hover {
+  background: linear-gradient(90deg,
+    #4c1d95 0%,
+    #6d28d9 55%,
+    #8b5cf6 100%) !important;
 }
