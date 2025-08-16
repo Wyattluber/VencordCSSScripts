@@ -1,0 +1,61 @@
+/* ========== NITRO ANIMATION BLOCKER ========== */
+
+/* Alle Animationen deaktivieren */
+*, *::before, *::after {
+  animation-duration: 0.01ms !important;
+  animation-delay: -1ms !important;
+  animation-iteration-count: 1 !important;
+  animation-fill-mode: forwards !important;
+  transition: none !important;
+}
+
+/* Avatar-Dekorationen verstecken */
+[class*="avatarDecoration"],
+[class*="decoration"],
+svg[class*="decoration"] {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Profile Banner - Statische Bilder bleiben, Animationen werden nicht gezeigt.*/
+[class*="profileBanner"],
+[class*="banner"] {
+  /* Hintergrundbild bleibt, aber statisch */
+  animation: none !important;
+  background-attachment: fixed !important;
+}
+
+/* Animierte Video/Canvas Elemente verstecken - statische Bilder bleiben */
+[class*="profileBanner"] video,
+[class*="profileBanner"] canvas,
+[class*="banner"] video,
+[class*="banner"] canvas,
+[class*="profileBanner"] [src*=".gif"],
+[class*="banner"] [src*=".gif"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Statische JPG/PNG Banner bleiben sichtbar */
+[class*="profileBanner"] img[src*=".jpg"],
+[class*="profileBanner"] img[src*=".png"],
+[class*="banner"] img[src*=".jpg"],
+[class*="banner"] img[src*=".png"] {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  animation: none !important;
+}
+
+/* Nitro-Badges verstecken */
+[class*="profileBadge"][class*="nitro"],
+[class*="profileBadge"][class*="boost"] {
+  display: none !important;
+}
+
+/* Profile-Effekte blockieren */
+[class*="profileEffect"],
+[class*="userProfileModal"] canvas {
+  display: none !important;
+}
