@@ -79,3 +79,28 @@
 [class^=linkButtonIcon_] path[d^="M13 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"] { fill: var(--rec-dm-friends) !important; }
 [class^=linkButtonIcon_] path[d^="M2.63 4.19A3 3 0 0 1 5.53"] { fill: var(--rec-dm-shop-1) !important; }
 [class^=linkButtonIcon_] path[d^="M21 11.42V19a3 3 0  0 1-3"] { fill: var(--rec-dm-shop-2) !important; }
+
+/* ==== LOCK/NSFW: robust catch-all ================================== */
+/* Bekannte Pfade (dein Original) */
+[class^=emptyChannelIcon_] path[d^="M16 4h.5v-.5a2.5"],
+[class^=channelIcon_]     path[d^="M16 4h.5v-.5a2.5"],
+[class^=voiceIcon_]       path[d^="M16 4h.5v-.5a2.5"],
+[class^=icon_]            path[d^="M6 9h1V6a5 5 0 0 1 10 0v3h1a3"],
+[class^=icon__]           path[d^="M18.09 1.63c.4-.7"] { fill: var(--rec-locked)!important; }
+
+/* Zusätzliche Varianten, die Discord gerne wechselt */
+[class*="icon"] path[d^="M16.5 18H16a1"],                         /* shackle + body */
+[class*="icon"] path[d^="M12 17a3"],                               /* lock body variant */
+[class*="icon"] path[d^="M12 2a5"],                                /* alternative shackle */
+[class*="channelIcon"] path[d^="M6 9h1V6a5"],                      /* category/chan set */
+[class*="icon"] path[d^="M4 10h1V7a8"],                            /* wide shackle variant */
+[class*="icon"] path[d^="M14 7V6a4"]                              /* small shackle */
+{ fill: var(--rec-locked)!important; }
+
+/* Falls ein Lock über currentColor läuft (ohne fill): */
+[class*="icon"][class*="lock"],
+[class*="icon"][class*="locked"],
+[class*="lockIcon"], 
+[class*="lockedIcon"] {
+  color: var(--rec-locked) !important;
+}
