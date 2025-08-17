@@ -138,6 +138,21 @@
   box-shadow: 0 0 8px rgba(139,92,246,.5); transform: translateY(-1px);
 }
 
+/* === Settings-Sidebar Hover/Active (robust) === */
+[class*="standardSidebarView"] [class*="side"] [class*="item_"][class*="themed_"]:hover {
+  background: linear-gradient(90deg, rgba(139,92,246,.15) 0%, rgba(109,40,217,.25) 100%) !important;
+  color: var(--rec-unread-text-color) !important;
+  text-shadow: 0 0 3px rgba(139,92,246,.35);
+  border-radius: 6px;
+}
+
+[class*="standardSidebarView"] [class*="side"] [class*="item_"][class*="themed_"][class*="selected_"] {
+  background: linear-gradient(90deg, #4c1d95 0%, #6d28d9 55%, #8b5cf6 100%) !important;
+  color: white !important;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
 /* Serverliste Pill / Hover */
 [class*="guilds_"] [class*="pill_"] { display: none !important; }
 [class*="guilds_"] [class*="wrapper_"]:hover [class*="svg_"],
