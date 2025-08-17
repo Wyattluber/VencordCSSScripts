@@ -1,0 +1,32 @@
+/* ================= DM LISTE / TOPBAR / SERVERLIST / SCROLLBAR ================= */
+
+/* DM Hover */
+[class*="channel_"][class*="container_"]:hover {
+  background: linear-gradient(90deg, rgba(139, 92, 246, 0.1), rgba(109, 40, 217, 0.15)) !important;
+  box-shadow: 0 0 6px rgba(139, 92, 246, 0.3);
+}
+
+/* DM Avatar Glow */
+[class*="privateChannels_"] [class*="avatar_"]:hover { box-shadow: 0 0 8px rgba(139, 92, 246, 0.5); transform: scale(1.05); }
+
+/* Topbar Icons */
+[class^=icon_] path[d^="M10.95 1.4a1.59"] { fill: var(--rec-top-boosting) !important; }
+[class^=icon_] path[d^="M14.5 8a3 3"] { fill: var(--rec-top-members) !important; }
+[class^=icon_] path[d^="M18.5 23c.88"] { fill: var(--rec-search-channels) !important; }
+
+/* Server Glow */
+[class*="guilds_"] [class*="wrapper_"]:hover [class*="icon_"] {
+  filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.6));
+  transform: scale(1.05);
+}
+[class*="guilds_"] [class*="wrapper_"][class*="unread_"]::before {
+  content: ''; position:absolute; top:-3px; left:-3px; right:-3px; bottom:-3px;
+  background: linear-gradient(45deg, var(--rec-unread-circle-color), var(--rec-unread-text-color));
+  border-radius:50%; opacity:.3; animation: serverPulse 2s ease-in-out infinite;
+}
+@keyframes serverPulse { 0%,100%{transform:scale(1);opacity:.3} 50%{transform:scale(1.1);opacity:.6} }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: rgba(139, 92, 246, 0.1); }
+::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--rec-unread-text-color), #6d28d9, var(--rec-unread-text-color)); }
