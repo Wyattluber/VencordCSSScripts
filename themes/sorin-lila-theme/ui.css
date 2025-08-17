@@ -1,38 +1,153 @@
-/* ================= DM LISTE / TOPBAR / SERVERLIST / SCROLLBAR ================= */
+/* ──────────────────────────────────────────────────────────────
+   Sorin Lila – UI Basis & Farb-Tokens
+   ──────────────────────────────────────────────────────────── */
 
-/* DM Hover */
-[class*="channel_"][class*="container_"]:hover {
-  background: linear-gradient(90deg, rgba(139, 92, 246, 0.1), rgba(109, 40, 217, 0.15)) !important;
-  box-shadow: 0 0 6px rgba(139, 92, 246, 0.3);
+/* ================= Farb-Tokens ================= */
+:root {
+  /* Locks / Danger */
+  --rec-locked: var(--status-danger-background);
+
+  /* Ankündigung */
+  --rec-news-1: rgba(255, 190, 20, 0.92);
+  --rec-news-2: rgba(255, 110, 24, 0.92);
+
+  /* Regeln */
+  --rec-rules: rgba(16, 185, 129, 0.9);
+
+  /* Stage/Mic */
+  --rec-stage: rgba(109, 40, 217, 0.9);
+  --rec-mic:   rgba(220, 38, 38, 0.9);
+
+  /* Forum */
+  --rec-forum: rgba(30, 144, 255, 0.85);
+
+  /* Help */
+  --rec-help:  #8b5cf6;
+  --rec-delete: var(--status-danger-background);
+
+  --rec-ping-locked: var(--status-danger-background);
+  --rec-create-channel-locked: var(--status-danger-background);
+
+  /* Kategorien / Linien */
+  --rec-category:        #7c3aed;
+  --rec-category-effect: #a78bfa;
+  --rec-roles-category:  #a78bfa;
+
+  --rec-channel-lines:   #6d28d9;
+
+  /* Ungelesen */
+  --rec-unread-text-color:   #a78bfa;
+  --rec-unread-circle-color: #22d3ee;
+
+  /* Top-Bar */
+  --rec-top-boosting: #b9e6ff;
+  --rec-top-members:  #d4af37;
+  --rec-search-channels: #22d3ee;
+  --rec-top-events:  #3b82f6;
+  --rec-top-pin:     #f97316;
+  --rec-top-noti-on: #10b981;
+  --rec-top-noti-off:#ef4444;
+
+  /* DMs */
+  --rec-dm-nitro:   #d9b8ff;
+  --rec-dm-friends: #a3e635;
+  --rec-dm-shop-1:  #ef4444;
+  --rec-dm-shop-2:  #eab308;
+
+  /* Threads */
+  --rec-threads:             rgba(139, 92, 246, 0.62);
+  --rec-threads-line:        #4c1d95;
+  --rec-threads-line-effect: #8b5cf6;
+
+  --rec-message-delay: var(--status-danger-background);
 }
 
-/* DM Avatar Glow */
-[class*="privateChannels_"] [class*="avatar_"]:hover { box-shadow: 0 0 8px rgba(139, 92, 246, 0.5); transform: scale(1.05); }
-
-/* Topbar Icons */
-[class^=icon_] path[d^="M10.95 1.4a1.59"] { fill: var(--rec-top-boosting) !important; }
-[class^=icon_] path[d^="M14.5 8a3 3"] { fill: var(--rec-top-members) !important; }
-[class^=icon_] path[d^="M18.5 23c.88"] { fill: var(--rec-search-channels) !important; }
-
-/* Settings Buttons Hover */
-.item_c1e9c4:hover {
-  background-color: rgba(200, 150, 255, 0.15) !important;
-  border-radius: 8px !important;
-}
-
-/* Server Glow */
-[class*="guilds_"] [class*="wrapper_"]:hover [class*="icon_"] {
-  filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.6));
-  transform: scale(1.05);
-}
-[class*="guilds_"] [class*="wrapper_"][class*="unread_"]::before {
-  content: ''; position:absolute; top:-3px; left:-3px; right:-3px; bottom:-3px;
-  background: linear-gradient(45deg, var(--rec-unread-circle-color), var(--rec-unread-text-color));
-  border-radius:50%; opacity:.3; animation: serverPulse 2s ease-in-out infinite;
-}
-@keyframes serverPulse { 0%,100%{transform:scale(1);opacity:.3} 50%{transform:scale(1.1);opacity:.6} }
+/* ================= Allgemeines UI (aus deinem Original) ================= */
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: rgba(139, 92, 246, 0.1); }
-::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--rec-unread-text-color), #6d28d9, var(--rec-unread-text-color)); }
+::-webkit-scrollbar-track {
+  background: rgba(139, 92, 246, 0.1); border-radius: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--rec-unread-text-color) 0%, #6d28d9 50%, var(--rec-unread-text-color) 100%);
+  border-radius: 4px; box-shadow: 0 0 4px rgba(139, 92, 246, 0.3);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #a78bfa 0%, #8b5cf6 50%, #a78bfa 100%);
+  box-shadow: 0 0 6px rgba(139, 92, 246, 0.5);
+}
+
+/* Chat Message Hover */
+[class*="message_"]:hover {
+  background-color: rgba(139, 92, 246, 0.05) !important;
+  border-left: 2px solid rgba(139, 92, 246, 0.3);
+  transition: all 0.2s ease;
+}
+
+/* Member List Hover */
+[class*="members_"] [class*="member_"]:hover {
+  background: linear-gradient(90deg, rgba(139,92,246,.1) 0%, rgba(109,40,217,.15) 100%) !important;
+  border-radius: 6px; transition: all .3s ease;
+}
+
+/* Voice Channel Users Glow */
+[class*="voiceUser_"] { transition: all .3s ease; }
+[class*="voiceUser_"]:hover {
+  background: rgba(139,92,246,.15) !important;
+  box-shadow: 0 0 6px rgba(139,92,246,.3); border-radius: 6px;
+}
+
+/* Reaction Buttons */
+[class*="reaction_"]:hover {
+  background: rgba(139,92,246,.2) !important;
+  border-color: var(--rec-unread-text-color) !important;
+  box-shadow: 0 0 4px rgba(139,92,246,.4); transform: scale(1.05);
+  transition: all .2s ease;
+}
+
+/* Mentions in Nachrichten */
+[class*="message_"] .mentioned__5126c,
+[class*="message_"] [class*="mentioned_"],
+[class*="message_"] [class*="mention_"]:not([class*="numberBadge"]) {
+  background-color: color-mix(in oklab, var(--rec-unread-circle-color) 65%, white 20%) !important;
+  color: #0a0f19 !important; border-radius: 6px !important;
+}
+
+/* Menüs & Tooltips (Glas) */
+[class*="menu_"], [class*="contextMenu_"] {
+  background-color: rgba(18,18,30,.8) !important;
+  backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(139,92,246,.25) !important;
+  box-shadow: 0 0 12px rgba(139,92,246,.25); border-radius: 8px !important;
+}
+[class*="menu_"] [class*="item_"]:hover,
+[class*="contextMenu_"] [class*="item_"]:hover {
+  background: linear-gradient(90deg, rgba(139,92,246,.15) 0%, rgba(109,40,217,.25) 100%) !important;
+  color: var(--rec-unread-text-color) !important; text-shadow: 0 0 3px rgba(139,92,246,.4);
+}
+[class*="tooltip_"] {
+  background-color: rgba(15,15,25,.85) !important;
+  backdrop-filter: blur(6px) !important;
+  border: 1px solid rgba(139,92,246,.3) !important; border-radius: 6px !important;
+}
+
+/* Button Brand Hover */
+[class*="button_"][class*="lookFilled_"][class*="colorBrand_"]:hover {
+  background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%) !important;
+  box-shadow: 0 0 8px rgba(139,92,246,.5); transform: translateY(-1px);
+}
+
+/* Serverliste Pill / Hover */
+[class*="guilds_"] [class*="pill_"] { display: none !important; }
+[class*="guilds_"] [class*="wrapper_"]:hover [class*="svg_"],
+[class*="guilds_"] [class*="wrapper_"]:hover [class*="icon_"] {
+  filter: drop-shadow(0 0 8px rgba(139,92,246,.6)); transform: scale(1.05); transition: all .3s ease;
+}
+[class*="guilds_"] [class*="wrapper_"][class*="unread_"] { position: relative; }
+[class*="guilds_"] [class*="wrapper_"][class*="unread_"]::before {
+  content: ''; position: absolute; inset: -3px;
+  background: linear-gradient(45deg, var(--rec-unread-circle-color), var(--rec-unread-text-color), var(--rec-unread-circle-color));
+  border-radius: 50%; z-index: -1; opacity: .3; animation: serverPulse 2s ease-in-out infinite;
+}
+@keyframes serverPulse { 0%,100%{transform:scale(1);opacity:.3} 50%{transform:scale(1.1);opacity:.6} }
