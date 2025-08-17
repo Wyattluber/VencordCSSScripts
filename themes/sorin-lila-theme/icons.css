@@ -1,5 +1,25 @@
 /* ================= Icons/Farben ================= */
 
+/* Announcement Icon */
+.icon_announcement {
+  color: #9b5cff !important;
+}
+
+/* Forum Icon */
+.icon_forum {
+  color: #ff8c42 !important;
+}
+
+/* Stage Icon */
+.icon_stage {
+  color: #42fff9 !important;
+}
+
+/* Help Icon */
+.icon_help {
+  color: #42ff85 !important;
+}
+
 /* Locked + NSFW */
 [class^=emptyChannelIcon_] path[d^="M16 4h.5v-.5a2.5"],
 [class^=channelIcon_]    path[d^="M16 4h.5v-.5a2.5"],
