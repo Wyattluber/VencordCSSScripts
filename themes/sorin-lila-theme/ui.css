@@ -176,7 +176,7 @@
 }
 [class*="guilds_"] [class*="pill_"] [class*="item_"] {
   background: linear-gradient(180deg, var(--rec-unread-circle-color), var(--rec-unread-text-color)) !important;
-  border-radius: 500px !important;
+  border-radius: 999px !important;
 }
 
 [class*="guilds_"] [class*="wrapper_"]:hover [class*="svg_"],
