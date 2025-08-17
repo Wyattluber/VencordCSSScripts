@@ -169,26 +169,24 @@
   -webkit-app-region: no-drag;
 }
 
-/* === Server Unread: Dot links-mittig -> stretch zur Pill bei Hover/Selected === */
+/* === Server Unread: Glow-Dot links-mittig, über dem Logo; stretch bei Hover/Selected === */
 
-/* Stelle sicher, dass der Wrapper ein Position-Context hat */
-[class*="guilds_"] [class*="wrapper_"] {
-  position: relative;
-}
+/* Positionierungs-Context fürs Icon */
+[class*="guilds_"] [class*="wrapper_"] { position: relative; overflow: visible; }
 
-/* Basispill: als kleiner Dot links-mittig, über dem Icon */
+/* Unser „Pill“-Container wird als Dot genutzt und sitzt knapp IM Icon */
 [class*="guilds_"] [class*="pill_"] {
   position: absolute !important;
-  left: -2px !important;           /* leicht über den Icon-Rand hinaus */
+  left: 2px !important;                 /* leicht innerhalb des Icons */
   top: 50% !important;
   transform: translateY(-50%);
   width: 10px !important;
   height: 10px !important;
-  pointer-events: none !important;  /* nicht klickbar */
-  z-index: 3 !important;            /* über dem Servericon */
+  pointer-events: none !important;
+  z-index: 3 !important;
 }
 
-/* Der sichtbare Part */
+/* Sichtbarer Dot */
 [class*="guilds_"] [class*="pill_"] [class*="item_"] {
   width: 10px !important;
   height: 10px !important;
@@ -196,13 +194,36 @@
   background: radial-gradient(circle at 50% 50%,
     var(--rec-unread-circle-color) 0%,
     var(--rec-unread-text-color) 85%) !important;
-  box-shadow: 0 0 8px rgba(139, 92, 246, 0.9) !important;
-  opacity: 0;                        /* standard: versteckt (wenn kein Unread) */
+  box-shadow: 0 0 8px rgba(139, 92, 246, .9) !important;
+  opacity: 0;  /* ohne Unread unsichtbar – erscheint beim Hover/Selected */
   transition:
     height .25s ease, width .25s ease,
     border-radius .25s ease, opacity .15s ease,
     box-shadow .25s ease, transform .25s ease;
 }
+
+/* Wenn Unreads vorhanden → sofort sichtbar */
+[class*="guilds_"] [class*="wrapper_"][class*="unread_"] [class*="pill_"] [class*="item_"] {
+  opacity: 1;
+}
+
+/* Hover/Selected: aus dem Punkt wird eine vertikale Pill aus der Mitte */
+[class*="guilds_"] [class*="wrapper_"]:hover [class*="pill_"] [class*="item_"],
+[class*="guilds_"] [class*="wrapper_"][class*="selected_"] [class*="pill_"] [class*="item_"] {
+  opacity: 1;
+  width: 6px !important;
+  height: 40px !important;              /* ggf. 44–48px, falls deine Icons größer sind */
+  border-radius: 999px !important;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 1), 0 0 14px rgba(34, 211, 238, .6) !important;
+}
+
+/* Optional: noch etwas kräftiger, wenn selected + unread */
+[class*="guilds_"] [class*="wrapper_"][class*="selected_"][class*="unread_"] [class*="pill_"] [class*="item_"] {
+  box-shadow: 0 0 12px rgba(139, 92, 246, 1), 0 0 18px rgba(34, 211, 238, .7) !important;
+}
+
+/* Sicherheit: den nativen „linken Balken“ (falls von einem anderen Style gesetzt) neutralisieren */
+[class*="guilds_"] [class*="pill_"] > span:not([class*="item_"]) { display: none !important; }
 
 /* Fall A: Es gibt Unreads -> Punkt sofort sichtbar */
 [class*="guilds_"] [class*="wrapper_"][class*="unread_"] [class*="pill_"] [class*="item_"] {
