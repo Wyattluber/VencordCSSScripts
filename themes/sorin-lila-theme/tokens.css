@@ -1,0 +1,59 @@
+/* ================= Farb-Tokens================= */
+:root {
+  /* Locks / Danger */
+  --rec-locked: var(--status-danger-background);
+
+  /* Ankündigung */
+  --rec-news-1: rgba(255, 190, 20, 0.92);
+  --rec-news-2: rgba(255, 110, 24, 0.92);
+
+  /* Regeln */
+  --rec-rules: rgba(16, 185, 129, 0.9);
+
+  /* Stage/Mic */
+  --rec-stage: rgba(109, 40, 217, 0.9);
+  --rec-mic:   rgba(220, 38, 38, 0.9);
+
+  /* Forum */
+  --rec-forum: rgba(30, 144, 255, 0.85);
+
+  /* Help */
+  --rec-help:  #8b5cf6;
+  --rec-delete: var(--status-danger-background);
+
+  --rec-ping-locked: var(--status-danger-background);
+  --rec-create-channel-locked: var(--status-danger-background);
+
+  /* Kategorien / Linien */
+  --rec-category:        #7c3aed;
+  --rec-category-effect: #a78bfa;
+  --rec-roles-category:  #a78bfa;
+
+  --rec-channel-lines:   #6d28d9;
+
+  /* Ungelesen */
+  --rec-unread-text-color:   #a78bfa;
+  --rec-unread-circle-color: #22d3ee;
+
+  /* Top-Bar */
+  --rec-top-boosting: #b9e6ff;
+  --rec-top-members:  #d4af37;
+  --rec-search-channels: #22d3ee;
+  --rec-top-events:  #3b82f6;
+  --rec-top-pin:     #f97316;
+  --rec-top-noti-on: #10b981;
+  --rec-top-noti-off:#ef4444;
+
+  /* DMs */
+  --rec-dm-nitro:   #d9b8ff;
+  --rec-dm-friends: #a3e635;
+  --rec-dm-shop-1:  #ef4444;
+  --rec-dm-shop-2:  #eab308;
+
+  /* Threads */
+  --rec-threads:             rgba(139, 92, 246, 0.62);
+  --rec-threads-line:        #4c1d95;
+  --rec-threads-line-effect: #8b5cf6;
+
+  --rec-message-delay: var(--status-danger-background);
+}
