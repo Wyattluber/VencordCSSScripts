@@ -2,20 +2,31 @@
 
 /* Profil-Popout (rechts beim Klick) */
 [class*="userPopoutInner"] {
-  background: rgba(25, 20, 40, 0.6) !important;
-  backdrop-filter: blur(12px) !important;
+  background: rgba(25, 20, 40, 0.55) !important;
+  backdrop-filter: blur(14px) !important;
   border-radius: 16px !important;
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45) !important;
 }
 
 /* Großes Profil (Modal) */
 [class*="userProfileModalInner"] {
-  background: rgba(25, 20, 40, 0.65) !important;
-  backdrop-filter: blur(14px) !important;
+  background: rgba(25, 20, 40, 0.6) !important;
+  backdrop-filter: blur(16px) !important;
   border-radius: 20px !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Kategorie-Namen */
+[class*="containerDefault"] [class*="name"] {
+  color: #a78bfa !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+}
+[class*="containerDefault"]:hover [class*="name"] {
+  color: #c4b5fd !important;
+  text-shadow: 0 0 6px rgba(167, 139, 250, 0.8) !important;
 }
 
 /* Code Blöcke */
@@ -64,6 +75,13 @@
   border-radius: 10px !important;
 }
 
+/* Einstellungen → Hintergrund */
+[class*="standardSidebarView"],
+[class*="contentRegion"] {
+  background: rgba(20, 16, 35, 0.55) !important;
+  backdrop-filter: blur(14px) !important;
+}
+
 /* Buttons runder */
 [class*="buttonsInner"] {
   border-radius: 10px !important;
@@ -81,4 +99,14 @@
 [class*="menu"] .item {
   min-height: 32px;
   padding: 4px 8px;
+}
+
+/* DM-Bereich */
+[class*="privateChannels"] {
+  background: rgba(25, 20, 40, 0.45) !important;
+  backdrop-filter: blur(10px) !important;
+}
+[class*="privateChannelsHeaderContainer"] {
+  color: #a78bfa !important;
+  font-weight: 600 !important;
 }
