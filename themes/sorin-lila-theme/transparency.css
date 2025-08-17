@@ -1,21 +1,85 @@
-/* ================== TRANSPARENZ & GLAS-EFFEKT ================== */
+/* ================== EXTRA TRANSPARENCY FIXES ================== */
 
-[class*="userPopout_"],
-[class*="userProfileInner_"],
-[class*="profilePanel_"] {
-  background-color: rgba(15, 15, 25, 0.75) !important;
-  backdrop-filter: blur(12px) !important;
-  border: 1px solid rgba(139, 92, 246, 0.35) !important;
+/* 🌈 Code Blocks Transparent */
+.nonVisualMediaItem_f4758a,
+.mosaicItem__6c706,
+.mosaicItemContent__6c706,
+.container__4d95d,
+.textContainer__4d95d,
+.scrollbarGhostHairline__506b3,
+.codeView__4d95d {
+  background-color: rgba(21, 28, 32, 0.22) !important;
+  border-radius: 12px !important;
 }
 
-[class*="activityPanel_"],
-[class*="activity_"],
-[class*="modal_"],
-[class*="layer_"][class*="baseLayer_"],
-[class*="menu_"],
-[class*="contextMenu_"] {
-  background-color: rgba(18, 18, 30, 0.8) !important;
+.hljs {
+  background: rgba(6, 4, 26, 0.4) !important;
+  border-radius: 8px !important;
+}
+
+.footer__4d95d {
+  background-color: transparent !important;
+}
+
+/* 🖤 Activity Panels Transparent */
+.container__0f2e8 {
+  background-color: rgba(0, 0, 0, 0.25) !important;
+}
+
+div.popoutContentWrapper_af3b89 {
+  background: rgba(30, 31, 34, 0.8) !important;
   backdrop-filter: blur(10px) !important;
-  border: 1px solid rgba(139, 92, 246, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
   border-radius: 10px !important;
+}
+
+/* 🌈 Transparent scroll inside Activity popout */
+.popoutContentWrapper_af3b89 .scroller__4f984 {
+  background: transparent !important;
+}
+
+/* 🎚️ Scrollbar inside Activity */
+.popoutContentWrapper_af3b89 ::-webkit-scrollbar {
+  width: 6px !important;
+}
+.popoutContentWrapper_af3b89 ::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-radius: 6px !important;
+}
+
+/* 💡 Interactions panel */
+div.interactionsContainer_af3b89 {
+  background: rgba(30, 31, 34, 0.7) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+  padding: 8px !important;
+  border-radius: 10px !important;
+}
+
+/* 🔘 Buttons rounder */
+.buttonsInner__5126c {
+  border-radius: 10px !important;
+  padding: 4px;
+}
+
+/* 🍔 Menüs */
+.layer_da8173 > .menu_c1e9c4 {
+  border-radius: 12px !important;
+  overflow: hidden !important;
+}
+.layer_da8173 > .menu_c1e9c4 > .scroller_c1e9c4 {
+  border-radius: inherit !important;
+  margin: -4px;
+}
+.layer_da8173 > .menu_c1e9c4 > .scroller_c1e9c4 .separator_c1e9c4 {
+  margin: 1px 8px !important;
+}
+.layer_da8173 > .menu_c1e9c4 > .scroller_c1e9c4 .wrapper_f563df {
+  padding: 2px !important;
+}
+.layer_da8173 > .menu_c1e9c4 > .scroller_c1e9c4 .item_c1e9c4 {
+  min-height: 32px;
+  padding: 4px 8px;
 }
