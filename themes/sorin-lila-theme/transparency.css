@@ -1,4 +1,4 @@
-/* ================== EXTRA TRANSPARENCY FIXES ================== */
+/* ================== TRANSPARENCY ================== */
 
 /* 🌈 Code Blocks Transparent */
 .nonVisualMediaItem_f4758a,
@@ -82,4 +82,42 @@ div.interactionsContainer_af3b89 {
 .layer_da8173 > .menu_c1e9c4 > .scroller_c1e9c4 .item_c1e9c4 {
   min-height: 32px;
   padding: 4px 8px;
+}
+
+/* ================== PROFILE CARDS TRANSPARENCY ================== */
+
+/* Kleines User-Popout (rechts beim Klick) */
+.userPopoutInner_f7179f {
+  background: rgba(25, 20, 40, 0.6) !important;
+  backdrop-filter: blur(12px) !important;
+  border-radius: 16px !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Großes Profil (Modal in der Mitte) */
+.userProfileModalInner_c69a7b {
+  background: rgba(25, 20, 40, 0.65) !important;
+  backdrop-filter: blur(14px) !important;
+  border-radius: 20px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45) !important;
+}
+
+/* Header vom Profil */
+.userProfileModalOuter_c69a7b .banner_c3e427 {
+  background: rgba(25, 20, 40, 0.5) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+/* Body vom Profil */
+.userProfileModalInner_c69a7b .body_c69a7b {
+  background: transparent !important;
+}
+
+/* Überlappende Panels (z. B. Badges, Mutuals) */
+.overlayBackground_c69a7b {
+  background: rgba(25, 20, 40, 0.5) !important;
+  backdrop-filter: blur(10px) !important;
+  border-radius: 12px !important;
 }
