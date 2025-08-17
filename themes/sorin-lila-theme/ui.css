@@ -153,6 +153,22 @@
   font-weight: 600;
 }
 
+/* === Titlebar Drag-Fix (Windows/Electron) === */
+[class*="titleBar_"],
+[class*="typeWindows"] [class*="titleBar_"] {
+  -webkit-app-region: drag;
+  background: transparent !important;
+}
+
+/* Elemente, die NICHT draggable sein dürfen */
+[class*="typeWindows"] [class*="winButton"],
+[class*="toolbar_"],
+[class*="searchBar_"],
+[class*="children_"],
+[class*="iconWrapper"] {
+  -webkit-app-region: no-drag;
+}
+
 /* Serverliste Pill / Hover */
 [class*="guilds_"] [class*="pill_"] { display: none !important; }
 [class*="guilds_"] [class*="wrapper_"]:hover [class*="svg_"],
