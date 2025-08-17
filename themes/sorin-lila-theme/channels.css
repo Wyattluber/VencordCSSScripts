@@ -16,6 +16,16 @@
   background: linear-gradient(90deg, #4c1d95 0%, #6d28d9 55%, #8b5cf6 100%) !important;
 }
 
+/* Thread Trenner-Linie */
+.divider__01aed {
+  border-top: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+/* Thread Links */
+.threadSidebar-1o3BTy {
+  border-left: 1px solid rgba(255,255,255,0.07) !important;
+}
+
 /* Ungelesen Styles */
 .modeUnreadImportant__2ea32 .name__2ea32 { color: var(--rec-unread-text-color); font-weight: 800; }
 .modeUnreadImportant__2ea32 .link__2ea32 {
