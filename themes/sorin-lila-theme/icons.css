@@ -1,90 +1,81 @@
-/*V2
-/* ================= Farb-Tokens ================= */
-:root {
-  --rec-locked: var(--status-danger-background);
+/* ──────────────────────────────────────────────────────────────
+   Sorin Lila – Icon Colors (robuste Selektoren)
+   ──────────────────────────────────────────────────────────── */
 
-  --rec-news-1: rgba(255, 190, 20, 0.92);
-  --rec-news-2: rgba(255, 110, 24, 0.92);
-  --rec-rules: rgba(16, 185, 129, 0.9);
-  --rec-stage: rgba(109, 40, 217, 0.9);
-  --rec-mic:   rgba(220, 38, 38, 0.9);
-  --rec-forum: rgba(30, 144, 255, 0.85);
-  --rec-help:  #8b5cf6;
-  --rec-delete: var(--status-danger-background);
-
-  --rec-ping-locked: var(--status-danger-background);
-  --rec-create-channel-locked: var(--status-danger-background);
-}
-
-/* ================= Icon-Farben ================= */
-
-/* Locks / NSFW */
-[class*="icon"] path[d^="M16 4h.5v-.5a2.5"],
-[class*="icon"] path[d^="M6 9h1V6a5 5"],
-[class*="icon"] path[d^="M18.09 1.63c.4-.7 "] {
-  fill: var(--rec-locked) !important;
-}
-
-/* NSFW Thread in Messages */
-[class*="icon"] path[d^="M18.09 15.63c.4-.7"] {
-  fill: var(--rec-locked) !important;
-}
+/* Locks / NSFW – Path (legacy) + Fallback auf svg */
+[class^=emptyChannelIcon_] path[d^="M16 4h.5v-.5a2.5"],
+[class^=channelIcon_]    path[d^="M16 4h.5v-.5a2.5"],
+[class^=voiceIcon_]      path[d^="M16 4h.5v-.5a2.5"],
+[class^=icon_]           path[d^="M6 9h1V6a5 5 0 0 1 10 0v3h1a3"],
+[class^=icon__]          path[d^="M18.09 1.63c.4-.7 "] { fill: var(--rec-locked) !important; }
+[class^=icon__] path[d^="M18.09 15.63c.4-.7 1.43-.7 1.82"] { fill: var(--rec-locked) !important; }
+[class*="emptyChannelIcon_"] svg,
+[class*="channelIcon_"] svg,
+[class*="voiceIcon_"] svg { color: var(--rec-locked) !important; fill: currentColor !important; }
 
 /* Channel Search Lock */
-[class*="channelNameIcon"] path,
-[class*="searchResultChannelIcon"] path[d^="M16 4h.5v-.5a2.5"] {
-  fill: var(--rec-locked) !important;
-}
+[class^=channelNameIcon_] path[d^="M18.09 1.63c.4-.7 "],
+[class^=channelNameIcon_] path[d^="M16.5 18H16a1 "],
+[class^=channelNameIcon_] path[d^="M16 4h.5v-.5a2.5"],
+[class^=searchResultChannelIcon_] path[d^="M18.09 1.63c.4-.7"],
+[class^=searchResultChannelIcon_] path[d^="M16.5 18H16a1"],
+[class^=searchResultChannelIcon_] path[d^="M16 4h.5v-.5a2.5"] { fill: var(--rec-locked) !important; }
 
-/* Help (Fragezeichen) */
-[class*="icon"] path[d^="M23 12a11 11"],
-[class*="anchor"] path[d^="M12 23a11 11"] {
-  fill: var(--rec-help) !important;
-}
+/* Help / Delete */
+[class^=icon_] path[d^="M23 12a11 11 0 1 1-22"],
+[class^=anchor_] path[d^="M12 23a11 11 0 1 0 0-22 11 11"] { fill: var(--rec-help) !important; }
+[class^=searchClearHistory_] { color: var(--rec-delete) !important; }
 
-/* Delete Button */
-[class*="searchClearHistory"] {
-  color: var(--rec-delete) !important;
-}
-
-/* News / Announcement */
-[class*="icon"] path[d^="M19.56 2a3"],
-[class*="icon"] path[d^="M12.33 5.74a.5.5"] {
-  fill: var(--rec-news-1) !important;
-}
-[class*="icon"] path[d^="M2 10c0-1.1"] {
-  fill: var(--rec-news-2) !important;
-}
+/* News / Announcements */
+[class^=searchResultChannelIcon_] path[d^="M19.56 2a3 3 0 0 0-2.46"],
+[class^=searchResultChannelIcon_] path[d^="M12.33 5.74a.5.5 0 0 1 .67.47V9a3"] { fill: var(--rec-news-1) !important; }
+[class^=searchResultChannelIcon_] path[d^="M2 10c0-1.1.9-2 2-2h.5c.28 0 .5.22.5.5v7a.5.5 0 0 1-.5.5H4a2"] { fill: var(--rec-news-2) !important; }
 
 /* Rules */
-[class*="icon"] path[d^="M15 2a3 3 0 0 1 3 3v12H5.5a1.5"] {
-  fill: var(--rec-rules) !important;
-}
+[class^=channelIcon_] path[d^="M15 2a3 3 0 0 1 3 3v12H5.5a1.5"],
+[class^=searchResultChannelIcon_] path[d^="M15 2a3 3 0 0 1 3 3v12H5.5a1.5"] { fill: var(--rec-rules) !important; }
 
 /* Stage */
-[class*="icon"] path[d^="M21.92 14.08"],
-[class*="icon"] path[d^="M13.48 16.18"],
-[class*="icon"] path[d^="M15 12a3 3"],
-[class*="icon"] path[d^="M16.83 15.23"],
-[class*="icon"] path[d^="M19.61 18.25"] {
-  fill: var(--rec-stage) !important;
-}
+[class^=searchResultChannelIcon_] path[d^="M21.92 14.08"],
+[class^=searchResultChannelIcon_] path[d^="M13.48 16.18"],
+[class^=searchResultChannelIcon_] path[d^="M15 12a3 3"],
+[class^=searchResultChannelIcon_] path[d^="M16.83 15.23"],
+[class^=searchResultChannelIcon_] path[d^="M19.61 18.25"] { fill: var(--rec-stage) !important; }
 
 /* Forum */
-[class*="icon"] path[d^="M18.91 12.98"],
-[class*="icon"] path[d^="M19.24 10.86"],
-[class*="icon"] path[d^="M13.58 3.23"] {
-  fill: var(--rec-forum) !important;
-}
+[class^=searchResultChannelIcon_] path[d^="M18.91 12.98"],
+[class^=searchResultChannelIcon_] path[d^="M19.24 10.86"],
+[class^=searchResultChannelIcon_] path[d^="M13.58 3.23"] { fill: var(--rec-forum) !important; }
 
-/* Ping Locked */
-[class*="ping"] path[d^="M18.09 14.63c.4-.7"] {
-  fill: var(--rec-ping-locked) !important;
-}
+/* Continue/Mic */
+[class^=continueIcon_] path[d^="M12 2a4 4 0 0 0-4 4v4a4 4 0 0 0 8 0V6a4"],
+[class^=continueIcon_] path[d^="M6 10a1 1 0 0 0-2 0 8 8 0 0 0 7 7.94V20H9a1"],
+[class^=micIcon_]      path[d^="M12 2a4 4 0 0 0-4 4v4a4 4 0 0 0 8 0V6a4"],
+[class^=micIcon_]      path[d^="M6 10a1 1 0 0 0-2 0 8 8 0 0 0 7 7.94V20H9a1"] { fill: var(--rec-mic) !important; }
 
-/* Create Channel Locks */
-[class*="inputPrefix"] path[d^="M16 4h.5v-.5a2.5"],
-[class*="switchIcon"] path[d^="M6 9h1V6a5 5"],
-[class*="subtitleIcon"] path[d^="M16 4h.5v-.5a2.5"] {
-  fill: var(--rec-create-channel-locked) !important;
-}
+/* Ping + Create Channel Lock */
+[class^=ping_] path[d^="M18.09 14.63c.4-.7"] { fill: var(--rec-ping-locked) !important; }
+[class^=inputPrefix_]  path[d^="M16 4h.5v-.5a2.5"],
+[class^=switchIcon_]   path[d^="M6 9h1V6a5 5 0 0 1 10 0v3h1a3"],
+[class^=subtitleIcon_] path[d^="M16 4h.5v-.5a2.5"] { fill: var(--rec-create-channel-locked) !important; }
+
+/* Top-Bar Icons (Boost/Members/Search/Events/Pin/Noti) */
+[class^=icon_] path[d^="M10.95 1.4a1.59 1.59"],
+[class^=icon_] path[d^="M11.65 6.35 9.29 8.71a1"] { fill: var(--rec-top-boosting) !important; }
+[class^=icon_] path[d^="M14.5 8a3 3 0 1 0-2.7-4.3c-.2.4.06.86.44"] { fill: var(--rec-top-members) !important; }
+[class^=icon_] path[d^="M18.5 23c.88 0 1.7-.25 2.4-.69l1.4 1.4a1"],
+[class^=icon_] path[d^="M3 3a1 1 0 0 0 0 2h18a1"] { fill: var(--rec-search-channels) !important; }
+[class^=icon_] path[d^="M7 1a1 1 0 0 1 1 1v.75c0"] { fill: var(--rec-top-events) !important; }
+[class^=titleContainer_] path[d^="M19.38 11.38a3 3 0 0 0 4.24"],
+[class^=icon_]           path[d^="M19.38 11.38a3 3 0 0 0 4.24"] { fill: var(--rec-top-pin) !important; }
+[class^=icon_] path[d^="M9.7 2.89c.18-.07.32-.24.37-.43a2"] { fill: var(--rec-top-noti-on) !important; }
+[class^=icon_] path[d^="M1.3 21.3a1 1 0 1 0 1.4 1.4l20-20a1"] { fill: var(--rec-top-noti-off) !important; }
+
+/* DMs (Links oben) */
+[class^=linkButtonIcon_] path[d^="M15 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"],
+[class^=linkButtonIcon_] path[d^="M7 4a1 1 0 0 0 0 2h3a1 1 0 1 1 0 2H5.5a1"],
+[class^=linkButtonIcon_] path[d^="M2.5 10a1 1 0 0 0 0-2H2a1 1 0 0 0 0 2h.5Z"] { fill: var(--rec-dm-nitro) !important; }
+[class^=icon_]           path[d^="M13 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"],
+[class^=linkButtonIcon_] path[d^="M13 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"] { fill: var(--rec-dm-friends) !important; }
+[class^=linkButtonIcon_] path[d^="M2.63 4.19A3 3 0 0 1 5.53"] { fill: var(--rec-dm-shop-1) !important; }
+[class^=linkButtonIcon_] path[d^="M21 11.42V19a3 3 0  0 1-3"] { fill: var(--rec-dm-shop-2) !important; }
