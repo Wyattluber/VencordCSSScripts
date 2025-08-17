@@ -170,14 +170,28 @@
 }
 
 /* Serverliste Pill / Hover */
+/* === Server Unread Dots – Sorin-Style === */
 [class*="guilds_"] [class*="pill_"] {
   display: block !important;
+  position: absolute !important;
+  bottom: 4px !important;
+  right: 4px !important;
+  left: auto !important;
+  top: auto !important;
+  width: 10px !important;
+  height: 10px !important;
   opacity: 1 !important;
+  z-index: 10 !important;
 }
+
 [class*="guilds_"] [class*="pill_"] [class*="item_"] {
-  background: linear-gradient(180deg, var(--rec-unread-circle-color), var(--rec-unread-text-color)) !important;
-  border-radius: 999px !important;
+  width: 10px !important;
+  height: 10px !important;
+  border-radius: 50% !important;
+  background: var(--rec-unread-text-color) !important;
+  box-shadow: 0 0 6px rgba(139, 92, 246, 0.8);
 }
+
 
 [class*="guilds_"] [class*="wrapper_"]:hover [class*="svg_"],
 [class*="guilds_"] [class*="wrapper_"]:hover [class*="icon_"] {
