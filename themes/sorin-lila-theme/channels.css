@@ -89,3 +89,21 @@
   >.container_b7e1cb > .container__9271d { box-shadow: var(--rec-threads-line) 0 0 13px; border: 1px solid var(--rec-threads-line); }
   &::after { border-bottom: 2px solid var(--rec-threads-line); border-left: 2px solid var(--rec-threads-line); }
 }
+
+/* === DM-List Hover/Active – Sorin-Style === */
+[class*="privateChannels_"] [class*="channel_"]:hover,
+[class*="channel_"][class*="container_"]:hover {
+  background: linear-gradient(90deg,
+    rgba(139, 92, 246, 0.10) 0%,
+    rgba(109, 40, 217, 0.15) 50%,
+    rgba(139, 92, 246, 0.10) 100%) !important;
+  box-shadow: 0 0 6px rgba(139, 92, 246, 0.30) !important;
+  border-radius: 8px !important;
+  transition: all .3s ease;
+}
+
+[class*="privateChannels_"] [class*="channel_"]:hover [class*="username_"] {
+  color: var(--rec-unread-text-color) !important;
+  text-shadow: 0 0 3px rgba(139, 92, 246, .40);
+}
+
