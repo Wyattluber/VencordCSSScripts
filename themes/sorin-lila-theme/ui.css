@@ -170,7 +170,15 @@
 }
 
 /* Serverliste Pill / Hover */
-[class*="guilds_"] [class*="pill_"] { display: none !important; }
+[class*="guilds_"] [class*="pill_"] {
+  display: block !important;
+  opacity: 1 !important;
+}
+[class*="guilds_"] [class*="pill_"] [class*="item_"] {
+  background: linear-gradient(180deg, var(--rec-unread-circle-color), var(--rec-unread-text-color)) !important;
+  border-radius: 999px !important;
+}
+
 [class*="guilds_"] [class*="wrapper_"]:hover [class*="svg_"],
 [class*="guilds_"] [class*="wrapper_"]:hover [class*="icon_"] {
   filter: drop-shadow(0 0 8px rgba(139,92,246,.6)); transform: scale(1.05); transition: all .3s ease;
