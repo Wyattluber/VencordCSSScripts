@@ -1,0 +1,21 @@
+/* ================== TRANSPARENZ & GLAS-EFFEKT ================== */
+
+[class*="userPopout_"],
+[class*="userProfileInner_"],
+[class*="profilePanel_"] {
+  background-color: rgba(15, 15, 25, 0.75) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(139, 92, 246, 0.35) !important;
+}
+
+[class*="activityPanel_"],
+[class*="activity_"],
+[class*="modal_"],
+[class*="layer_"][class*="baseLayer_"],
+[class*="menu_"],
+[class*="contextMenu_"] {
+  background-color: rgba(18, 18, 30, 0.8) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(139, 92, 246, 0.3) !important;
+  border-radius: 10px !important;
+}
