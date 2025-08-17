@@ -1,53 +1,54 @@
-/* ================= Transparenz-Effekte ================= */
+/* ──────────────────────────────────────────────────────────────
+   Sorin Lila – Transparenz & Glas
+   ──────────────────────────────────────────────────────────── */
 
-/* Profil-Popout (rechts beim Klick) */
-[class*="userPopoutInner"] {
-  background: rgba(25, 20, 40, 0.55) !important;
-  backdrop-filter: blur(14px) !important;
-  border-radius: 16px !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45) !important;
-}
-
-/* Großes Profil (Modal) */
-[class*="userProfileModalInner"] {
-  background: rgba(25, 20, 40, 0.6) !important;
-  backdrop-filter: blur(16px) !important;
-  border-radius: 20px !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5) !important;
-}
-
-/* Kategorie-Namen */
-[class*="containerDefault"] [class*="name"] {
-  color: #a78bfa !important;
-  font-weight: 600 !important;
-  text-transform: uppercase !important;
-}
-[class*="containerDefault"]:hover [class*="name"] {
-  color: #c4b5fd !important;
-  text-shadow: 0 0 6px rgba(167, 139, 250, 0.8) !important;
-}
-
-/* Code Blöcke */
-[class*="codeView"],
-[class*="textContainer"],
-[class*="mosaicItem"],
-[class*="nonVisualMediaItem"] {
-  background: rgba(21, 28, 32, 0.22) !important;
+/* Profil-Popout / Profile Panel – Glas */
+[class*="userPopout_"],
+[class*="userPopoutInner"],
+[class*="profilePanel_"] {
+  background-color: rgba(15, 15, 25, 0.75) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(139, 92, 246, 0.35) !important;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.25) !important;
   border-radius: 12px !important;
 }
 
-.hljs {
-  background: rgba(6, 4, 26, 0.4) !important;
-  border-radius: 8px !important;
+/* Großes Profil (Modal) – Glas */
+[class*="userProfileModalInner"],
+[class*="userProfileInner_"] {
+  background-color: rgba(18, 12, 28, 0.78) !important;
+  backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(139, 92, 246, 0.35) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 0 24px rgba(139, 92, 246, 0.3) !important;
+}
+/* Innenlayer im Profil nicht abdunkeln */
+[class*="userProfileModalInner"] [class*="overlayBackground"],
+[class*="userProfileModalInner"] [class*="body"] { background: transparent !important; }
+
+/* Aktivitäts-/Now Playing Karten */
+[class*="activityPanel_"],
+[class*="activity_"] {
+  background-color: rgba(20, 16, 35, 0.72) !important;
+  backdrop-filter: blur(10px) !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(139, 92, 246, 0.3) !important;
+  box-shadow: 0 0 16px rgba(139, 92, 246, 0.2) !important;
 }
 
-/* Activity Panels */
-[class*="container__0f2e8"] {
-  background: rgba(0, 0, 0, 0.25) !important;
+/* Einstellungen / Layer */
+[class*="modal_"],
+[class*="layer_"][class*="baseLayer_"],
+[class*="standardSidebarView"],
+[class*="contentRegion"] {
+  background-color: rgba(18, 12, 28, 0.78) !important;
+  backdrop-filter: blur(14px) !important;
+  border: 1px solid rgba(139, 92, 246, 0.35) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 0 24px rgba(139, 92, 246, 0.3) !important;
 }
 
+/* Kontext-/Dropdown-Popouts (generisch, falls nicht durch ui.css abgedeckt) */
 [class*="popoutContentWrapper"] {
   background: rgba(30, 31, 34, 0.8) !important;
   backdrop-filter: blur(10px) !important;
@@ -55,58 +56,31 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
   border-radius: 10px !important;
 }
-
-/* Scrollbars in Popouts */
-[class*="popoutContentWrapper"] ::-webkit-scrollbar {
-  width: 6px !important;
-}
+[class*="popoutContentWrapper"] ::-webkit-scrollbar { width: 6px !important; }
 [class*="popoutContentWrapper"] ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2) !important;
-  border-radius: 6px !important;
+  background: rgba(255, 255, 255, 0.2) !important; border-radius: 6px !important;
 }
 
-/* Interactions Panel */
-[class*="interactionsContainer"] {
-  background: rgba(30, 31, 34, 0.7) !important;
-  backdrop-filter: blur(12px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
-  padding: 8px !important;
-  border-radius: 10px !important;
-}
-
-/* Einstellungen → Hintergrund */
-[class*="standardSidebarView"],
-[class*="contentRegion"] {
-  background: rgba(20, 16, 35, 0.55) !important;
-  backdrop-filter: blur(14px) !important;
-}
-
-/* Buttons runder */
-[class*="buttonsInner"] {
-  border-radius: 10px !important;
-  padding: 4px !important;
-}
-
-/* Menüs */
-[class*="menu"] {
+/* Codeblöcke */
+[class*="codeView"],
+[class*="textContainer"],
+[class*="mosaicItem"],
+[class*="nonVisualMediaItem"] {
+  background: rgba(21, 28, 32, 0.22) !important;
   border-radius: 12px !important;
-  overflow: hidden !important;
 }
-[class*="menu"] .separator {
-  margin: 1px 8px !important;
-}
-[class*="menu"] .item {
-  min-height: 32px;
-  padding: 4px 8px;
-}
+.hljs { background: rgba(6, 4, 26, 0.4) !important; border-radius: 8px !important; }
 
-/* DM-Bereich */
+/* DM-Liste – dezente Glasfläche + Hover (Rest in channels/dms geregelt) */
 [class*="privateChannels"] {
-  background: rgba(25, 20, 40, 0.45) !important;
+  background: rgba(25, 20, 40, 0.30) !important;
   backdrop-filter: blur(10px) !important;
 }
-[class*="privateChannelsHeaderContainer"] {
-  color: #a78bfa !important;
-  font-weight: 600 !important;
+
+/* Suchfenster */
+[class*="searchBar_"], [class*="searchResultsWrap_"] {
+  background-color: rgba(20, 16, 35, 0.75) !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(139, 92, 246, 0.25) !important;
+  border-radius: 8px !important;
 }
