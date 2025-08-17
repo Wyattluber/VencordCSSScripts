@@ -14,6 +14,12 @@
 [class^=icon_] path[d^="M14.5 8a3 3"] { fill: var(--rec-top-members) !important; }
 [class^=icon_] path[d^="M18.5 23c.88"] { fill: var(--rec-search-channels) !important; }
 
+/* Settings Buttons Hover */
+.item_c1e9c4:hover {
+  background-color: rgba(200, 150, 255, 0.15) !important;
+  border-radius: 8px !important;
+}
+
 /* Server Glow */
 [class*="guilds_"] [class*="wrapper_"]:hover [class*="icon_"] {
   filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.6));
