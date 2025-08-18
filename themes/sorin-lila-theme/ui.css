@@ -257,3 +257,22 @@
   border-radius: 50%; z-index: -1; opacity: .3; animation: serverPulse 2s ease-in-out infinite;
 }
 @keyframes serverPulse { 0%,100%{transform:scale(1);opacity:.3} 50%{transform:scale(1.1);opacity:.6} }
+
+/* ————— Titlebar: größere Drag-Area, Buttons bleiben klickbar ————— */
+[class*="typeWindows"] [class*="titleBar"],
+[class*="typeWindows"] [class*="container"] [class*="titleBar"] {
+  -webkit-app-region: drag !important;
+}
+
+[class*="typeWindows"] [class*="titleBar"] [role="button"],
+[class*="typeWindows"] [class*="titleBar"] button,
+[class*="typeWindows"] [class*="titleBar"] [class*="winButton"],
+[class*="typeWindows"] [class*="toolbar"] * {
+  -webkit-app-region: no-drag !important;
+}
+
+/* optional: minimal Höhe sichern, damit man Fläche hat */
+[class*="typeWindows"] [class*="titleBar"] {
+  min-height: 28px !important;
+}
+
