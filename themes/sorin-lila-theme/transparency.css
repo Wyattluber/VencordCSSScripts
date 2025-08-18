@@ -1,86 +1,27 @@
-/* ──────────────────────────────────────────────────────────────
-   Sorin Lila – Transparenz & Glas
-   ──────────────────────────────────────────────────────────── */
+/* ================= Sorin Lila – transparency.css ================= */
 
-/* Profil-Popout / Profile Panel – Glas */
-[class*="userPopout_"],
-[class*="userPopoutInner"],
-[class*="profilePanel_"] {
-  background-color: rgba(15, 15, 25, 0.75) !important;
-  backdrop-filter: blur(12px) !important;
-  border: 1px solid rgba(139, 92, 246, 0.35) !important;
-  box-shadow: 0 0 20px rgba(139, 92, 246, 0.25) !important;
-  border-radius: 12px !important;
+[class*="modal_"], [class*="root_"], [class*="backdrop_"] + [class*="layer_"]{
+  background:var(--rec-surface)!important; backdrop-filter:blur(10px)!important;
+  border:1px solid var(--rec-border)!important; box-shadow:0 0 14px var(--rec-shadow);
+  border-radius:12px!important
 }
 
-/* Großes Profil (Modal) – Glas */
-[class*="userProfileModalInner"],
-[class*="userProfileInner_"] {
-  background-color: rgba(18, 12, 28, 0.78) !important;
-  backdrop-filter: blur(14px) !important;
-  border: 1px solid rgba(139, 92, 246, 0.35) !important;
-  border-radius: 12px !important;
-  box-shadow: 0 0 24px rgba(139, 92, 246, 0.3) !important;
-}
-/* Innenlayer im Profil nicht abdunkeln */
-[class*="userProfileModalInner"] [class*="overlayBackground"],
-[class*="userProfileModalInner"] [class*="body"] { background: transparent !important; }
-
-/* Aktivitäts-/Now Playing Karten */
-[class*="activityPanel_"],
-[class*="activity_"] {
-  background-color: rgba(20, 16, 35, 0.72) !important;
-  backdrop-filter: blur(10px) !important;
-  border-radius: 12px !important;
-  border: 1px solid rgba(139, 92, 246, 0.3) !important;
-  box-shadow: 0 0 16px rgba(139, 92, 246, 0.2) !important;
+/* User-/Profile-Popout */
+[class*="userPopout_"], [class*="profilePanel_"], [class*="profileBanner_"]{
+  background:var(--rec-surface-strong)!important; backdrop-filter:blur(10px)!important;
+  border:1px solid var(--rec-border)!important; border-radius:12px!important
 }
 
-/* Einstellungen / Layer */
-[class*="modal_"],
-[class*="layer_"][class*="baseLayer_"],
-[class*="standardSidebarView"],
-[class*="contentRegion"] {
-  background-color: rgba(18, 12, 28, 0.78) !important;
-  backdrop-filter: blur(14px) !important;
-  border: 1px solid rgba(139, 92, 246, 0.35) !important;
-  border-radius: 10px !important;
-  box-shadow: 0 0 24px rgba(139, 92, 246, 0.3) !important;
+/* Activity-Karten, Suchergebnisse, QuickSwitch */
+[class*="container_"][role="dialog"], [class*="quickswitcher_"], [class*="results_"]{
+  background:var(--rec-surface)!important; border:1px solid var(--rec-border)!important;
+  border-radius:10px!important; box-shadow:0 0 10px rgba(139,92,246,.2)
 }
 
-/* Kontext-/Dropdown-Popouts (generisch, falls nicht durch ui.css abgedeckt) */
-[class*="popoutContentWrapper"] {
-  background: rgba(30, 31, 34, 0.8) !important;
-  backdrop-filter: blur(10px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-  border-radius: 10px !important;
+/* Settings Pane */
+[class*="standardSidebarView_"] [class*="contentRegion_"]{
+  background:transparent!important
 }
-[class*="popoutContentWrapper"] ::-webkit-scrollbar { width: 6px !important; }
-[class*="popoutContentWrapper"] ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2) !important; border-radius: 6px !important;
-}
-
-/* Codeblöcke */
-[class*="codeView"],
-[class*="textContainer"],
-[class*="mosaicItem"],
-[class*="nonVisualMediaItem"] {
-  background: rgba(21, 28, 32, 0.22) !important;
-  border-radius: 12px !important;
-}
-.hljs { background: rgba(6, 4, 26, 0.4) !important; border-radius: 8px !important; }
-
-/* DM-Liste – dezente Glasfläche + Hover (Rest in channels/dms geregelt) */
-[class*="privateChannels"] {
-  background: rgba(25, 20, 40, 0.30) !important;
-  backdrop-filter: blur(10px) !important;
-}
-
-/* Suchfenster */
-[class*="searchBar_"], [class*="searchResultsWrap_"] {
-  background-color: rgba(20, 16, 35, 0.75) !important;
-  backdrop-filter: blur(10px) !important;
-  border: 1px solid rgba(139, 92, 246, 0.25) !important;
-  border-radius: 8px !important;
+[class*="standardSidebarView_"] [class*="contentRegionScroller_"]{
+  background:linear-gradient(180deg,rgba(18,18,30,.85) 0%, rgba(18,18,30,.78) 100%)!important
 }
