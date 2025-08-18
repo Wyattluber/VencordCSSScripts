@@ -158,7 +158,6 @@
   border-radius: 10px!important;
   box-shadow:0 0 8px var(--rec-shadow);
 }
-
 /* ==== Unread Bar behavior: extend and highlight ==== */
 [class*="guilds_"] [class*="wrapper_"]:hover [class*="pill_"] [class*="item_"] {
   width: 4px!important;
@@ -170,11 +169,21 @@
   height: 90%!important;
   border-radius: 999px!important;
 }
-
-
 /* Fix default unread dot size after accidental edit */
 [class*="guilds_"] [class*="pill_"] [class*="item_"] {
   width: 10px!important;
   height: 10px!important;
+  /* ===== Override Unread Bar behavior: extended for Sorin theme ===== */
+[class*="guilds_"] [class*="wrapper_"]:hover [class*="pill_"] [class*="item_"] {
+  width: 4px!important;
+  height: 80%!important;
+  border-radius: 999px!important;
+}
+[class*="guilds_"] [class*="wrapper_"][class*="selected_"] [class*="pill_"] [class*="item_"] {
+  width: 6px!important;
+  height: 90%!important;
+  border-radius: 999px!important;
+}
+
 }
 
