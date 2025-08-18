@@ -25,3 +25,21 @@
 [class*="standardSidebarView_"] [class*="contentRegionScroller_"]{
   background:linear-gradient(180deg,rgba(18,18,30,.85) 0%, rgba(18,18,30,.78) 100%)!important
 }
+
+
+/* ==== Additional Popout Transparency Fixes ==== */
+[class*="userPopout"],
+[class*="profilePanel"],
+[class*="profileBanner"],
+[class*="userPanel"],
+[class*="userPanelOuter"],
+[class*="userPanelInner"],
+[class*="userProfile"],
+[class*="userPopoutInner"],
+[class*="quickProfilePopout"],
+[class*="profileModal"]{
+  background: var(--rec-surface-strong)!important;
+  backdrop-filter: blur(10px)!important;
+  border: 1px solid var(--rec-border)!important;
+  border-radius: 12px!important;
+}
