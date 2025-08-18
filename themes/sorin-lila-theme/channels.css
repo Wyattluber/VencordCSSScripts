@@ -1,109 +1,57 @@
-/* ──────────────────────────────────────────────────────────────
-   Sorin Lila – Channels & Kategorien
-   ──────────────────────────────────────────────────────────── */
+/* ================= Sorin Lila – channels.css ================= */
 
-/* Kategorie: Farbe + Hover */
-.wrapper__29444,
-.wrapper__29444 path[d^="M5.3 9.3a1 1 0 0 1 1.4 0l5.3 5.29 5.3-5.3a1 1 0 1 1 1.4 1.42l-6 6a1 1 0 0 1-1.4 0l-6-6a1 1 0 0 1 0-1.42Z"],
-.container__13cf1 { color: var(--rec-category) !important; }
-.wrapper__29444:hover .container__13cf1,
-.wrapper__29444:hover path[d^="M5.3 9.3a1 1 0 0 1 1.4 0l5.3 5.29 5.3-5.3a1 1 0 1 1 1.4 1.42l-6 6a1 1 0 0 1-1.4 0l-6-6a1 1 0 0 1 0-1.42Z"] {
-  color: var(--rec-category-effect) !important;
-}
-.container__13cf1 span { color: var(--rec-roles-category) !important; }
-
-/* Channel-Linien + Einrückung */
-.spineBorder__5b40b { left: calc(var(--channels-spine-offset-left) + 7.5px); }
-
-.containerDefault_c69b6d:not(.wrapper__2ea32) {
-  margin-left: 15.5px;
-  border-left: 1px solid var(--rec-channel-lines);
-
-  /* Selected → Lila-Gradient */
-  .selectedChannel_c69b6d .link__2ea32 {
-    background: linear-gradient(90deg, #4c1d95 0%, #6d28d9 55%, #8b5cf6 100%) !important;
-  }
-
-  .spine__5b40b { left: calc(var(--channels-spine-offset-left) - 9px); }
-  .name__2ea32, .overflow__82b15 { font-size: 15.5px; line-height: 1.4; }
-
-  .iconVisibility_c69b6d.wrapper__2ea32 {
-    margin-left: 0px;
-    .link__2ea32 {
-      border-bottom-left-radius: 0px; border-top-left-radius: 0px;
-      .icon__2ea32 { scale: 0.8; }
-      .linkTop__2ea32 { gap: 4px; }
-    }
-  }
-
-  .iconVisibility_c69b6d.wrapper__2ea32.typeThread__2ea32 {
-    margin-left: calc(16px - 10px + var(--space-md));
-    .link__2ea32 { border-radius: var(--radius-sm); .icon__2ea32 { scale: 0.8; } .linkTop__2ea32 { gap: 4px; } }
-  }
-
-  /* Ungelesen: Text lila, originaler Dot aus */
-  .modeUnreadImportant__2ea32 .name__2ea32 { color: var(--rec-unread-text-color); }
-  .unread__2ea32 { display: none !important; }
+/* Kategorien */
+[class*="containerDefault_"] [class*="header_"],
+[class*="containerDefault_"] [class*="container_"][id*="channels"] [class*="header_"]{
+  color:var(--rec-accent-1)!important; letter-spacing:.02em
 }
 
-/* HOVER auf vollem Channel-Hintergrund – Lila-Gradient */
-.containerDefault_c69b6d .link__2ea32:hover {
-  background: linear-gradient(90deg, #4c1d95 0%, #6d28d9 55%, #8b5cf6 100%) !important;
+/* Trenner/Indent-Linien */
+[class*="containerDefault_"] [class*="spine_"]{
+  border-color:var(--rec-accent-3)!important; opacity:.45
 }
 
-/* Ungelesene Kanäle – verstärkt + Pulse */
-.modeUnreadImportant__2ea32 .link__2ea32 {
-  background: linear-gradient(90deg, rgba(139,92,246,.15) 0%, rgba(109,40,217,.25) 50%, rgba(139,92,246,.15) 100%) !important;
-  font-weight: 700 !important; border-radius: 6px;
-  border: 1px solid rgba(139,92,246,.4) !important;
-  box-shadow: 0 0 8px rgba(139,92,246,.3), inset 0 0 4px rgba(255,255,255,.1) !important;
-  animation: unreadPulse 2s ease-in-out infinite alternate;
+/* Channel-Link: Hover + Selected Verlauf */
+[class*="containerDefault_"] [class*="link_"]{
+  border-radius:8px; transition:.2s ease; position:relative
 }
-.modeUnreadImportant__2ea32 .name__2ea32 {
-  color: var(--rec-unread-text-color); font-weight: 800 !important;
-  text-shadow: 0 0 4px rgba(139,92,246,.5);
+[class*="containerDefault_"] [class*="link_"]:hover{
+  background:linear-gradient(90deg,rgba(139,92,246,.12) 0%, rgba(109,40,217,.20) 100%)!important
 }
-/* Leuchtender Ring */
-.modeUnreadImportant__2ea32::before {
-  content: ''; position: absolute; left: -8px; top: 50%; transform: translateY(-50%);
-  width: 6px; height: 6px; background: radial-gradient(circle, var(--rec-unread-circle-color) 30%, transparent 70%);
-  border-radius: 50%; box-shadow: 0 0 8px var(--rec-unread-circle-color); animation: dotPulse 1.5s ease-in-out infinite;
-}
-@keyframes dotPulse { 0%,100%{transform:translateY(-50%) scale(1);opacity:1} 50%{transform:translateY(-50%) scale(1.3);opacity:.7} }
-@keyframes unreadPulse {
-  0% { box-shadow: 0 0 8px rgba(139,92,246,.3), inset 0 0 4px rgba(255,255,255,.1); }
-  100%{ box-shadow: 0 0 12px rgba(139,92,246,.6), inset 0 0 6px rgba(255,255,255,.2); }
+[class*="containerDefault_"] [class*="selected_"] [class*="link_"],
+[aria-selected="true"][class*="link_"]{
+  background:linear-gradient(90deg,rgba(139,92,246,.20) 0%, rgba(109,40,217,.28) 100%)!important;
+  color:#fff!important
 }
 
-/* Threads (Linien/Glow) */
-.container__5b40b {
-  .spineBorder__5b40b { background: var(--rec-threads-line) !important; }
-  .containerDefault_c69b6d {
-    >.iconVisibility_c69b6d.wrapper__2ea32.typeThread__2ea32 > .link__2ea32 { border: 1px solid var(--rec-threads-line) !important; }
-    >.iconVisibility_c69b6d.wrapper__2ea32.typeThread__2ea32.modeSelected__2ea32 > .link__2ea32 { border: 1px solid var(--rec-threads-line-effect) !important; }
-    >.spine__5b40b path[d^="M0 13H2c0 1.6569"], >.spine__5b40b path[d^="M6 18V16H9v2H6Zm3 0V16s1"] { fill: var(--rec-threads-line) !important; }
-    &:hover { >.iconVisibility_c69b6d.wrapper__2ea32.typeThread__2ea32 > .link__2ea32 { border: 1px solid var(--rec-threads-line-effect) !important; } }
-  }
+/* Unread: Textfarbe + kleiner Dot rechts vom Namen */
+[aria-label][data-list-item-id^="channels___"][class*="modeUnread_"] [class*="name_"],
+[aria-label][data-list-item-id^="channels___"] [class*="unread_"] [class*="name_"]{
+  color:var(--rec-unread-text)!important
 }
-.message__5126c.hasThread_c19a55{
-  >.container_b7e1cb > .container__9271d { box-shadow: var(--rec-threads-line) 0 0 13px; border: 1px solid var(--rec-threads-line); }
-  &::after { border-bottom: 2px solid var(--rec-threads-line); border-left: 2px solid var(--rec-threads-line); }
+[aria-label][data-list-item-id^="channels___"] [class*="name_"]::after{
+  content:""; display:inline-block; width:6px; height:6px; margin-left:6px; border-radius:999px;
+  background:var(--rec-unread-dot); box-shadow:0 0 6px rgba(34,211,238,.7);
+  opacity:0; transform:translateY(-1px); transition:.15s
 }
-
-/* === DM-List Hover/Active – Sorin-Style === */
-[class*="privateChannels_"] [class*="channel_"]:hover,
-[class*="channel_"][class*="container_"]:hover {
-  background: linear-gradient(90deg,
-    rgba(139, 92, 246, 0.10) 0%,
-    rgba(109, 40, 217, 0.15) 50%,
-    rgba(139, 92, 246, 0.10) 100%) !important;
-  box-shadow: 0 0 6px rgba(139, 92, 246, 0.30) !important;
-  border-radius: 8px !important;
-  transition: all .3s ease;
+[aria-label][data-list-item-id^="channels___"][class*="modeUnread_"] [class*="name_"]::after{
+  opacity:1
 }
 
-[class*="privateChannels_"] [class*="channel_"]:hover [class*="username_"] {
-  color: var(--rec-unread-text-color) !important;
-  text-shadow: 0 0 3px rgba(139, 92, 246, .40);
+/* Voice User Hover */
+[class*="voiceUser_"]:hover{
+  background:rgba(139,92,246,.12)!important; border-radius:6px
 }
 
+/* DMs Hover */
+[aria-label="Direktnachrichten"] [class*="channel_"] [class*="interactive_"]:hover{
+  background:linear-gradient(90deg,rgba(139,92,246,.10) 0%, rgba(109,40,217,.18) 100%)!important
+}
+
+/* Threads Linien + Glow */
+[class*="wrapper__"][class*="thread_"]{
+  border-left:2px solid rgba(139,92,246,.35)!important
+}
+[class*="wrapper__"][class*="thread_"] [class*="name_"]:hover{
+  text-shadow:0 0 4px rgba(139,92,246,.4)
+}
