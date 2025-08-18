@@ -1,278 +1,150 @@
-/* ──────────────────────────────────────────────────────────────
-   Sorin Lila – UI Basis & Farb-Tokens
-   ──────────────────────────────────────────────────────────── */
+/* ================= Sorin Lila – ui.css (Basis) ================= */
 
-/* ================= Farb-Tokens ================= */
-:root {
-  /* Locks / Danger */
-  --rec-locked: var(--status-danger-background);
+/* ---- Farb-Tokens ---- */
+:root{
+  /* Locks/Danger */
+  --rec-locked: var(--status-danger-background, #ef4444);
+  --rec-danger: var(--status-danger-background, #ef4444);
 
-  /* Ankündigung */
-  --rec-news-1: rgba(255, 190, 20, 0.92);
-  --rec-news-2: rgba(255, 110, 24, 0.92);
+  /* Accent */
+  --rec-accent-1: #a78bfa; /* helle Lila */
+  --rec-accent-2: #8b5cf6; /* Lila */
+  --rec-accent-3: #6d28d9; /* dunkler Lila */
 
-  /* Regeln */
-  --rec-rules: rgba(16, 185, 129, 0.9);
+  /* Unread */
+  --rec-unread-text: #a78bfa;
+  --rec-unread-dot: #22d3ee;
 
-  /* Stage/Mic */
-  --rec-stage: rgba(109, 40, 217, 0.9);
-  --rec-mic:   rgba(220, 38, 38, 0.9);
+  /* Surfaces/Glas */
+  --rec-surface: rgba(18,18,30,.80);
+  --rec-surface-strong: rgba(14,14,22,.92);
+  --rec-border: rgba(139,92,246,.28);
+  --rec-shadow: rgba(139,92,246,.28);
 
-  /* Forum */
-  --rec-forum: rgba(30, 144, 255, 0.85);
+  /* Neutrals */
+  --rec-neutral-1:#1b1b25;
+  --rec-neutral-2:#222233;
+  --rec-neutral-3:#2a2a3b;
 
-  /* Help */
-  --rec-help:  #8b5cf6;
-  --rec-delete: var(--status-danger-background);
-
-  --rec-ping-locked: var(--status-danger-background);
-  --rec-create-channel-locked: var(--status-danger-background);
-
-  /* Kategorien / Linien */
-  --rec-category:        #7c3aed;
-  --rec-category-effect: #a78bfa;
-  --rec-roles-category:  #a78bfa;
-
-  --rec-channel-lines:   #6d28d9;
-
-  /* Ungelesen */
-  --rec-unread-text-color:   #a78bfa;
-  --rec-unread-circle-color: #22d3ee;
-
-  /* Top-Bar */
-  --rec-top-boosting: #b9e6ff;
-  --rec-top-members:  #d4af37;
-  --rec-search-channels: #22d3ee;
-  --rec-top-events:  #3b82f6;
-  --rec-top-pin:     #f97316;
-  --rec-top-noti-on: #10b981;
-  --rec-top-noti-off:#ef4444;
-
-  /* DMs */
-  --rec-dm-nitro:   #d9b8ff;
-  --rec-dm-friends: #a3e635;
-  --rec-dm-shop-1:  #ef4444;
-  --rec-dm-shop-2:  #eab308;
-
-  /* Threads */
-  --rec-threads:             rgba(139, 92, 246, 0.62);
-  --rec-threads-line:        #4c1d95;
-  --rec-threads-line-effect: #8b5cf6;
-
-  --rec-message-delay: var(--status-danger-background);
+  /* Success/Warning (für Perm-Buttons) */
+  --rec-allow:#10b981;
+  --rec-neutral:#6b7280;
+  --rec-deny:#ef4444;
 }
 
-/* ================= Allgemeines UI (aus deinem Original) ================= */
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track {
-  background: rgba(139, 92, 246, 0.1); border-radius: 4px;
+/* ---- Scrollbar ---- */
+::-webkit-scrollbar{width:8px}
+::-webkit-scrollbar-track{background:rgba(139,92,246,.09);border-radius:4px}
+::-webkit-scrollbar-thumb{
+  background:linear-gradient(180deg,var(--rec-accent-1) 0%, var(--rec-accent-3) 100%);
+  border-radius:4px; box-shadow:0 0 4px rgba(139,92,246,.35)
 }
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, var(--rec-unread-text-color) 0%, #6d28d9 50%, var(--rec-unread-text-color) 100%);
-  border-radius: 4px; box-shadow: 0 0 4px rgba(139, 92, 246, 0.3);
-}
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(180deg, #a78bfa 0%, #8b5cf6 50%, #a78bfa 100%);
-  box-shadow: 0 0 6px rgba(139, 92, 246, 0.5);
+::-webkit-scrollbar-thumb:hover{
+  background:linear-gradient(180deg,var(--rec-accent-1) 0%, var(--rec-accent-2) 100%);
 }
 
-/* Chat Message Hover */
-[class*="message_"]:hover {
-  background-color: rgba(139, 92, 246, 0.05) !important;
-  border-left: 2px solid rgba(139, 92, 246, 0.3);
-  transition: all 0.2s ease;
+/* ---- Messages/Members Hover ---- */
+[class*="message_"]:hover{
+  background-color:rgba(139,92,246,.06)!important;
+  border-left:2px solid rgba(139,92,246,.35); transition:.2s ease
+}
+[class*="members_"] [class*="member_"]:hover{
+  background:linear-gradient(90deg,rgba(139,92,246,.10) 0%, rgba(109,40,217,.18) 100%)!important;
+  border-radius:6px; transition:.25s ease
 }
 
-/* Member List Hover */
-[class*="members_"] [class*="member_"]:hover {
-  background: linear-gradient(90deg, rgba(139,92,246,.1) 0%, rgba(109,40,217,.15) 100%) !important;
-  border-radius: 6px; transition: all .3s ease;
+/* ---- Menüs/Tooltips (Glas) ---- */
+[class*="menu_"],[class*="contextMenu_"]{
+  background-color:var(--rec-surface)!important; backdrop-filter:blur(8px)!important;
+  border:1px solid var(--rec-border)!important; box-shadow:0 0 12px var(--rec-shadow);
+  border-radius:8px!important
+}
+[class*="menu_"] [class*="item_"]:hover,[class*="contextMenu_"] [class*="item_"]:hover{
+  background:linear-gradient(90deg,rgba(139,92,246,.16) 0%, rgba(109,40,217,.26) 100%)!important;
+  color:var(--rec-accent-1)!important
+}
+[class*="tooltip_"]{
+  background-color:rgba(15,15,25,.88)!important; backdrop-filter:blur(6px)!important;
+  border:1px solid rgba(139,92,246,.3)!important; border-radius:6px!important
 }
 
-/* Voice Channel Users Glow */
-[class*="voiceUser_"] { transition: all .3s ease; }
-[class*="voiceUser_"]:hover {
-  background: rgba(139,92,246,.15) !important;
-  box-shadow: 0 0 6px rgba(139,92,246,.3); border-radius: 6px;
+/* ---- Brand Filled Buttons: Hover ---- */
+[class*="button_"][class*="lookFilled_"][class*="colorBrand_"]:hover{
+  background:linear-gradient(135deg,#8b5cf6 0%,#6d28d9 100%)!important;
+  box-shadow:0 0 8px rgba(139,92,246,.45)
 }
 
-/* Reaction Buttons */
-[class*="reaction_"]:hover {
-  background: rgba(139,92,246,.2) !important;
-  border-color: var(--rec-unread-text-color) !important;
-  box-shadow: 0 0 4px rgba(139,92,246,.4); transform: scale(1.05);
-  transition: all .2s ease;
+/* ---- Titlebar: große Drag-Area, Buttons no-drag ---- */
+[class*="titleBar_"], [class*="typeWindows"] [class*="titleBar_"]{
+  -webkit-app-region:drag; background:transparent!important; min-height:28px!important
 }
-
-/* Mentions in Nachrichten */
-[class*="message_"] .mentioned__5126c,
-[class*="message_"] [class*="mentioned_"],
-[class*="message_"] [class*="mention_"]:not([class*="numberBadge"]) {
-  background-color: color-mix(in oklab, var(--rec-unread-circle-color) 65%, white 20%) !important;
-  color: #0a0f19 !important; border-radius: 6px !important;
-}
-
-/* Menüs & Tooltips (Glas) */
-[class*="menu_"], [class*="contextMenu_"] {
-  background-color: rgba(18,18,30,.8) !important;
-  backdrop-filter: blur(8px) !important;
-  border: 1px solid rgba(139,92,246,.25) !important;
-  box-shadow: 0 0 12px rgba(139,92,246,.25); border-radius: 8px !important;
-}
-[class*="menu_"] [class*="item_"]:hover,
-[class*="contextMenu_"] [class*="item_"]:hover {
-  background: linear-gradient(90deg, rgba(139,92,246,.15) 0%, rgba(109,40,217,.25) 100%) !important;
-  color: var(--rec-unread-text-color) !important; text-shadow: 0 0 3px rgba(139,92,246,.4);
-}
-[class*="tooltip_"] {
-  background-color: rgba(15,15,25,.85) !important;
-  backdrop-filter: blur(6px) !important;
-  border: 1px solid rgba(139,92,246,.3) !important; border-radius: 6px !important;
-}
-
-/* Button Brand Hover */
-[class*="button_"][class*="lookFilled_"][class*="colorBrand_"]:hover {
-  background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%) !important;
-  box-shadow: 0 0 8px rgba(139,92,246,.5); transform: translateY(-1px);
-}
-
-/* === Settings-Sidebar Hover/Active (robust) === */
-[class*="standardSidebarView"] [class*="side"] [class*="item_"][class*="themed_"]:hover {
-  background: linear-gradient(90deg, rgba(139,92,246,.15) 0%, rgba(109,40,217,.25) 100%) !important;
-  color: var(--rec-unread-text-color) !important;
-  text-shadow: 0 0 3px rgba(139,92,246,.35);
-  border-radius: 6px;
-}
-
-[class*="standardSidebarView"] [class*="side"] [class*="item_"][class*="themed_"][class*="selected_"] {
-  background: linear-gradient(90deg, #4c1d95 0%, #6d28d9 55%, #8b5cf6 100%) !important;
-  color: white !important;
-  border-radius: 6px;
-  font-weight: 600;
-}
-
-/* === Titlebar Drag-Fix (Windows/Electron) === */
-[class*="titleBar_"],
-[class*="typeWindows"] [class*="titleBar_"] {
-  -webkit-app-region: drag;
-  background: transparent !important;
-}
-
-/* Elemente, die NICHT draggable sein dürfen */
 [class*="typeWindows"] [class*="winButton"],
-[class*="toolbar_"],
-[class*="searchBar_"],
-[class*="children_"],
-[class*="iconWrapper"] {
-  -webkit-app-region: no-drag;
+[class*="toolbar_"], [class*="children_"], [class*="searchBar_"],
+[class*="titleBar_"] button, [class*="titleBar_"] [role="button"],
+[class*="titleBar_"] [class*="iconWrapper"]{
+  -webkit-app-region:no-drag!important
 }
 
-/* === Server Unread: Glow-Dot links-mittig, über dem Logo; stretch bei Hover/Selected === */
-
-/* Positionierungs-Context fürs Icon */
-[class*="guilds_"] [class*="wrapper_"] { position: relative; overflow: visible; }
-
-/* Unser „Pill“-Container wird als Dot genutzt und sitzt knapp IM Icon */
-[class*="guilds_"] [class*="pill_"] {
-  position: absolute !important;
-  left: 2px !important;                 /* leicht innerhalb des Icons */
-  top: 50% !important;
-  transform: translateY(-50%);
-  width: 10px !important;
-  height: 10px !important;
-  pointer-events: none !important;
-  z-index: 3 !important;
+/* ---- Permissions-Ansicht: Layout & Buttons ---- */
+/* Containerkarten */
+[class*="contentRegion"] [class*="formItem"], 
+[class*="contentRegion"] [class*="container_"][class*="section"],
+[class*="contentRegion"] [class*="auditLog_"]{
+  background:var(--rec-surface)!important;
+  border:1px solid var(--rec-border)!important;
+  border-radius:10px!important;
+  padding:14px!important;
+  box-shadow:0 0 8px rgba(139,92,246,.15)
 }
 
-/* Sichtbarer Dot */
-[class*="guilds_"] [class*="pill_"] [class*="item_"] {
-  width: 10px !important;
-  height: 10px !important;
-  border-radius: 999px !important;
-  background: radial-gradient(circle at 50% 50%,
-    var(--rec-unread-circle-color) 0%,
-    var(--rec-unread-text-color) 85%) !important;
-  box-shadow: 0 0 8px rgba(139, 92, 246, .9) !important;
-  opacity: 0;  /* ohne Unread unsichtbar – erscheint beim Hover/Selected */
-  transition:
-    height .25s ease, width .25s ease,
-    border-radius .25s ease, opacity .15s ease,
-    box-shadow .25s ease, transform .25s ease;
+/* Dreistufige Buttons: Deny / Neutral / Allow */
+[class*="contentRegion"] [role="button"][aria-checked="false"][aria-label*="Verbieten"],
+[class*="contentRegion"] [role="button"][aria-checked="false"][aria-label*="Deny"]{
+  background:rgba(239,68,68,.14)!important; border:1px solid rgba(239,68,68,.5)!important; color:#fecaca!important
+}
+[class*="contentRegion"] [role="button"][aria-checked="false"][aria-label*="Erlauben"],
+[class*="contentRegion"] [role="button"][aria-checked="false"][aria-label*="Allow"]{
+  background:rgba(16,185,129,.14)!important; border:1px solid rgba(16,185,129,.5)!important; color:#bbf7d0!important
+}
+[class*="contentRegion"] [role="button"][aria-checked="false"][aria-label*="Standard"],
+[class*="contentRegion"] [role="button"][aria-checked="false"][aria-label*="Neutral"]{
+  background:rgba(107,114,128,.16)!important; border:1px solid rgba(107,114,128,.45)!important; color:#e5e7eb!important
+}
+/* aktiv (aria-checked="true") etwas kräftiger */
+[class*="contentRegion"] [role="button"][aria-checked="true"]{
+  filter:saturate(1.2) brightness(1.05)
+}
+/* gleiche Größe/Spacing */
+[class*="contentRegion"] [role="button"][aria-label*="Verbieten"],
+[class*="contentRegion"] [role="button"][aria-label*="Deny"],
+[class*="contentRegion"] [role="button"][aria-label*="Erlauben"],
+[class*="contentRegion"] [role="button"][aria-label*="Allow"],
+[class*="contentRegion"] [role="button"][aria-label*="Standard"],
+[class*="contentRegion"] [role="button"][aria-label*="Neutral"]{
+  min-width:36px; min-height:28px; border-radius:8px; margin:0 6px
 }
 
-/* Wenn Unreads vorhanden → sofort sichtbar */
-[class*="guilds_"] [class*="wrapper_"][class*="unread_"] [class*="pill_"] [class*="item_"] {
-  opacity: 1;
+/* Abschnittsüberschriften */
+[class*="contentRegion"] h2,[class*="contentRegion"] h3{
+  color:var(--rec-accent-1)!important
 }
 
-/* Hover/Selected: aus dem Punkt wird eine vertikale Pill aus der Mitte */
+/* ---- Unread-Dot/Pill links mittig ---- */
+[class*="guilds_"] [class*="wrapper_"]{position:relative;overflow:visible}
+[class*="guilds_"] [class*="pill_"]{
+  position:absolute!important; left:2px!important; top:50%!important; transform:translateY(-50%);
+  width:10px!important; height:10px!important; pointer-events:none!important; z-index:3!important
+}
+[class*="guilds_"] [class*="pill_"] [class*="item_"]{
+  width:10px!important;height:10px!important;border-radius:999px!important;
+  background:radial-gradient(circle at 50% 50%,var(--rec-unread-dot) 0%, var(--rec-unread-text) 90%)!important;
+  box-shadow:0 0 8px rgba(139,92,246,.9)!important; opacity:0;
+  transition:height .25s,width .25s,border-radius .25s,opacity .15s,box-shadow .25s
+}
+[class*="guilds_"] [class*="wrapper_"][class*="unread_"] [class*="pill_"] [class*="item_"]{opacity:1}
 [class*="guilds_"] [class*="wrapper_"]:hover [class*="pill_"] [class*="item_"],
-[class*="guilds_"] [class*="wrapper_"][class*="selected_"] [class*="pill_"] [class*="item_"] {
-  opacity: 1;
-  width: 6px !important;
-  height: 40px !important;              /* ggf. 44–48px, falls deine Icons größer sind */
-  border-radius: 999px !important;
-  box-shadow: 0 0 10px rgba(139, 92, 246, 1), 0 0 14px rgba(34, 211, 238, .6) !important;
+[class*="guilds_"] [class*="wrapper_"][class*="selected_"] [class*="pill_"] [class*="item_"]{
+  opacity:1;width:6px!important;height:40%!important;border-radius:999px!important;
+  box-shadow:0 0 10px rgba(139,92,246,1),0 0 14px rgba(34,211,238,.6)!important
 }
-
-/* Optional: noch etwas kräftiger, wenn selected + unread */
-[class*="guilds_"] [class*="wrapper_"][class*="selected_"][class*="unread_"] [class*="pill_"] [class*="item_"] {
-  box-shadow: 0 0 12px rgba(139, 92, 246, 1), 0 0 18px rgba(34, 211, 238, .7) !important;
-}
-
-/* Sicherheit: den nativen „linken Balken“ (falls von einem anderen Style gesetzt) neutralisieren */
-[class*="guilds_"] [class*="pill_"] > span:not([class*="item_"]) { display: none !important; }
-
-/* Fall A: Es gibt Unreads -> Punkt sofort sichtbar */
-[class*="guilds_"] [class*="wrapper_"][class*="unread_"] [class*="pill_"] [class*="item_"] {
-  opacity: 1;
-}
-
-/* Hover & Selected: aus Dot wird vertikale Pill entlang der Icon-Höhe */
-[class*="guilds_"] [class*="wrapper_"]:hover [class*="pill_"] [class*="item_"],
-[class*="guilds_"] [class*="wrapper_"][class*="selected_"] [class*="pill_"] [class*="item_"] {
-  opacity: 1;                     /* auch wenn vorher keine Unreads da waren */
-  width: 6px !important;
-  height: 40px !important;        /* Icon-Höhe ~ 40px; ggf. 44px, wenn du größere Icons nutzt */
-  border-radius: 999px !important;
-  box-shadow: 0 0 10px rgba(139, 92, 246, 1), 0 0 14px rgba(34, 211, 238, .6) !important;
-}
-
-/* Optional: bei aktiv/unread noch etwas kräftiger */
-[class*="guilds_"] [class*="wrapper_"][class*="selected_"][class*="unread_"] [class*="pill_"] [class*="item_"] {
-  box-shadow: 0 0 12px rgba(139, 92, 246, 1), 0 0 18px rgba(34, 211, 238, .7) !important;
-}
-
-
-[class*="guilds_"] [class*="wrapper_"]:hover [class*="svg_"],
-[class*="guilds_"] [class*="wrapper_"]:hover [class*="icon_"] {
-  filter: drop-shadow(0 0 8px rgba(139,92,246,.6)); transform: scale(1.05); transition: all .3s ease;
-}
-[class*="guilds_"] [class*="wrapper_"][class*="unread_"] { position: relative; }
-[class*="guilds_"] [class*="wrapper_"][class*="unread_"]::before {
-  content: ''; position: absolute; inset: -3px;
-  background: linear-gradient(45deg, var(--rec-unread-circle-color), var(--rec-unread-text-color), var(--rec-unread-circle-color));
-  border-radius: 50%; z-index: -1; opacity: .3; animation: serverPulse 2s ease-in-out infinite;
-}
-@keyframes serverPulse { 0%,100%{transform:scale(1);opacity:.3} 50%{transform:scale(1.1);opacity:.6} }
-
-/* ————— Titlebar: größere Drag-Area, Buttons bleiben klickbar ————— */
-[class*="typeWindows"] [class*="titleBar"],
-[class*="typeWindows"] [class*="container"] [class*="titleBar"] {
-  -webkit-app-region: drag !important;
-}
-
-[class*="typeWindows"] [class*="titleBar"] [role="button"],
-[class*="typeWindows"] [class*="titleBar"] button,
-[class*="typeWindows"] [class*="titleBar"] [class*="winButton"],
-[class*="typeWindows"] [class*="toolbar"] * {
-  -webkit-app-region: no-drag !important;
-}
-
-/* optional: minimal Höhe sichern, damit man Fläche hat */
-[class*="typeWindows"] [class*="titleBar"] {
-  min-height: 28px !important;
-}
-
+[class*="guilds_"] [class*="pill_"]>span:not([class*="item_"]){display:none!important}
