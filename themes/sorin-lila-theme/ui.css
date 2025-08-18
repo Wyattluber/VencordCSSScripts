@@ -136,7 +136,7 @@
   width:10px!important; height:10px!important; pointer-events:none!important; z-index:3!important
 }
 [class*="guilds_"] [class*="pill_"] [class*="item_"]{
-  width:10px!important;height:10px!important;border-radius:999px!important;
+  width:10pxsolidimportant;height:10px!important;border-radius:999px!important;
   background:radial-gradient(circle at 50% 50%,var(--rec-unread-dot) 0%, var(--rec-unread-text) 90%)!important;
   box-shadow:0 0 8px rgba(139,92,246,.9)!important; opacity:0;
   transition:height .25s,width .25s,border-radius .25s,opacity .15s,box-shadow .25s
@@ -147,4 +147,34 @@
   opacity:1;width:6px!important;height:40%!important;border-radius:999px!important;
   box-shadow:0 0 10px rgba(139,92,246,1),0 0 14px rgba(34,211,238,.6)!important
 }
-[class*="guilds_"] [class*="pill_"]>span:not([class*="item_"]){display:none!important}
+[class*="guilds_"] [class*="pill_"]>span:not([class*="item_"]){display:none!importan
+  
+/* ==== Additional Permissions container fix ==== */
+[class*="contentRegion"] section,
+[class*="contentRegion"] [class*="permission"],
+[class*="contentRegion"] [class*="wrapper_"][class*="item_"] {
+  background: var(--rec-surface)!important;
+  border: 1px solid var(--rec-border)!important;
+  border-radius: 10px!important;
+  box-shadow:0 0 8px var(--rec-shadow);
+}
+
+/* ==== Unread Bar behavior: extend and highlight ==== */
+[class*="guilds_"] [class*="wrapper_"]:hover [class*="pill_"] [class*="item_"] {
+  width: 4px!important;
+  height: 80%!important;
+  border-radius: 999px!important;
+}
+[class*="guilds_"] [class*="wrapper_"][class*="selected_"] [class*="pill_"] [class*="item_"] {
+  width: 6px!important;
+  height: 90%!important;
+  border-radius: 999px!important;
+}
+
+
+/* Fix default unread dot size after accidental edit */
+[class*="guilds_"] [class*="pill_"] [class*="item_"] {
+  width: 10px!important;
+  height: 10px!important;
+}
+
