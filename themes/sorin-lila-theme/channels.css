@@ -55,3 +55,10 @@
 [class*="wrapper__"][class*="thread_"] [class*="name_"]:hover{
   text-shadow:0 0 4px rgba(139,92,246,.4)
 }
+
+/* Fix vertical alignment of category headers */
+[class*="containerDefault_"] [class*="header_"] {
+  display: flex!important;
+  align-items: center!important;
+}
+
