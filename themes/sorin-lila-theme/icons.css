@@ -104,3 +104,33 @@
 [class*="lockedIcon"] {
   color: var(--rec-locked) !important;
 }
+
+
+/* ————— Private/locked Channels in der SIDEBAR: Schloss rot ————— */
+
+/* Häufige Container, die Discord für „locked“ nutzt (breite Fallbacks) */
+[class*="modeLocked"] svg,
+[class*="lockedIcon"] svg,
+[class*="restricted"] svg,
+[class*="private"] svg,
+[aria-label*="Privat"] svg,
+[aria-label*="Private"] svg,
+[aria-label*="Gesperrt"] svg,
+[aria-label*="Locked"] svg {
+  color: var(--status-danger-foreground, #ff4d4d) !important;
+  fill: currentColor !important;
+  opacity: 1 !important;
+}
+
+/* Falls das Schloss als zusätzliches Icon neben dem Namen gerendert wird */
+[aria-label][data-list-item-id^="channels___"] [class*="iconVisibility"] svg,
+[aria-label][data-list-item-id^="channels___"] [class*="iconContainer"] svg {
+  fill: currentColor !important;
+}
+
+/* Extra-Absicherung: typische Lock-Pfadfragmente (ändern sich selten, aber können) */
+[aria-label][data-list-item-id^="channels___"] path[d^="M12 1a"],
+[aria-label][data-list-item-id^="channels___"] path[d^="M7 4a"],
+[aria-label][data-list-item-id^="channels___"] path[d^="M6 8a"] {
+  fill: currentColor !important;
+}
