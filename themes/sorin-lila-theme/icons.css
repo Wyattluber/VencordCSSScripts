@@ -30,4 +30,13 @@
 [class^=icon_] path[d^="M10.95 1.4"], /* boost-ish */
 [class^=icon_] path[d^="M11.65 6.35 9.29"]{
   fill:#b9e6ff!important
+
+
+/* Additional fallback for lock icons in channel list */
+[aria-label][data-list-item-id^="channels___"] svg[aria-label*="Locked"],
+[aria-label][data-list-item-id^="channels___"] svg[aria-label*="Privat"],
+[data-list-item-id^="channels___"] [class*="lock"] svg,
+[data-list-item-id^="channels___"] [class*="locked"] svg {
+  color: var(--rec-locked)!important;  fill: currentColor!important;
+}
 }
