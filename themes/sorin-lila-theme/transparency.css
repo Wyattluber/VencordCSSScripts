@@ -1,45 +1,63 @@
-/* ================= Sorin Lila – transparency.css ================= */
-
-[class*="modal_"], [class*="root_"], [class*="backdrop_"] + [class*="layer_"]{
-  background:var(--rec-surface)!important; backdrop-filter:blur(10px)!important;
-  border:1px solid var(--rec-border)!important; box-shadow:0 0 14px var(--rec-shadow);
-  border-radius:12px!important
+/* ==== Popout & Modal Transparency ==== */
+[class*="modal_"], [class*="root_"], [class*="backdrop_"] + [class*="layer_"] {
+  background: var(--rec-surface)!important;
+  backdrop-filter: blur(10px)!important;
+  border: 1px solid var(--rec-border)!important;
+  box-shadow: 0 0 10px var(--rec-shadow)!important;
+  border-radius: 12px!important;
 }
 
-/* User-/Profile-Popout */
-[class*="userPopout_"], [class*="profilePanel_"], [class*="profileBanner_"]{
-  background:var(--rec-surface-strong)!important; backdrop-filter:blur(10px)!important;
-  border:1px solid var(--rec-border)!important; border-radius:12px!important
-}
-
-/* Activity-Karten, Suchergebnisse, QuickSwitch */
-[class*="container_"][role="dialog"], [class*="quickswitcher_"], [class*="results_"]{
-  background:var(--rec-surface)!important; border:1px solid var(--rec-border)!important;
-  border-radius:10px!important; box-shadow:0 0 10px rgba(139,92,246,.2)
-}
-
-/* Settings Pane */
-[class*="standardSidebarView_"] [class*="contentRegion_"]{
-  background:transparent!important
-}
-[class*="standardSidebarView_"] [class*="contentRegionScroller_"]{
-  background:linear-gradient(180deg,rgba(18,18,30,.85) 0%, rgba(18,18,30,.78) 100%)!important
-}
-
-
-/* ==== Additional Popout Transparency Fixes ==== */
+/* User and Profile containers */
 [class*="userPopout"],
 [class*="profilePanel"],
 [class*="profileBanner"],
 [class*="userPanel"],
-[class*="userPanelOuter"],
-[class*="userPanelInner"],
+[class*="userPaneOuter"],
+[class*="userPaneInner"],
 [class*="userProfile"],
-[class*="userPopoutInner"],
+[class*="userProfileInner"],
+[class*="userProfileOuter"],
 [class*="quickProfilePopout"],
-[class*="profileModal"]{
+[class*="profileModal"] {
   background: var(--rec-surface-strong)!important;
   backdrop-filter: blur(10px)!important;
   border: 1px solid var(--rec-border)!important;
   border-radius: 12px!important;
+}
+
+/* Activity cards, search results, QuickSwitcher */
+[class*="container_"][role="dialog"],
+[class*="quickswitcher_"],
+[class*="results_"] {
+  background: var(--rec-surface)!important;
+  border: 1px solid var(--rec-border)!important;
+  border-radius: 10px!important;
+  box-shadow: 0 0 10px rgba(139,92,246,.2)!important;
+}
+
+/* Settings Pane backgrounds */
+[class*="standardSidebarView_"] [class*="contentRegion_"] {
+  background: transparent!important;
+}
+[class*="standardSidebarView_"] [class*="contentRegionScroller_"] {
+  background: linear-gradient(180deg, rgba(18,18,30,.85) 0%, rgba(18,18,30,.78) 100%)!important;
+}
+
+/* Additional profile card transparency fix */
+[class*="userProfileModalInner"],
+[class*="userProfileOuter"],
+[class*="userProfileInner"],
+[class*="profilePopout"],
+[class*="profileModalInner"] {
+  background: var(--rec-surface-strong)!important;
+  backdrop-filter: blur(10px)!important;
+  border: 1px solid var(--rec-border)!important;
+  border-radius: 12px!important;
+}
+
+/* Ensure inner sections of user popouts are transparent */
+[class*="userPopout"] [class*="body"],
+[class*="userPopout"] [class*="section"],
+[class*="userPopout"] [class*="scroller"] {
+  background: transparent!important;
 }
